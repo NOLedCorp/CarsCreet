@@ -19,7 +19,7 @@ namespace CarsCrete.Data.Models
         #region Properties
         [Key]
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(128)]

@@ -16,7 +16,7 @@ namespace CarsCrete.Data.Models
         }
         #endregion
         #region Properties
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Model { get; set; }
         public string Photo { get; set; }
         public int Passengers { get; set; }
