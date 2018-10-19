@@ -12,11 +12,11 @@ namespace CarsCrete.Data
         public static void Seed(CarsDbContext dbContext)
         {
             // Create default Users (if there are none)
-            if (!dbContext.Users.Any()) CreateUsers(dbContext);
+            //if (!dbContext.Users.Any()) CreateUsers(dbContext);
             // Create default Quizzes (if there are none) together with their set of Q & A
-            if (!dbContext.Cars.Any()) CreateCars(dbContext);
-            //if (!dbContext.Books.Any()) CreateBooks(dbContext);
-            if (!dbContext.Reports.Any()) CreateReports(dbContext);
+            //if (!dbContext.Cars.Any()) CreateCars(dbContext);
+            if (!dbContext.Books.Any()) CreateBooks(dbContext);
+            //if (!dbContext.Reports.Any()) CreateReports(dbContext);
         }
         #endregion
         #region Seed Methods
@@ -67,13 +67,16 @@ namespace CarsCrete.Data
             DateTime createdDate = new DateTime(2016, 03, 01, 12, 30, 00);
             DateTime lastModifiedDate = DateTime.Now;
             // Create the "Admin" ApplicationUser account (if it doesn't exist already)
-            var user_Admin = new User()
+            var book = new Book()
             {
-                Name = "Admin",
-                Email = "admin@testmakerfree.com",
-                CreatedDate = createdDate,
-                ModifiedDate = lastModifiedDate
+                CarId=1,
+                UserId=1,
+                Price=360,
+                Place="Iraklion",
+                DateStart = createdDate,
+                DateFinish = lastModifiedDate
             };
+            dbContext.Books.Add(book);
             dbContext.SaveChanges();
         }
 

@@ -31,8 +31,9 @@ namespace CarsCrete.Controllers
         [HttpGet("get-user")]
         public IActionResult GetUser()
         {
-            var user = DbContext.Users.Where(x => x.Id == 1).Include(x => x.Reports);
-           
+            
+            var user = DbContext.Users.Where(x => x.Id == 1).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
+            
             return new JsonResult(
                 user.Adapt<UserDTO>(),
                 new JsonSerializerSettings()
