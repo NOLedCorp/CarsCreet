@@ -22,6 +22,8 @@ namespace CarsCrete.Data.Models
         public string Email { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+        public List<FeedBackDTO> Reports { get; set; }
+        public List<BookDTO> Books { get; set; }
         #endregion
 
     }

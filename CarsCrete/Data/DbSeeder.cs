@@ -15,7 +15,7 @@ namespace CarsCrete.Data
             if (!dbContext.Users.Any()) CreateUsers(dbContext);
             // Create default Quizzes (if there are none) together with their set of Q & A
             if (!dbContext.Cars.Any()) CreateCars(dbContext);
-            if (!dbContext.Books.Any()) CreateBooks(dbContext);
+            //if (!dbContext.Books.Any()) CreateBooks(dbContext);
             if (!dbContext.Reports.Any()) CreateReports(dbContext);
         }
         #endregion
@@ -28,11 +28,13 @@ namespace CarsCrete.Data
             // Create the "Admin" ApplicationUser account (if it doesn't exist already)
             var user_Admin = new User()
             {
+                
                 Name = "Admin",
                 Email = "admin@testmakerfree.com",
                 CreatedDate = createdDate,
                 ModifiedDate = lastModifiedDate
             };
+            dbContext.Users.Add(user_Admin);
             dbContext.SaveChanges();
         }
 
@@ -42,15 +44,20 @@ namespace CarsCrete.Data
             DateTime createdDate = new DateTime(2016, 03, 01, 12, 30, 00);
             DateTime lastModifiedDate = DateTime.Now;
             // Create the "Admin" ApplicationUser account (if it doesn't exist already)
-            var user_Admin = new Car()
+            var car = new Car()
             {
-                Model = "Admin",
+                
+                Model = "VW Up",
                 Photo = "admin@testmakerfree.com",
                 Passengers = 5,
                 Fuel = "Бензин",
                 Transmission  = "Автомат",
-                Description = "Круто"
+                Price = 28,
+                Consumption = "5 литров на 100км",
+                Doors = 5,
+                Description = "Автомобиль с АКПП, 1,2 литра. Кондционер, радио-CD, расход топлива 5литров/100 км. В машину свободно входят четверо взрослых пассажира, 1 большая и 1 маленькая дорожные сумки"
             };
+            dbContext.Cars.Add(car);
             dbContext.SaveChanges();
         }
 
@@ -76,15 +83,19 @@ namespace CarsCrete.Data
             DateTime createdDate = new DateTime(2016, 03, 01, 12, 30, 00);
             DateTime lastModifiedDate = DateTime.Now;
             // Create the "Admin" ApplicationUser account (if it doesn't exist already)
-            var user_Admin = new User()
+            var report = new FeedBack()
             {
-                Name = "Admin",
-                Email = "admin@testmakerfree.com",
-                CreatedDate = createdDate,
-                ModifiedDate = lastModifiedDate
+               
+                CarId=1,
+                UserId=1,
+                Mark = 5,
+                Text = "Все очень понравилось!",
+                CreatedDate = createdDate
             };
+            dbContext.Reports.Add(report);
             dbContext.SaveChanges();
         }
+        #endregion
     }
 
 }
