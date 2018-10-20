@@ -38,7 +38,7 @@ namespace CarsCrete
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, CarsDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -73,6 +73,7 @@ namespace CarsCrete
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+            //DbSeeder.Seed(dbContext);
         }
     }
 }

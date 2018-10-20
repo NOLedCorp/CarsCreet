@@ -32,7 +32,7 @@ namespace CarsCrete.Controllers
         public IActionResult GetUser()
         {
             
-            var user = DbContext.Users.Where(x => x.Id == 1).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
+            var user = DbContext.Users.Where(x => x.Id == 6).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
             
             return new JsonResult(
                 user.Adapt<UserDTO>(),

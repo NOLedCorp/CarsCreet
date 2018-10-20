@@ -15,7 +15,7 @@ namespace CarsCrete.Data
             //if (!dbContext.Users.Any()) CreateUsers(dbContext);
             // Create default Quizzes (if there are none) together with their set of Q & A
             //if (!dbContext.Cars.Any()) CreateCars(dbContext);
-            if (!dbContext.Books.Any()) CreateBooks(dbContext);
+            //if (!dbContext.Books.Any()) CreateBooks(dbContext);
             //if (!dbContext.Reports.Any()) CreateReports(dbContext);
         }
         #endregion
@@ -31,6 +31,7 @@ namespace CarsCrete.Data
                 
                 Name = "Admin",
                 Email = "admin@testmakerfree.com",
+                Password = "123",
                 CreatedDate = createdDate,
                 ModifiedDate = lastModifiedDate
             };
@@ -69,8 +70,8 @@ namespace CarsCrete.Data
             // Create the "Admin" ApplicationUser account (if it doesn't exist already)
             var book = new Book()
             {
-                CarId=1,
-                UserId=1,
+                CarId=4,
+                UserId=6,
                 Price=360,
                 Place="Iraklion",
                 DateStart = createdDate,
@@ -89,8 +90,8 @@ namespace CarsCrete.Data
             var report = new FeedBack()
             {
                
-                CarId=1,
-                UserId=1,
+                CarId=4,
+                UserId=6,
                 Mark = 5,
                 Text = "Все очень понравилось!",
                 CreatedDate = createdDate
