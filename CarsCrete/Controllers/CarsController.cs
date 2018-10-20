@@ -41,5 +41,20 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        [HttpPut("set-user")]
+        public IActionResult PutUser([FromBody]UserDTO model)
+        {
+
+            var user = model.Adapt<User>();
+            DbContext.Users.Add(user);
+            DbContext.SaveChanges();
+
+            return new JsonResult(
+                user.Adapt<UserDTO>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
     }
 }
