@@ -24,12 +24,12 @@ namespace CarsCrete.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<User>().HasMany(u => u.Reports).WithOne(i => i.User);
-            modelBuilder.Entity<User>().HasMany(u => u.Books).WithOne(i => i.User);
+            modelBuilder.Entity<User>().HasMany(u => u.Reports);
+            modelBuilder.Entity<User>().HasMany(u => u.Books);
 
             modelBuilder.Entity<Car>().ToTable("Cars");
             modelBuilder.Entity<Car>().Property(i => i.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Car>().HasMany(u => u.Reports).WithOne(i => i.Car);
+            modelBuilder.Entity<Car>().HasMany(u => u.Reports);
 
             modelBuilder.Entity<Book>().ToTable("Books");
             modelBuilder.Entity<Book>().Property(i => i.Id).ValueGeneratedOnAdd();

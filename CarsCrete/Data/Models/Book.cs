@@ -33,13 +33,6 @@ namespace CarsCrete.Data.Models
         public string Place { get; set; }
         #endregion
 
-        #region Lazy-Load Properties
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
-        [ForeignKey("CarId")]
-        public virtual Car Car { get; set; }
-        #endregion
-
 
     }
 }
