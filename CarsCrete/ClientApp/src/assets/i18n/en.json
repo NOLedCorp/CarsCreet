@@ -6,5 +6,18 @@
     "COMMENTS": "Comments",
     "ABOUT_CRETE": "About Crete",
     "RENT_IRAKLEON": "Iraklion Airport",
-    "LOG_IN": "Log in"
+    "LOG_IN": "Log in",
+    "LOG_UP": "Log up",
+    "LOG_OUT": "Log out",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PASSWORD":"Password",
+    "NAME_VALIDATION": "Enter your name",
+    "EMAIL_VALIDATION": "Enter your email",
+    "PASSWORD_VALIDATION":"Enter your password",
+    "ENTER":"Enter",
+    "REGISTRATION":"Registration",
+    "CANCEL":"Cancel",
+    "ACCOUNT_EXCIST":"I have the account"
+
 }

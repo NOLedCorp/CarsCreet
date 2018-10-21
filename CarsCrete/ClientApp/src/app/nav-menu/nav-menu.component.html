@@ -6,7 +6,9 @@
         
         <div class="row menu-prop">
             
-            <div  ><span>{{"LOG_IN" | translate}}</span></div>
+            <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
+            <div *ngIf="!!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
+            <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
             <div class = "lang">
                 
                 <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
@@ -28,17 +30,18 @@
                     <div class='navbar navbar-inverse'>
                         <div class='navbar-header'>
                             <div class="row menu-prop">
-        
-                                <div style="margin-left: 5px;"><span >{{"LOG_IN" | translate}}</span></div>
-                                <div class="lang">
-                                    
-                                    <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
-                                    <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
-                                    <div class="langs">
-                                        <span class="lng" (click)="service.changeLang('ru')">RU</span>
-                                        <span class="lng" (click)="service.changeLang('en')">ENG</span>
+                                    <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
+                                    <div *ngIf="!!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
+                                    <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
+                                    <div class = "lang">
+                                        
+                                        <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
+                                        <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
+                                        <div class="langs">
+                                            <span class="lng" (click)="service.changeLang('ru')">RU</span>
+                                            <span class="lng" (click)="service.changeLang('en')">ENG</span>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
                                 <span class='sr-only'>Toggle navigation</span>
@@ -59,32 +62,32 @@
                                 
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(1)"> 
                                     <a [routerLink]='["/quests"]' (click)='collapse()'>
-                                        <span class='glyphicon glyphicon-education'></span> {{"CARS" | translate}}
+                                        <i class="fa fa-car"></i> {{"CARS" | translate}}
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]'>
                                     <a [routerLink]='["/rules"]' (click)='collapse()'>
-                                      <span class='glyphicon glyphicon-info-sign'></span> {{"CONTACTS" | translate}}
+                                        <i class="fa fa-address-card"></i>{{"CONTACTS" | translate}}
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(2)">
                                     <a [routerLink]='["/feedback"]' (click)='collapse()'>
-                                        <span class='glyphicon glyphicon-comment'></span> {{"RENTAL_POLICY" | translate}}
+                                        <span class='glyphicon glyphicon-info-sign'></span> {{"RENTAL_POLICY" | translate}}
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(3)">
                                     <a [routerLink]='["/news"]' (click)='collapse()'>
-                                        <span class='glyphicon glyphicon-bullhorn'></span> {{"ABOUT_CRETE" | translate}}
+                                        <i class="fa fa-book"></i> {{"ABOUT_CRETE" | translate}}
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(4)">
                                     <a [routerLink]='["/contacts"]' (click)='collapse()'>
-                                        <span class='glyphicon glyphicon-list-alt'></span> {{"COMMENTS" | translate}}
+                                        <i class="fa fa-comments"></i> {{"COMMENTS" | translate}}
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(4)">
                                     <a [routerLink]='["/contacts"]' (click)='collapse()'>
-                                        <span class='glyphicon glyphicon-list-alt'></span> {{"RENT_IRAKLEON" | translate}}
+                                        <i class="fa fa-dollar"></i> {{"RENT_IRAKLEON" | translate}}
                                     </a>
                                 </li>
                             </ul>
@@ -93,4 +96,6 @@
                 </div>
     </div>
 </div>
+<alert  [alert] ="alertService"></alert>
+<user-form *ngIf="userService.openForm" [service]="userService" [alert]="alertService"></user-form>
 <div style="clear:both"></div>

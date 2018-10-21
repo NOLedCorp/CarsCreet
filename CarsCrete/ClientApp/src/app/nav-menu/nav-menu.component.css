@@ -1,5 +1,6 @@
 .topmenu{
     position: relative;
+    padding: 10px 0;
 }
 .menu-prop{
     position: absolute;
@@ -8,11 +9,18 @@
     right: 30px;
     
 }
+.menu-prop>div:not(.lang){
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 3px;
+    transition: 0.2s;
+    cursor: pointer;
+}
 .menu-prop>div{
     margin-right: 10px;
 }
 .lang:hover>.glyph-small{
-    color:red;
+    color:rgb(53, 66, 240);
 }
 .lang:hover>.langs{
     transition: 0.2s;
@@ -45,9 +53,11 @@
     text-align: center;
     width: 100%;
 }
-
-li .glyphicon {
-    margin-right: 10px;
+.glyphicon {
+    margin-right: 2px;
+}
+li .glyphicon, li i {
+    margin-right: 5px;
 }
 
 /* Highlighting rules for nav menu items */
@@ -79,27 +89,9 @@ li.link-active a:focus {
     padding: 5px;
     min-height: 0;
 }
-@media (max-width: 767px){
-    
-}
-@media (max-width: 940px){
-    
-    
-  .nav {
-    margin-top:20px;
-    flex-direction:column;
-  }
-  .navbar li a {
-    padding: 10px 16px;
-    border-radius: 4px;
-  }
-  .navbar-collapse{
-    padding:0;
-   
-  }
-}
+
 .nav>li:not(.link-active)>a{
-  color: grey;
+  color: rgb(206, 206, 206);
 }
 .nav>li>a:hover{
   color: rgb(0, 0, 0);
@@ -116,7 +108,11 @@ li.link-active a:focus {
     .topmenu img{
         margin-left:10%; 
     }
-  
+    .menu-prop>div:not(.lang):hover{
+        border-radius: 7px;
+        color:rgb(53, 66, 240);
+        border-color: rgb(53, 66, 240);
+    }
 
     /* .navbar ul {
         float: none;
@@ -138,12 +134,27 @@ li.link-active a:focus {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .navbar li a{
+        transition: 0.2s;
+    }
 }
 
 @media (max-width: 940px) {
+    .nav {
+        margin-top:20px;
+        flex-direction:column;
+      }
+      .navbar li a {
+        padding: 10px 16px;
+        border-radius: 4px;
+      }
+      .navbar-collapse{
+        padding:0;
+       
+      }
     .menu-prop{
         left: 20px;
-        top:20px;
+        top:15px;
         
         right: auto;
         

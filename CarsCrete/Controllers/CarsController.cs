@@ -28,12 +28,24 @@ namespace CarsCrete.Controllers
         }
         #endregion Constructor
         // GET: /<controller>/
-        [HttpGet("get-user/{email}")]
-        public IActionResult GetUser(string email)
+        public class UserEntrance
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+        [HttpGet("get-user")]
+        public IActionResult GetUser(UserEntrance user1)
         {
             
-            var user = DbContext.Users.Where(x => x.Email == email).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
-            
+            var user = DbContext.Users.Where(x => x.Email == user1.Email).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
+            if (user == null)
+            {
+                return new StatusCodeResult(500);
+            }
+            if(user.Password != user1.Password)
+            {
+                return new StatusCodeResult(501);
+            }
             return new JsonResult(
                 user.Adapt<UserDTO>(),
                 new JsonSerializerSettings()
@@ -41,12 +53,31 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
-        [HttpPut("add-user")]
-        public IActionResult AddUser([FromBody]UserDTO model)
+        public class UserReg
         {
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
 
-            var user = model.Adapt<User>();
+        [HttpPut("add-user")]
+        public IActionResult AddUser([FromBody]UserReg model)
+        {
+            if (DbContext.Users.Where(x => x.Email == model.Email).ToArray().Length > 0)
+            {
+                return new StatusCodeResult(500);
+            }
+            var user = new User()
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Password = model.Password,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
             DbContext.Users.Add(user);
+            user.Books = new List<Book>();
+            user.Reports = new List<FeedBack>();
             DbContext.SaveChanges();
 
             return new JsonResult(
