@@ -1,4 +1,10 @@
 {
+    "HOME":"Главная",
     "CARS": "Автомобили",
-    "demo.text": "This is a simple demonstration app for ngx-translate"
+    "CONTACTS": "Контакты",
+    "RENTAL_POLICY": "Условия проката",
+    "COMMENTS": "Отзывы",
+    "ABOUT_CRETE": "О Крите",
+    "RENT_IRAKLEON": "Аренда авто в аэропорту Ираклиона",
+    "LOG_IN":"Войти"
 }

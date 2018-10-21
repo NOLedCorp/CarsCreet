@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.glyph-small{
+    font-size: 6pt;
+    color:rgb(173, 173, 173);
+    margin-left: 3px;
+    margin-bottom: 2px;
+}
+body{
+    min-width: 262px;
+}

@@ -1,33 +1,96 @@
-<div class='main-nav'>
-    <div class='navbar navbar-inverse'>
-        <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-            </button>
-            <a class='navbar-brand' [routerLink]='["/"]'>CarsCrete</a>
+<div class="topmenu">
+    <div class="row">
+        <div class="col-xs-4">
+            <img src="../../assets/images/logo.png">
         </div>
-        <div class='clearfix'></div>
-        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-            <ul class='nav navbar-nav'>
-                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-                    <a [routerLink]='["/"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-home'></span> {{'CARS' | translate}}
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/counter"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-education'></span> Counter
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
-                    </a>
-                </li>
-            </ul>
+        
+        <div class="row menu-prop">
+            
+            <div  ><span>{{"LOG_IN" | translate}}</span></div>
+            <div class = "lang">
+                
+                <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
+                <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
+                <div class="langs">
+                    <span class="lng" (click)="service.changeLang('ru')">RU</span>
+                    <span class="lng" (click)="service.changeLang('en')">ENG</span>
+                </div>
+            </div>
         </div>
+             
+        
     </div>
 </div>
+
+<div >
+    <div >
+            <div class='main-nav' >
+                    <div class='navbar navbar-inverse'>
+                        <div class='navbar-header'>
+                            <div class="row menu-prop">
+        
+                                <div style="margin-left: 5px;"><span >{{"LOG_IN" | translate}}</span></div>
+                                <div class="lang">
+                                    
+                                    <span >{{service.lang=='ru'?'RU':'ENG'}}</span>
+                                    <span  class='glyph-small glyphicon glyphicon-chevron-down'></span>
+                                    <div class="langs">
+                                        <span class="lng" (click)="service.changeLang('ru')">RU</span>
+                                        <span class="lng" (click)="service.changeLang('en')">ENG</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+                                <span class='sr-only'>Toggle navigation</span>
+                                <span class='icon-bar'></span>
+                                <span class='icon-bar'></span>
+                                <span class='icon-bar'></span>
+                            </button>
+                            <div class="row menu-prop">
+            
+            
+        </div>
+                            
+                        </div>
+                        
+                        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
+                            
+                            <ul class='nav' >
+                                
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(1)"> 
+                                    <a [routerLink]='["/quests"]' (click)='collapse()'>
+                                        <span class='glyphicon glyphicon-education'></span> {{"CARS" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]'>
+                                    <a [routerLink]='["/rules"]' (click)='collapse()'>
+                                      <span class='glyphicon glyphicon-info-sign'></span> {{"CONTACTS" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(2)">
+                                    <a [routerLink]='["/feedback"]' (click)='collapse()'>
+                                        <span class='glyphicon glyphicon-comment'></span> {{"RENTAL_POLICY" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(3)">
+                                    <a [routerLink]='["/news"]' (click)='collapse()'>
+                                        <span class='glyphicon glyphicon-bullhorn'></span> {{"ABOUT_CRETE" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(4)">
+                                    <a [routerLink]='["/contacts"]' (click)='collapse()'>
+                                        <span class='glyphicon glyphicon-list-alt'></span> {{"COMMENTS" | translate}}
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]='["link-active"]' (click)="changePage(4)">
+                                    <a [routerLink]='["/contacts"]' (click)='collapse()'>
+                                        <span class='glyphicon glyphicon-list-alt'></span> {{"RENT_IRAKLEON" | translate}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+<div style="clear:both"></div>
