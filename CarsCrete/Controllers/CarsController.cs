@@ -157,115 +157,19 @@ namespace CarsCrete.Controllers
 
             var car = new Car()
             {
-                Model = "Toyota Yaris",
-                Photo = "../../assets/images/toyota_yaris.jpg",
-                Passengers = 5,
-                Doors=5,
-                Transmission="Автомат",
-                Fuel="Бензин",
-                Consumption="7 литров на 100км",
-                Description= "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
-                Price=32
-
-            };
-            DbContext.Cars.Add(car);
-            car = new Car()
-            {
-                Model = "WV Golf Generation",
-                Photo = "../../assets/images/VW_golf_generation.jpg",
-                Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Бензин",
-                Consumption = "8 литров на 100км",
-                Description = "Автомобиль с АКПП, 1.4 литра, 160 лошадинных сил. Климат контроль, радио-CD, расход топлива 8 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.",
-                Price = 49
-
-            };
-            DbContext.Cars.Add(car);
-            car = new Car()
-            {
-                Model = "VW Golf 7",
+                Model = "WV Golf",
                 Photo = "../../assets/images/VW_golf_7.jpg",
                 Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Дизель",
-                Consumption = "6 литров на 100км",
-                Description = "Автомобиль с АКПП, 1,4 литра, 120 лошадиных сил. Климат-контроль, радио-CD, расход топлива 6 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.",
-                Price = 65
+                Doors=5,
+                Transmission="Механика",
+                Fuel="Бензин",
+                Consumption="8 литров на 100км",
+                Description= "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
+                Price=35
 
             };
             DbContext.Cars.Add(car);
-            car = new Car()
-            {
-                Model = "Nissan Qashqai",
-                Photo = "../../assets/images/nissan_quashqai.jpg",
-                Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Дизель",
-                Consumption = "9 литров на 100км",
-                Description = "Автомобиль с АКПП, 1,5 литра, 110 лошадиных сил. Кондционер, радио-CD, расход топлива 9 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.",
-                Price = 79
-
-            };
-            DbContext.Cars.Add(car);
-            car = new Car()
-            {
-                Model = "Toyota Yaris",
-                Photo = "../../assets/images/toyota_yaris.jpg",
-                Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Бензин",
-                Consumption = "7 литров на 100км",
-                Description = "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
-                Price = 32
-
-            };
-            car = new Car()
-            {
-                Model = "Toyota Yaris",
-                Photo = "../../assets/images/toyota_yaris.jpg",
-                Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Бензин",
-                Consumption = "7 литров на 100км",
-                Description = "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
-                Price = 32
-
-            };
-            DbContext.Cars.Add(car);
-            car = new Car()
-            {
-                Model = "Toyota Yaris",
-                Photo = "../../assets/images/toyota_yaris.jpg",
-                Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Бензин",
-                Consumption = "7 литров на 100км",
-                Description = "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
-                Price = 32
-
-            };
-            DbContext.Cars.Add(car);
-            car = new Car()
-            {
-                Model = "Toyota Yaris",
-                Photo = "../../assets/images/toyota_yaris.jpg",
-                Passengers = 5,
-                Doors = 5,
-                Transmission = "Автомат",
-                Fuel = "Бензин",
-                Consumption = "7 литров на 100км",
-                Description = "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
-                Price = 32
-
-            };
-            DbContext.Cars.Add(car);
+            
             
             DbContext.SaveChanges();
 

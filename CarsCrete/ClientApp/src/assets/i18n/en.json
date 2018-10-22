@@ -20,6 +20,10 @@
     "CANCEL":"Cancel",
     "ACCOUNT_EXCIST":"I have the account",
     "CAR_INFO": "Info",
-    "BOOK": "Book"
+    "BOOK": "Book",
+    "MANUAL":"Manual",
+    "AUTOMATIC": "Automatic",
+    "CABRIOLET": "Cabriolet",
+    "MINIVAN": "Minivan"
 
 }

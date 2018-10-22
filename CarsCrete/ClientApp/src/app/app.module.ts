@@ -17,6 +17,7 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { UserService } from './services/UserService';
 import { AlertComponent } from './alert/alert.component';
 import { CarsService } from './services/CarsService';
+import { LoaderComponent } from './loader/loader.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -31,7 +32,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     CounterComponent,
     CarsComponent,
     UserFormComponent,
-    AlertComponent
+    AlertComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

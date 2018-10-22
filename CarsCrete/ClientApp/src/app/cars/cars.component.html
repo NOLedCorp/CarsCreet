@@ -1,7 +1,16 @@
 <h1>Hello{{user?', '+user.Name+'!':''}}</h1>
+{{f}}
 <div class="container-fluid">
+  <div class="filters row">
+    
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Механика')>-1}" (click)="addFilter('Transmission','Механика')"><span>{{"MANUAL" | translate}}</span> <i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Автомат')>-1}" (click)="addFilter('Transmission','Автомат')"><span>{{"AUTOMATIC" | translate}}</span><i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('cabriolet')>-1}" (click)="addFilter('BodyType','cabriolet')"><span>{{"CABRIOLET" | translate}}</span><i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('minivan')>-1}" (click)="addFilter('BodyType','minivan')"><span>{{"MINIVAN" | translate}}</span><i class="fa fa-check"></i></div>
+    
+  </div>
   <div class="cars-container">
-    <div *ngFor='let car of cars' class="car-item">
+    <div *ngFor='let car of filteredCars' class="car-item">
       <div class="car-img">
         <img src="{{car.Photo}}" alt="">
         <div class="blur"></div>
@@ -32,10 +41,11 @@
         </div>
         <div class="buttons">
           <button class="btn btn-info" >{{"CAR_INFO" | translate}}</button>
-          <button class="btn btn-success" (click)="addCar()">{{"BOOK" | translate}}</button>
+          <button class="btn btn-success" >{{"BOOK" | translate}}</button>
         </div>
         
       </div>
     </div>
   </div>
 </div>
+<loader *ngIf="load"></loader>

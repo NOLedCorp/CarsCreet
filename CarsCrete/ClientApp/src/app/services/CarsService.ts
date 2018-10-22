@@ -27,3 +27,7 @@ export interface Car{
     Price:number;
     Reports:FeedBack[];
 }
+export interface Filter{
+    Name:string;
+    Value:string;
+} 
