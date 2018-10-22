@@ -11,11 +11,12 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { CarsComponent } from './cars/cars.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserService } from './services/UserService';
 import { AlertComponent } from './alert/alert.component';
+import { CarsService } from './services/CarsService';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -28,7 +29,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent,
+    CarsComponent,
     UserFormComponent,
     AlertComponent
   ],
@@ -50,10 +51,10 @@ export function HttpLoaderFactory1(http: HttpClient) {
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'cars', component: CarsComponent },
     ])
   ],
-  providers: [UserService],
+  providers: [UserService, CarsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

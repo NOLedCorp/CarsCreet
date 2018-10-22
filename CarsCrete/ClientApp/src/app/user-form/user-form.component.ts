@@ -34,10 +34,12 @@ export class UserFormComponent implements OnInit {
     if(this.service.type==1){
       this.service.AddUser(this.userForm.value).subscribe(data=>{
         this.service.currentUser=data;
+        console.log(data);
+        localStorage.setItem('currentUser',JSON.stringify(data));
+        console.log(JSON.stringify(localStorage.getItem("currentUser")));
         this.alert.showA({type:'success',message:'Пользователь успешно зарегистрирован',show:true});
         this.service.ShowForm();
       },error => {
-        console.clear();
         this.alert.showA({type:'wrong',message:'Пользователь уже зарегистрирован',show:true});
         this.submitted=false;
         this.userForm.reset();
@@ -47,6 +49,8 @@ export class UserFormComponent implements OnInit {
     if(this.service.type==0){
       this.service.GetUser(this.userForm.value).subscribe(data=>{
         this.service.currentUser=data;
+        localStorage.setItem('currentUser',JSON.stringify(data));
+        location.reload();
         this.alert.showA({type:'success',message:'Вы успешно вошли',show:true});
         this.service.ShowForm();
       },error => {

@@ -59,9 +59,14 @@
                         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
                             
                             <ul class='nav' >
+                                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                                    <a [routerLink]='["/"]' (click)='collapse()'>
+                                        <i class="fa fa-home" style="font-size: 14pt"></i>
+                                    </a>
+                                </li>
                                 
-                                <li [routerLinkActive]='["link-active"]' (click)="changePage(1)"> 
-                                    <a [routerLink]='["/quests"]' (click)='collapse()'>
+                                <li [routerLinkActive]='["link-active"]'> 
+                                    <a [routerLink]='["/cars"]' (click)='collapse()'>
                                         <i class="fa fa-car"></i> {{"CARS" | translate}}
                                     </a>
                                 </li>

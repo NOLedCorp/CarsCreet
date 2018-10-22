@@ -18,6 +18,8 @@
     "ENTER":"Enter",
     "REGISTRATION":"Registration",
     "CANCEL":"Cancel",
-    "ACCOUNT_EXCIST":"I have the account"
+    "ACCOUNT_EXCIST":"I have the account",
+    "CAR_INFO": "Info",
+    "BOOK": "Book"
 
 }

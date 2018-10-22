@@ -21,7 +21,9 @@ body{
     border-color: rgb(255, 0, 0)
 }
 
-
+html{
+    overflow-x: hidden;
+}
 
 span.is-invalid, p.is-invalid{
     color: red;

@@ -18,5 +18,7 @@
     "ENTER":"Войти",
     "REGISTRATION":"Регистрация",
     "CANCEL":"Отмена",
-    "ACCOUNT_EXCIST":"Уже есть аккаунт"
+    "ACCOUNT_EXCIST":"Уже есть аккаунт",
+    "CAR_INFO": "Детали",
+    "BOOK": "Забронировать"
 }

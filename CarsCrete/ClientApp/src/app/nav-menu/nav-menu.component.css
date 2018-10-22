@@ -49,6 +49,11 @@
     z-index: 200;
     
 }
+.fa-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .langs>.lng{
     text-align: center;
     width: 100%;
