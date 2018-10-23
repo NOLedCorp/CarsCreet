@@ -179,6 +179,26 @@ namespace CarsCrete.Controllers
                 });
         }
 
+        public class BookTimes
+        {
+            public DateTime DateStart { get; set; }
+            public DateTime DateFinish { get; set; }
+        }
+
+        [HttpGet("get-book-times")]
+        public IActionResult GetBookTimes()
+        {
+
+            var books = DbContext.Books.ToArray();
+
+            return new JsonResult(
+                books.Adapt<BookTimes[]>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+
         [HttpGet("get-reports")]
         public IActionResult GetReports()
         {

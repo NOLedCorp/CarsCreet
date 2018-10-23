@@ -23,9 +23,9 @@ export class BookingFormComponent implements OnInit {
       if (this.bookingForm.invalid) {
         return;
       }
-      if(!this.service.getAvalibleCar(this.cars, this.bookingForm.value.DateStart, this.bookingForm.value.DateFinish)){
-        this.alert.showA({type:'wrong',message:'Дата бронирования занята.',show:true});
-      }
+      // if(!this.service.getAvalibleCar(this.cars, this.bookingForm.value.DateStart, this.bookingForm.value.DateFinish)){
+      //   this.alert.showA({type:'wrong',message:'Дата бронирования занята.',show:true});
+      // }
       this.service.BookCar(this.bookingForm.value).subscribe(data => {
         this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
         

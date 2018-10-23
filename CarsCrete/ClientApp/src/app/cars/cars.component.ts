@@ -19,7 +19,7 @@ export class CarsComponent {
   filteredCars:Car[];
   
   constructor(public service:CarsService) {
-    
+    service.ngOnInit();
     if(localStorage.getItem("currentUser")){
       this.user=JSON.parse(localStorage.getItem("currentUser"));
     }
