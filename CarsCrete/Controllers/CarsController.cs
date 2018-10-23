@@ -152,27 +152,11 @@ namespace CarsCrete.Controllers
                 });
         }
         [HttpPut("add-car")]
-        public IActionResult AddCar()
+        public IActionResult AddCar([FromBody] CarDTO model)
         {
-
-            var car = new Car()
-            {
-                Model = "WV Golf",
-                Photo = "../../assets/images/VW_golf_7.jpg",
-                Passengers = 5,
-                Doors=5,
-                Transmission="Механика",
-                Fuel="Бензин",
-                Consumption="8 литров на 100км",
-                Description= "Автомобиль с АКПП, 1,2 литра, 80 лошадиных сил. Кондционер, радио-CD, расход топлива 7 литров/100 км. В машину свободно входят четыре взрослых пассажира, 2 большие дорожные сумки.",
-                Price=35
-
-            };
+            var car = model.Adapt<Car>();
             DbContext.Cars.Add(car);
-            
-            
             DbContext.SaveChanges();
-
             return new JsonResult(
                 car.Adapt<CarDTO>(),
                 new JsonSerializerSettings()

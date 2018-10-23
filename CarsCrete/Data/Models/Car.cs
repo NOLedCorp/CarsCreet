@@ -40,10 +40,14 @@ namespace CarsCrete.Data.Models
         public string Fuel { get; set; }
 
         [Required]
-        public string Consumption { get; set; }
+        public int Consumption { get; set; }
 
         [Required]
         public string Description { get; set; }
+
+        [Required]
+        [DefaultValue("Eng description of the car.")]
+        public string Description_ENG { get; set; }
 
         [Required]
         public double Price { get; set; }

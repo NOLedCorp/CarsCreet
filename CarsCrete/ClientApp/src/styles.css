@@ -28,3 +28,8 @@ html{
 span.is-invalid, p.is-invalid{
     color: red;
 }
+@media (max-width: 767px){
+    html{
+        overflow-x: hidden;
+    }
+}

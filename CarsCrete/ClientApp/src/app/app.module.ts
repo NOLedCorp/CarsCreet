@@ -18,6 +18,8 @@ import { UserService } from './services/UserService';
 import { AlertComponent } from './alert/alert.component';
 import { CarsService } from './services/CarsService';
 import { LoaderComponent } from './loader/loader.component';
+import { CarCardComponent } from './car-card/car-card.component';
+import { BookingFormComponent } from './booking-form/booking-form.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -33,7 +35,9 @@ export function HttpLoaderFactory1(http: HttpClient) {
     CarsComponent,
     UserFormComponent,
     AlertComponent,
-    LoaderComponent
+    LoaderComponent,
+    CarCardComponent,
+    BookingFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

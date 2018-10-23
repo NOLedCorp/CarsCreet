@@ -24,6 +24,18 @@
     "MANUAL":"Manual",
     "AUTOMATIC": "Automatic",
     "CABRIOLET": "Cabriolet",
-    "MINIVAN": "Minivan"
+    "MINIVAN": "Minivan",
+    "FUEL":"Fuel",
+    "TRANSMISSION":"Transmission",
+    "DOORS":"Doors",
+    "PASSENGERS":"Passengers",
+    "PETROL":"Petrol",
+    "DEISEL":"Deisel",
+    "DETAILS":"Details",
+    "CONSUMPTION":"Consumption",
+    "L":"l",
+    "KM":"km",
+    "OUR_CARS":"Our cars"
+    
 
 }

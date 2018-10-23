@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
+
 import {User} from '../services/UserService';
 import {CarsService, Car, Filter} from '../services/CarsService';
 
@@ -14,13 +15,17 @@ export class CarsComponent {
   public user:User;
   public filters:Filter[]=[];
   public cars:Car[];
+  
   filteredCars:Car[];
   
-  constructor(private service:CarsService) {
+  constructor(public service:CarsService) {
+    
     if(localStorage.getItem("currentUser")){
       this.user=JSON.parse(localStorage.getItem("currentUser"));
     }
     this.service.GetCars().subscribe(data => {
+      
+      console.log(data);
       this.cars=data;
       this.filteredCars=data;
       this.load=false;
@@ -30,6 +35,11 @@ export class CarsComponent {
     this.service.AddCar().subscribe(data => {
       console.log(data);
     })
+  }
+  showCarInfo(car:Car){
+    this.service.car=car;
+    console.log(car);
+    this.service.showCarInfo=true;
   }
 
   get f() {return this.filters.map(x=>x.Value)}
@@ -47,10 +57,10 @@ export class CarsComponent {
       else{
         this.filteredCars = this.cars;
       }
-      
     }
     
   }
+  
   Filter(){
     this.filteredCars=[];
     this.cars.forEach(x => {
