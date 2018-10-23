@@ -28,6 +28,7 @@ namespace CarsCrete.Data.Models
         public string Description_ENG { get; set; }
         public double Price { get; set; }
         public virtual List<FeedBack> Reports { get; set; }
+        public virtual List<Book> Books { get; set; }
         #endregion
     }
 }

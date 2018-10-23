@@ -10,20 +10,46 @@
         </div>
       </div>
       <div class="item">
-        <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">Телефон</span>
+        <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">Email</span>
         <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" name="name" type="Email"  required>
         <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-          <
+            <span class="d-block is-invalid" *ngIf="f.Email.errors.required">Укажите Email</span>
         </div>
       </div>
+      <div class="item">
+          <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{PASSWORD | translate}}</span>
+          <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" required>
+            
+          <div *ngIf="submitted && f.Password.errors">
+            <span class="d-block is-invalid" *ngIf="f.Password.errors.required">Укажите пароль</span>
+    
+          </div>
+    
+        </div>
       <div class="item">
           <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
           <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" name="name" type="tel" pattern="[0-9]{11}" required>
           <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
-            <span class="d-block is-invalid" *ngIf="f.Tel.errors.required">Укажите телефон</span>
+            
             <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>
           </div>
-        </div>
+      </div>
+      <div class="item">
+          <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">Дата начала</span>
+          <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #DateStart required>
+          <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
+              <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">Введите дату</span>
+              
+          </div>
+      </div>
+      <div class="item">
+          <span [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }">Дата конца</span>
+          <input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
+          <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
+              <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">Введите дату</span>
+              
+          </div>
+      </div>
       <div class="item">
         <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">Place</span>
         <select formControlName="Place" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
@@ -35,19 +61,15 @@
         </div>
   
       </div>
-      <div class="item">
-        <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">Тип игры</span>
-        <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" required>
-          
-        <div *ngIf="submitted && f.Password.errors">
-          <span class="d-block is-invalid" *ngIf="f.Password.errors.required">Укажите пароль</span>
-  
-        </div>
-  
-      </div>
+      
       <div class="item">
         <span>MODEL</span>
         <input value="{{service.car.Model}}" readonly type="text">
+      </div>
+      <div class="item ">
+          <span>Отзыв*</span>
+          <textarea formControlName="Comment"  cols="10" rows="5" #report></textarea>
+          
       </div>
       <button class="btn btn-primary">Забронировать</button>
       

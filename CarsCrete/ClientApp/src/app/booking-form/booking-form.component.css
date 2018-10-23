@@ -13,6 +13,7 @@ select,input{
 }
 form{
     z-index: 1000;
+    width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;

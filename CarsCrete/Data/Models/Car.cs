@@ -60,6 +60,7 @@ namespace CarsCrete.Data.Models
         /// It will be populaed on first use thanks to the EF Lazy-Loading feature.
         /// </summary>
         public virtual List<FeedBack> Reports { get; set; }
+        public virtual List<Book> Books { get; set; }
         #endregion
     }
 }

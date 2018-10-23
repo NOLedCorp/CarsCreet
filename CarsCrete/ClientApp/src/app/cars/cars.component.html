@@ -40,7 +40,7 @@
         </div>
         <div class="buttons">
           <button class="btn btn-info" (click)="showCarInfo(car)">{{"CAR_INFO" | translate}}</button>
-          <button class="btn btn-success" (click)="bookCar()">{{"BOOK" | translate}}</button>
+          <button class="btn btn-success" (click)="bookCar(car)">{{"BOOK" | translate}}</button>
         </div>
         
       </div>
@@ -48,4 +48,5 @@
   </div>
 </div>
 <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
+<booking-form *ngIf="service.showBookingForm" [service]="service" [alert] = "alert"></booking-form>
 <loader *ngIf="load"></loader>

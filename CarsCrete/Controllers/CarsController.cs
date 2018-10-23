@@ -113,10 +113,16 @@ namespace CarsCrete.Controllers
         [HttpPut("add-booking")]
         public IActionResult AddBooking([FromBody]BookDTO model)
         {
-
+            foreach (BookTimes bookTime in GetBookTimes(model.CarId))
+            {
+                if (model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
+                {
+                    return new StatusCodeResult(501);
+                }
+            }
             var book = model.Adapt<Book>();
             DbContext.Books.Add(book);
-            DbContext.SaveChanges();
+            //DbContext.SaveChanges();
 
             return new JsonResult(
                 book.Adapt<BookDTO>(),
@@ -125,6 +131,63 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+
+        public class BookNew
+        {
+            public long Id { get; set; }
+            public DateTime DateStart { get; set; }
+            public DateTime DateFinish { get; set; }
+            public long CarId { get; set; }
+            public long UserId { get; set; }
+            public double Price { get; set; }
+            public string Place { get; set; }
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string Tel { get; set; }
+            public string Comment { get; set; }
+        }
+        [HttpPut("add-booking-new")]
+        public IActionResult AddBookingNew([FromBody]BookNew model)
+        {
+            var w = 0;
+            //foreach(BookTimes bookTime in GetBookTimes(model.CarId))
+            //{
+            //    if(model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
+            //    {
+            //        return new StatusCodeResult(501);
+            //    }
+            //}
+            //var user = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+            //if (user==null)
+            //{
+            //    AddUser(user.Adapt<UserReg>());
+            //    model.UserId = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault().Id;
+            //}
+            //else
+            //{
+            //    if (user.Password == model.Password)
+            //    {
+            //        model.UserId = user.Id;
+            //    }
+            //    else
+            //    {
+            //        return new StatusCodeResult(500);
+            //    }
+            //}
+            //var book = model.Adapt<Book>();
+            //DbContext.Books.Add(book);
+            ////DbContext.SaveChanges();
+
+            //return new JsonResult(
+            //    book.Adapt<BookDTO>(),
+            //    new JsonSerializerSettings()
+            //    {
+            //        Formatting = Formatting.Indented
+            //    });
+            return new StatusCodeResult(500);
+        }
+
         [HttpGet("get-book/{id}")]
         public IActionResult GetBook(long Id)
         {
@@ -169,7 +232,7 @@ namespace CarsCrete.Controllers
         public IActionResult GetCars()
         {
 
-            var car = DbContext.Cars.Include(x => x.Reports).ToArray();
+            var car = DbContext.Cars.Include(x => x.Reports).Include(x => x.Books).ToArray();
 
             return new JsonResult(
                 car.Adapt<CarDTO[]>(),
@@ -181,22 +244,18 @@ namespace CarsCrete.Controllers
 
         public class BookTimes
         {
+            public long CarId { get; set; } 
             public DateTime DateStart { get; set; }
             public DateTime DateFinish { get; set; }
         }
 
         [HttpGet("get-book-times")]
-        public IActionResult GetBookTimes()
+        public BookTimes[] GetBookTimes(long Carid)
         {
 
-            var books = DbContext.Books.ToArray();
+            var books = DbContext.Books.Where(b => b.CarId==Carid).Where(b => b.DateStart>DateTime.Now).ToArray();
 
-            return new JsonResult(
-                books.Adapt<BookTimes[]>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+            return books.Adapt<BookTimes[]>();
         }
 
         [HttpGet("get-reports")]

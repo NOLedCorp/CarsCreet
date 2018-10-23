@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-
+import { AlertService } from '../services/AlertService';
 
 import {User} from '../services/UserService';
-import {CarsService, Car, Filter} from '../services/CarsService';
+import {CarsService, Car, Filter, Book} from '../services/CarsService';
 
 @Component({
   selector: 'cars',
@@ -13,6 +13,8 @@ import {CarsService, Car, Filter} from '../services/CarsService';
 export class CarsComponent {
   load:boolean=true;
   public user:User;
+
+  public alert:AlertService = new AlertService();
   public filters:Filter[]=[];
   public cars:Car[];
   
@@ -20,9 +22,7 @@ export class CarsComponent {
   
   constructor(public service:CarsService) {
     service.ngOnInit();
-    if(localStorage.getItem("currentUser")){
-      this.user=JSON.parse(localStorage.getItem("currentUser"));
-    }
+    
     this.service.GetCars().subscribe(data => {
       
       console.log(data);
@@ -31,10 +31,11 @@ export class CarsComponent {
       this.load=false;
     })
   }
-  addCar(){
-    this.service.AddCar().subscribe(data => {
-      console.log(data);
-    })
+  
+  bookCar(car:Car){
+    this.service.car=car;
+    console.log(car);
+    this.service.showBookingForm=true;
   }
   showCarInfo(car:Car){
     this.service.car=car;

@@ -30,6 +30,7 @@ namespace CarsCrete.Data
             modelBuilder.Entity<Car>().ToTable("Cars");
             modelBuilder.Entity<Car>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Car>().HasMany(u => u.Reports);
+            modelBuilder.Entity<Car>().HasMany(u => u.Books);
 
             modelBuilder.Entity<Book>().ToTable("Books");
             modelBuilder.Entity<Book>().Property(i => i.Id).ValueGeneratedOnAdd();
