@@ -16,7 +16,7 @@ export class CarsComponent {
 
   public alert:AlertService = new AlertService();
   public filters:Filter[]=[];
-  public cars:Car[];
+  public cars:Car[] = [];
   
   filteredCars:Car[];
   
@@ -25,10 +25,50 @@ export class CarsComponent {
     
     this.service.GetCars().subscribe(data => {
       
-      console.log(data);
-      this.cars=data;
-      this.filteredCars=data;
+      if(data.length!=0){
+        
+        this.cars=data;
+        
+      }
+      else{
+       
+        this.cars.push({
+          Id:1,
+          Model:"VW Up",
+          Photo:"../../assets/images/car.jpg",
+          Passengers:5,
+          Doors:5,
+          Consumption:7,
+          Transmission:"Automatic",
+          Fuel:"Petrol",
+          Price:28,
+          Description:"Крутая машина, БЕРИТЕ!",
+          Description_ENG:"The best car I've ever had! You MUST try it!",
+          Books:[{
+            Id:1,
+            DateStart:new Date(2018,7,24,3,30),
+            DateFinish:new Date(2018,7,29,3,30),
+            UserId:1,
+            CarId:1,
+            Price:28,
+            Place:"Iraklion Airport"
+          }, {
+            Id:1,
+            DateStart:new Date(2018,7,24,3,30),
+            DateFinish:new Date(2018,7,29,3,30),
+            UserId:1,
+            CarId:1,
+            Price:28,
+            Place:"Iraklion Airport"
+          }],
+          Reports:[{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}, {Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."},{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}]
+          
+        })
+        
+      }
+      this.filteredCars=this.cars;
       this.load=false;
+      
     })
   }
   

@@ -1,129 +1,148 @@
 
 <div class="container-fluid">
-    <div class="form-container">
-        <div class="car-info">
-          <div class="row">
-            <div class="col-sm-5">
-              <img src="{{service.car?service.car.Photo:''}}" alt="">
-            </div>
-            <div class="col-sm-7">
-              <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
-              <div class="details">
-                <div class="detail-item">
-                  <i class="fa fa-male"></i>
-                  <span>x {{service.car?service.car.Passengers:''}}</span>
-                </div>
-                <div class="detail-item">
-                  <i class="fa fa-car"></i>
-                  <span>x {{service.car?service.car.Doors:''}}</span>
-                </div>
-                <div class="detail-item">
-                  <i class="fa fa-cogs"></i>
-                  <span>{{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span>
-                </div>
-                <div class="detail-item">
+  <div class="booking-container">
+      <div class="form-container">
+          <div class="car-info">
+            <div class="row">
+              <div class="col-sm-5">
+                <img src="{{service.car?service.car.Photo:''}}" alt="">
+              </div>
+              <div class="col-sm-7">
+                <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
+                <div class="details">
+                  <div class="detail-item">
+                    <div class="detail-messege">
+                      <span>{{"PASSENGERS_S" | translate}}</span>
+                    </div>
+                    <i class="fa fa-male"></i>
+                    <span>x {{service.car?service.car.Passengers:''}}</span>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-messege">
+                      <span>{{"DOORS" | translate}}</span>
+                    </div>
+                    <i class="fa fa-car"></i>
+                    <span>x {{service.car?service.car.Doors:''}}</span>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-messege">
+                      <span>{{"TRANSMISSION" | translate}}</span>
+                    </div>
+                    <i class="fa fa-cogs"></i>
+                    <span>{{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-messege">
+                      <span>{{"CONSUMPTION" | translate}}</span>
+                    </div>
                     <i class="fa fa-tachometer"></i>
                     <span>{{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span>
+                  </div>
+                  
+                  <!-- <div class="detail-item">
+                    <i class="fa fa-snowflake-o"></i>
+                    <span>A/C</span>
+                  </div> -->
+                  <div class="detail-item">
+                    <div class="detail-messege">
+                      <span>{{"FUEL" | translate}}</span>
+                    </div>
+                    <i class="fa fa-tint"></i>
+                    <span>{{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span>
+                  </div>
                 </div>
-                
-                <!-- <div class="detail-item">
-                  <i class="fa fa-snowflake-o"></i>
-                  <span>A/C</span>
-                </div> -->
-                <div class="detail-item">
-                  <i class="fa fa-tint"></i>
-                  <span>{{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span>
-                </div>
+                <span>{{"PRICE" | translate}}: {{service.car?service.car.Price:''}}€</span> 
               </div>
-              <span>{{"PRICE" | translate}}: {{service.car?service.car.Price:''}}€</span> 
             </div>
           </div>
-        </div>
-        <form [formGroup]="bookingForm"  (ngSubmit)="onSubmit(DateStart, DateFinish)">
-
-            <div class="row">
-              <div class="col-sm-6">
-                  <div class="item">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">Имя</span>
-                    <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" required>
-                    <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
-                      <span class="d-block is-invalid" *ngIf="f.Name.errors.required">Укажите имя</span>
-              
-                    </div>
-                  </div>
-                  <div class="item">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">Email</span>
-                    <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" name="name" type="Email"  required>
-                    <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.Email.errors.required">Укажите Email</span>
-                    </div>
-                  </div>
-                  <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
-                      <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" required>
-                        
-                      <div *ngIf="submitted && f.Password.errors">
-                        <span class="d-block is-invalid" *ngIf="f.Password.errors.required">Укажите пароль</span>
+          <!-- <div class="sep"></div> -->
+          <form [formGroup]="bookingForm"  (ngSubmit)="onSubmit(DateStart, DateFinish)">
+  
+              <div class="row">
+                <div class="col-sm-6">
+                    <div class="item">
+                      <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">Имя</span>
+                      <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" required>
+                      <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                        <span class="d-block is-invalid" *ngIf="f.Name.errors.required">Укажите имя</span>
                 
                       </div>
-                
                     </div>
-                  <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
-                      <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" name="name" type="tel" pattern="[0-9]{11}" required>
-                      <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
-                        
-                        <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>
+                    <div class="item">
+                      <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">Email</span>
+                      <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" name="name" type="Email"  required>
+                      <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                          <span class="d-block is-invalid" *ngIf="f.Email.errors.required">Укажите Email</span>
                       </div>
-                  </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="item">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">Дата начала</span>
-                    <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #DateStart required>
-                    <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">Введите дату</span>
-                        
                     </div>
-                </div>
-                <div class="item">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }">Дата конца</span>
-                    <input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
-                    <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">Введите дату</span>
-                        
-                    </div>
-                </div>
-                <div class="item">
-                  <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">Place</span>
-                  <select formControlName="Place" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
-                    <option selected value="Iraklion">Iraklion</option>
-                  </select>
-                  <div *ngIf="submitted && f.Place.errors">
-                    <span class="d-block is-invalid" *ngIf="f.Place.errors.required">PLACE_VALIDATION</span>
-            
-                  </div>
-              
-                </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
+                        <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" required>
+                          
+                        <div *ngIf="submitted && f.Password.errors">
+                          <span class="d-block is-invalid" *ngIf="f.Password.errors.required">Укажите пароль</span>
                   
-                <div class="item">
-                  <span>MODEL</span>
-                  <input value="{{service.car?service.car.Model:''}}" readonly type="text">
+                        </div>
+                  
+                      </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
+                        <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" name="name" type="tel" pattern="[0-9]{11}" required>
+                        <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
+                          
+                          <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="item">
+                      <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">Дата начала</span>
+                      <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #DateStart required>
+                      <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
+                          <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">Введите дату</span>
+                          
+                      </div>
+                  </div>
+                  <div class="item">
+                      <span [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }">Дата конца</span>
+                      <input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
+                      <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
+                          <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">Введите дату</span>
+                          
+                      </div>
+                  </div>
+                  <div class="item">
+                    <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">Place</span>
+                    <select formControlName="Place" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
+                      <option selected value="Iraklion">Iraklion</option>
+                    </select>
+                    <div *ngIf="submitted && f.Place.errors">
+                      <span class="d-block is-invalid" *ngIf="f.Place.errors.required">PLACE_VALIDATION</span>
+              
+                    </div>
+                
+                  </div>
+                    
+                  <div class="item">
+                    <span>MODEL</span>
+                    <input value="{{service.car?service.car.Model:''}}" readonly type="text">
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            
-            <div class="item ">
-                <span>Комментарий</span>
-                <textarea formControlName="Comment"  cols="10" rows="5" #report></textarea>
-                
-            </div>
-            <button class="btn btn-primary">Забронировать</button>
-            
-          </form>
+              
+              
+              <div class="item ">
+                  <span>Комментарий</span>
+                  <textarea formControlName="Comment"  cols="10" rows="5" #report></textarea>
+                  
+              </div>
+              <button class="btn btn-primary">Забронировать</button>
+              
+            </form>
+      </div>
     </div>
   </div>
+    
   <alert  [alert] ="alert"></alert>
   
   

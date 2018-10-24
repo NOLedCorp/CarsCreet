@@ -48,7 +48,7 @@ export interface Car{
     Doors:number;
     Transmission:string;
     Fuel:string;
-    Consumption:string;
+    Consumption:number;
     Description:string;
     Description_ENG:string;
     Price:number;
