@@ -8,38 +8,131 @@ select, textarea,input{
     color:black;
     border-radius: 5px; 
 }
+input{
+    box-shadow: none;
+}
 select,input{
     height: 30px;
 }
 form{
-    z-index: 1000;
-    width: 600px;
+ 
+    width: 100%;
+    
+
+    
+    
+    
+}
+.detail-item{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid black;
-    background-color: rgba(0, 0, 0, 0.842);
+    align-items: center;
+    margin-right: 5px;
+    font-size: 8pt;
+
+}
+.detail-item>i{
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 14pt;
+}
+.details{
+    margin-bottom: 10px;
+    display: flex;
+
     
 }
+.form-container{
+
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 20px;
+    box-shadow: 0 0 10px black;
+}
+
+.car-info{
+    margin-bottom: 20px;
+    font-size: 14pt;
+
+}
+.car-info .col-sm-7{
+    height: 100%;
+    display: block;
+    position: relative;
+}
+.car-info .col-sm-7>span{
+    background-color: rgba(255, 38, 38, 0.815);
+    border: 1px solid red;
+    border-radius: 4px;
+    color: aliceblue;
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+}
+.car-info img{
+    width: 90%;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 button{
     width: 150px;
+}
+@media (min-width: 768px){
+    .car-info .row{
+        height: 235px;
+    }
 }
 @media (max-width: 767px){
     .item{
         width: 100%;
     }
+    .car-info .col-sm-7>span{
+        position: relative;
+    }
+    .car-info .col-sm-5{
+        width: 100%;
+        height: auto;
+        justify-content: center;
+    }
+    .car-info img{
+        width: 100%;
+        margin: auto;
+    }
 }
 .container{
    
     margin: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
+
     z-index: 900;
-    width: 100%;height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/*Убираю стандартные свойства*/
+input, select {
+    -webkit-appearance: none; /* Убирает внутреннюю тень в Safari */
+    outline: none; /* Убирает обводку */
+    border: 1px solid gray;
+    border-radius: 4px; /* Убирает скругление в Safari */
+  
+
+
+
+    box-sizing: border-box;
+    line-height: 1.5;
+   
+  }
+  
+  input:focus {
+    border-color: black;
+  }

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarsService, Car, Book } from '../services/CarsService';
 import { AlertService } from '../services/AlertService';
 import {User} from '../services/UserService';
+import { ActivatedRoute } from "@angular/router";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'booking-form',
@@ -14,13 +16,12 @@ export class BookingFormComponent implements OnInit {
   submitted = false;
   public book:Book;
   public user:User;
-  alertService:AlertService = new AlertService();
-  @Input() service:CarsService;
-  @Input() alert:AlertService;
-  constructor(private formBuilder: FormBuilder) { }
+  
+  
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { }
   get f() { return this.bookingForm.controls; }
   
-    onSubmit() {
+    onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
       if (this.bookingForm.invalid) {
         return;
@@ -29,7 +30,7 @@ export class BookingFormComponent implements OnInit {
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
         this.book = {
-          Id:null,
+          Id:123,
           CarId:this.service.car.Id,
           UserId:this.user.Id,
           DateStart:this.bookingForm.value.DateStart,
@@ -46,7 +47,7 @@ export class BookingFormComponent implements OnInit {
       }
       else{
         this.book = {
-          Id:null,
+          Id:123,
           CarId:this.service.car.Id,
           UserId:123,
           DateStart:this.bookingForm.value.DateStart,
@@ -64,13 +65,33 @@ export class BookingFormComponent implements OnInit {
           console.log(data);
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
           
-        })
+        },error => {
+          console.clear();
+          if(error.status==501){
+
+            this.alert.showA({type:'wrong',message:'Время забронированно',show:true});
+            this.submitted=false;
+            df.value="";
+            ds.value="";
+            this.bookingForm.value.DateStart="";
+            
+          }
+          else{
+            this.alert.showA({type:'wrong',message:'Неверный пароль',show:true});
+            this.submitted=false;
+          }
+        }
+        )
       }
     }
     hide(){
       this.service.showBookingForm=false;
     }
     ngOnInit() {
+      this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
+        this.service.car = data;
+        console.log(data);
+      })
       this.bookingForm = this.formBuilder.group({
         Name: ['', Validators.required],
         Email: ['', Validators.required],

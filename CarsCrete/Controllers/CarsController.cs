@@ -150,42 +150,51 @@ namespace CarsCrete.Controllers
         [HttpPut("add-booking-new")]
         public IActionResult AddBookingNew([FromBody]BookNew model)
         {
-            var w = 0;
-            //foreach(BookTimes bookTime in GetBookTimes(model.CarId))
-            //{
-            //    if(model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
-            //    {
-            //        return new StatusCodeResult(501);
-            //    }
-            //}
-            //var user = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-            //if (user==null)
-            //{
-            //    AddUser(user.Adapt<UserReg>());
-            //    model.UserId = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault().Id;
-            //}
-            //else
-            //{
-            //    if (user.Password == model.Password)
-            //    {
-            //        model.UserId = user.Id;
-            //    }
-            //    else
-            //    {
-            //        return new StatusCodeResult(500);
-            //    }
-            //}
-            //var book = model.Adapt<Book>();
-            //DbContext.Books.Add(book);
-            ////DbContext.SaveChanges();
+            
+            foreach (BookTimes bookTime in GetBookTimes(model.CarId))
+            {
+                if (model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
+                {
+                    return new StatusCodeResult(501);
+                }
+            }
+            var user = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+            if (user == null)
+            {
+                AddUser(user.Adapt<UserReg>());
+                model.UserId = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault().Id;
+            }
+            else
+            {
+                if (user.Password == model.Password)
+                {
+                    model.UserId = user.Id;
+                }
+                else
+                {
+                    return new StatusCodeResult(500);
+                }
+            }
+            var book = new Book()
+            {
+                DateStart = model.DateStart,
+                DateFinish = model.DateFinish,
+                CarId = model.CarId,
+                UserId = model.UserId,
+                Place = model.Place,
+                Price = model.Price
+            };
 
-            //return new JsonResult(
-            //    book.Adapt<BookDTO>(),
-            //    new JsonSerializerSettings()
-            //    {
-            //        Formatting = Formatting.Indented
-            //    });
-            return new StatusCodeResult(500);
+            DbContext.Books.Add(book);
+            DbContext.SaveChanges();
+
+            return new JsonResult(
+                book.Adapt<BookDTO>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+            
         }
 
         [HttpGet("get-book/{id}")]
@@ -205,7 +214,7 @@ namespace CarsCrete.Controllers
         public IActionResult GetCar(long Id)
         {
 
-            var car = DbContext.Cars.Where(x => x.Id == Id).FirstOrDefault();
+            var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).FirstOrDefault();
 
             return new JsonResult(
                 car.Adapt<CarDTO>(),

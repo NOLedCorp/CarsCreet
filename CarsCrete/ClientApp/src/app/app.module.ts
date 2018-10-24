@@ -20,6 +20,7 @@ import { CarsService } from './services/CarsService';
 import { LoaderComponent } from './loader/loader.component';
 import { CarCardComponent } from './car-card/car-card.component';
 import { BookingFormComponent } from './booking-form/booking-form.component';
+import { AlertService } from './services/AlertService';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -58,9 +59,10 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'cars', component: CarsComponent },
+      { path: 'booking/:id', component: BookingFormComponent }
     ])
   ],
-  providers: [UserService, CarsService],
+  providers: [UserService, CarsService, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
