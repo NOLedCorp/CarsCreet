@@ -28,7 +28,7 @@ export class BookingFormComponent implements OnInit {
       }
      
       if(localStorage.getItem("currentUser")){
-        this.user=JSON.parse(localStorage.getItem("currentUser"));
+        
         this.book = {
           Id:123,
           CarId:this.service.car.Id,
@@ -87,7 +87,15 @@ export class BookingFormComponent implements OnInit {
     hide(){
       this.service.showBookingForm=false;
     }
+    showCarInfo(){
+      
+
+      this.service.showCarInfo=true;
+    }
     ngOnInit() {
+      if(localStorage.getItem("currentUser")){
+        this.user=JSON.parse(localStorage.getItem("currentUser"));
+      }
       this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
        
         if(data){
@@ -108,7 +116,7 @@ export class BookingFormComponent implements OnInit {
             Fuel:"Petrol",
             Price:28,
             Description:"Крутая машина, БЕРИТЕ!",
-            Description_ENG:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}, {Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."},{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.",
+            Description_ENG:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.",
             Books:[{
               Id:1,
               DateStart:new Date(2018,7,24,3,30),
@@ -126,10 +134,11 @@ export class BookingFormComponent implements OnInit {
               Price:28,
               Place:"Iraklion Airport"
             }],
-            Reports:[{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}, {Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."},{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}]
+            Reports:[{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}, {Id:1, UserId:1, CarId:1, Mark:5, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."},{Id:1, UserId:1, CarId:1, Mark:3, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}]
             
-          }
-        console.log(data);
+            
+          };
+        
       }})
       this.bookingForm = this.formBuilder.group({
         Name: ['', Validators.required],

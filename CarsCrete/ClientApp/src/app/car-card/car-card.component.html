@@ -23,7 +23,7 @@
         <p><i class="fa fa-car"></i>{{"DOORS" | translate}}: {{service.car.Doors}}</p>
         <p><i class="fa fa-male"></i>{{"PASSENGERS" | translate}}: {{service.car.Passengers}}</p>
       </div>
-      <button class="btn btn-success" >{{"BOOK" | translate}}</button>
+      <button class="btn btn-success" (click)="service.showCarInfo=!service.showCarInfo" routerLink="/booking/{{service.car.Id}}">{{"BOOK" | translate}}</button>
     </div>
     
     

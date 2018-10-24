@@ -95,9 +95,9 @@ form{
     bottom: 0;
 }
 .car-info img{
-    width: 90%;
+    width: 100%;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    
 }
 
 button{
@@ -121,7 +121,7 @@ button{
     .car-info .col-sm-7>span{
         position: relative;
     }
-    .car-info .col-sm-5{
+    .car-info .col-sm-4{
         width: 100%;
         height: auto;
         justify-content: center;

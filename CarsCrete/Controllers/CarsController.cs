@@ -240,7 +240,23 @@ namespace CarsCrete.Controllers
         [HttpGet("get-cars")]
         public IActionResult GetCars()
         {
+            //var carr = new Car()
+            //{
+            //    Model = "VW Golf 7",
+            //    Photo = "../../assets/images/VW_golf_7.jpg",
+            //    Passengers = 5,
+            //    Doors = 5,
+            //    Transmission = "Automatic",
+            //    Fuel = "Diesel",
+            //    Consumption = 7,
+            //    Description = "Автомобиль с АКПП, 1,4 литра, 120 лошадиных сил. Климат-контроль, радио-CD, расход топлива 6 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.",
+            //    Price = 65,
+            //    Description_ENG = "Eng description of the car."
 
+
+            //};
+            //DbContext.Cars.Add(carr);
+            //DbContext.SaveChanges();
             var car = DbContext.Cars.Include(x => x.Reports).Include(x => x.Books).ToArray();
 
             return new JsonResult(
