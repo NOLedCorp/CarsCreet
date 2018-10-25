@@ -25,11 +25,18 @@ namespace CarsCrete.Data.Models
         [Required]
         public long CarId { get; set; }
         [Required]
-        public short Mark { get; set; }
+        public double Mark { get; set; }
         [Required]
         public string Text { get; set; }
         [Required]
         public DateTime CreatedDate { get; set; }
+        #endregion
+
+        #region Lazy-loading
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+        [ForeignKey("CarId")]
+        public virtual Car Car { get; set; }
         #endregion
 
 

@@ -18,8 +18,11 @@ namespace CarsCrete.Data.Models
         public long Id { get; set; }
         public long UserId { get; set; }
         public long CarId { get; set; }
-        public short Mark { get; set; }
+        public double Mark { get; set; }
         public string Text { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public virtual ReportUser User { get; set; }
+        public virtual Car Car { get; set; }
         #endregion
     }
 }

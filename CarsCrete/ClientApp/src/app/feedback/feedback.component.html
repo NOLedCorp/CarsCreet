@@ -1,0 +1,90 @@
+<div class="container" >
+    <h1>Отзывы о {{reports[0].Car.Model}}</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="review">
+        <div class="form-container">
+            <div class="item">
+                <span [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">Имя*</span>
+                <input formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" name="name" type="text" required #name>
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <span class="d-block is-invalid" *ngIf="f.firstName.errors.required">Введите имя</span>
+                    
+                </div>
+            </div>
+            <div class="item">
+                <span>Фамилия</span>
+                <input formControlName="sur"   type="text" #sur>
+                
+            </div>
+            <div class="item">
+                <span [ngClass]="{ 'is-invalid': submitted && f.date.errors }">Дата посещения*</span>
+                <input formControlName="date" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" type="date" #date required>
+                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                    <span class="d-block is-invalid" *ngIf="f.date.errors.required">Введите дату</span>
+                    
+                </div>
+            </div>
+            <div class="item">
+                <span [ngClass]="{ 'is-invalid': submitted && f.mark.errors }">Оценка*</span>
+                <select formControlName="mark" [ngClass]="{ 'is-invalid': submitted && f.mark.errors }" #mark>
+                    <option >Отлично</option>
+                    <option >Хорошо</option>
+                    <option >Плохо</option>
+                    <option >Очень плохо</option>
+                </select>
+                <div *ngIf="submitted && f.mark.errors" class="invalid-feedback">
+                    <span class="d-block is-invalid" *ngIf="f.mark.errors.required">Укажите вашу оценку</span>
+                    
+                </div>
+                
+            </div>
+            <div class="item">
+                <span>Ваш опыт в квестах</span>
+                <select formControlName="skill" #skill>
+                    <option >Новичок</option>
+                    <option >Любитель</option>
+                    <option >Профессионал</option>
+                </select>
+                
+            </div>
+        </div>
+        <div class="item ">
+            <span [ngClass]="{ 'is-invalid': submitted && f.report.errors }">Отзыв*</span>
+            <textarea formControlName="report" [ngClass]="{ 'is-invalid': submitted && f.report.errors }" cols="10" rows="5" #report></textarea>
+            <div *ngIf="submitted && f.report.errors" class="invalid-feedback">
+                <span class="d-block is-invalid" *ngIf="f.report.errors.required">Введите отзыв</span>
+                <span class="d-block is-invalid" *ngIf="f.report.errors.minlength">Введите не меньше 5 символов!</span>
+            </div>
+        </div>
+        <button class="btn btn-primary" >Оставить отзыв</button>
+    </form>
+    
+  
+
+    <div class="comments" *ngIf="feedBackService.curReports">
+        <div *ngFor="let com of feedBackService.curReports"  class="comment" [ngClass]='{"comment-good":com.Mark>3, "comment-bad":com.Mark<=3}' >
+            <div class="row">
+                <div class="col-sm-7">
+                    <p>
+                        <span class="glyphicon glyphicon-user"></span> {{com.User.Name}} 
+                        <br>
+                        <span class="glyphicon glyphicon-time"></span> {{com.CreatedDate | date: 'dd.MM.yyyy'}}
+                        <br>
+                        <i class="fa fa-car"></i> {{com.Car.Model}}
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <rating [mark]="com.Mark"></rating>
+                    
+
+                </div>
+            </div>
+            
+            
+            <p>{{com.Text}}</p>
+            
+        </div>
+        <pages *ngIf="feedBackService.reports.length>21" [service]="feedBackService"></pages>
+    </div>
+    
+</div>
+<alert  [alert] ="alertService"></alert>

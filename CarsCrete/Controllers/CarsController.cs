@@ -214,10 +214,10 @@ namespace CarsCrete.Controllers
         public IActionResult GetCar(long Id)
         {
 
-            var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).FirstOrDefault();
+            var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).ProjectToType<CarDTO>().FirstOrDefault();
 
             return new JsonResult(
-                car.Adapt<CarDTO>(),
+                car,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented
@@ -257,10 +257,18 @@ namespace CarsCrete.Controllers
             //};
             //DbContext.Cars.Add(carr);
             //DbContext.SaveChanges();
-            var car = DbContext.Cars.Include(x => x.Reports).Include(x => x.Books).ToArray();
+            var cars = DbContext.Cars
+                .Include(x => x.Reports)
+                    .ThenInclude(y => y.User)
+                .Include(x => x.Books).ProjectToType<CarDTO>().ToList();
+
+            foreach (CarDTO car in cars)
+            {
+                car.Reports = car.Reports.OrderByDescending(r => r.CreatedDate).ToList();
+            }
 
             return new JsonResult(
-                car.Adapt<CarDTO[]>(),
+                cars,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented
@@ -286,11 +294,20 @@ namespace CarsCrete.Controllers
         [HttpGet("get-reports")]
         public IActionResult GetReports()
         {
-
-            var reports = DbContext.Reports.ToArray();
+            var rep = new FeedBack()
+            {
+                UserId = 7,
+                CarId = 4,
+                Mark = 3.5,
+                Text = "Средненькая тачка.",
+                CreatedDate = DateTime.Now
+            };
+            DbContext.Reports.Add(rep);
+            DbContext.SaveChanges();
+            var reports = DbContext.Reports.Include(c => c.Car).Include(u => u.User).ProjectToType<FeedBackDTO>().ToList();
 
             return new JsonResult(
-                reports.Adapt<FeedBackDTO[]>(),
+                reports,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented

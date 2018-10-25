@@ -32,6 +32,12 @@ namespace CarsCrete.Data.Models
         [Required]
         public string Place { get; set; }
         #endregion
+        #region Lazy-loading
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+        [ForeignKey("CarId")]
+        public virtual Car Car { get; set; }
+        #endregion
 
 
     }

@@ -28,6 +28,12 @@ export class CarsComponent {
       if(data.length!=0){
         
         this.cars=data;
+        this.cars.forEach(c => {
+          c.Reports.forEach(r => {
+            r.CreatedDate = new Date(r.CreatedDate);
+          })
+        })
+        
         
       }
       else{
@@ -61,7 +67,7 @@ export class CarsComponent {
             Price:28,
             Place:"Iraklion Airport"
           }],
-          Reports:[{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}, {Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."},{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it."}]
+          Reports:[{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.",  CreatedDate:new Date(2017,5,6,12)}, {Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.", CreatedDate:new Date(2017,5,6,12)},{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.", CreatedDate:new Date(2017,5,6,12)}]
           
         })
         

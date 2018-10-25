@@ -1,0 +1,4 @@
+<p>
+    <i *ngFor="let star of stars" class="fa" [ngClass]="{'fa-star':star==1, 'fa-star-half-o':star==2, 'fa-star-o':star==0}"></i>
+    <span>{{Mark%1==0?Mark+'.0':Mark}}</span>
+</p>

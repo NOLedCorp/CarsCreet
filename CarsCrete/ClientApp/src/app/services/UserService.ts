@@ -47,6 +47,7 @@ export interface FeedBack{
     CarId:number;
     Mark:number;
     Text:string;
+    CreatedDate:Date;
 }
 export interface Book{
     Id:number;

@@ -21,6 +21,10 @@ import { LoaderComponent } from './loader/loader.component';
 import { CarCardComponent } from './car-card/car-card.component';
 import { BookingFormComponent } from './booking-form/booking-form.component';
 import { AlertService } from './services/AlertService';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { PagesComponent } from './pages/pages.component';
+import { FeedBackService } from './services/FeedBackService';
+import { RatingComponent } from './rating/rating.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -38,7 +42,10 @@ export function HttpLoaderFactory1(http: HttpClient) {
     AlertComponent,
     LoaderComponent,
     CarCardComponent,
-    BookingFormComponent
+    BookingFormComponent,
+    FeedbackComponent,
+    PagesComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,7 +69,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'booking/:id', component: BookingFormComponent }
     ])
   ],
-  providers: [UserService, CarsService, AlertService],
+  providers: [UserService, CarsService, AlertService, FeedBackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
