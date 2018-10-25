@@ -1,6 +1,6 @@
 <div class="container" >
     <h1>Отзывы о {{reports[0].Car.Model}}</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="review">
+    <form *ngIf="false" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="review">
         <div class="form-container">
             <div class="item">
                 <span [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">Имя*</span>
@@ -67,20 +67,29 @@
                     <p>
                         <span class="glyphicon glyphicon-user"></span> {{com.User.Name}} 
                         <br>
-                        <span class="glyphicon glyphicon-time"></span> {{com.CreatedDate | date: 'dd.MM.yyyy'}}
-                        <br>
                         <i class="fa fa-car"></i> {{com.Car.Model}}
                     </p>
                 </div>
                 <div class="col-sm-5">
+                    <span class="glyphicon glyphicon-time"></span> {{com.CreatedDate | date: 'dd.MM.yyyy'}}
+                    <br>
                     <rating [mark]="com.Mark"></rating>
+                    
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-7">
+                    <p>{{com.Text}}</p>
+                </div>
+                <div class="col-sm-5">
+                    
                     
 
                 </div>
             </div>
             
             
-            <p>{{com.Text}}</p>
             
         </div>
         <pages *ngIf="feedBackService.reports.length>21" [service]="feedBackService"></pages>

@@ -215,7 +215,7 @@ namespace CarsCrete.Controllers
         {
 
             var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).ProjectToType<CarDTO>().FirstOrDefault();
-
+            car.Reports = car.Reports.OrderByDescending(r => r.CreatedDate).ToList();
             return new JsonResult(
                 car,
                 new JsonSerializerSettings()
