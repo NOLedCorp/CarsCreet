@@ -3,6 +3,7 @@ i, span{
     color: rgb(230, 196, 8);
 }
 span{
+    font-size: 12pt;
     font-weight: normal;
     margin-left: 5px;
 }

@@ -20,9 +20,18 @@ body{
 .is-invalid:not(span){
     border-color: rgb(255, 0, 0)
 }
-
+.user-img-small{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+.user-photo-small>img{
+    width: 100%;
+}
 html{
     overflow-x: hidden;
+    font-size: 10px;
 }
 
 span.is-invalid, p.is-invalid{

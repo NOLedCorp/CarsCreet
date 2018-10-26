@@ -16,9 +16,23 @@
     margin-right: 20px;
     
 }
+.row{
+    display: flex;
+    align-content: stretch;
+}
 .col-sm-9{
-    height: 100%;
+    
     border-right: 1px solid gray;
+}
+.col-sm-9>p{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.col-sm-9>p>i{
+    margin-left: 5px;
+    margin-right: 5px;
 }
 select, textarea,input{
     color:black;
@@ -36,11 +50,15 @@ form{
 .com-rat{
     display: inline;
     padding: 0 5px 0 5px;
+
     font-size: 14pt;
     font-weight: normal;
+
 }
 .com-rat>span{
     font-size: 12pt;
+    font-weight: normal;
+    margin-left: 3px;
 }
 button{
     width: 150px;
