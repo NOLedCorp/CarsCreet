@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace CarsCrete.Data.Models
 {
@@ -20,13 +21,15 @@ namespace CarsCrete.Data.Models
         [Key]
         [Required]
         public long Id { get; set; }
-
+        [DefaultValue("../../assets/images.default_user_photo.jpg")]
+        public string Photo { get; set; }
         [Required]
         [MaxLength(128)]
         public string Name { get; set; }
 
         [Required]
         public string Email { get; set; }
+        public string Phone { get; set; }
         [Required]
         public string Password { get; set; }
 
@@ -43,6 +46,7 @@ namespace CarsCrete.Data.Models
         /// </summary>
         public virtual List<FeedBack> Reports { get; set; }
         public virtual List<Book> Books { get; set; }
+        public virtual List<ReportComment> Comments { get; set; }
         #endregion
 
     }

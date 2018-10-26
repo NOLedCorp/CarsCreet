@@ -4,6 +4,9 @@
     margin-bottom: 20px;
     width: 50%;
 }
+.review .item{
+    width: auto;
+}
 .form-container{
     display: flex;
     flex-wrap: wrap;
@@ -13,8 +16,9 @@
     margin-right: 20px;
     
 }
-.col-sm-7{
+.col-sm-9{
     height: 100%;
+    border-right: 1px solid gray;
 }
 select, textarea,input{
     color:black;
@@ -28,6 +32,15 @@ form{
     flex-direction: column;
     justify-content: center;
     
+}
+.com-rat{
+    display: inline;
+    padding: 0 5px 0 5px;
+    font-size: 14pt;
+    font-weight: normal;
+}
+.com-rat>span{
+    font-size: 12pt;
 }
 button{
     width: 150px;
@@ -57,10 +70,6 @@ button{
     border-radius: 10px;
     padding: 10px;
     width: 100%;
-    
-   
-    overflow: hidden;
-    
     transition: 1s;
 }
 .comment-good{
@@ -82,12 +91,60 @@ button{
     text-align: center;
     background-color: rgba(0, 0, 0, 0.747);
 }
+.review{
+    z-index: 100;
+    background-color: white;
+    box-shadow: 0 0 10px black;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 50%;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 5px; 
+
+}
+.review .btn{
+    display: inline;
+    margin-right: 8px;
+}
+
+.comment>.btn{
+    background-color: white;
+    width: auto;
+    color:blue;
+
+}
+.comment>.btn:hover{
+    text-decoration: underline;
+}
+.col-sm-3{
+    font-weight: bold;
+}
+.report-comments .comment{
+    border: 1px dashed black;
+    margin-left: 10px;
+    width: auto;
+}
 @media (max-width: 767px){
     .item, .form-container .item{
         width: 100%;
         margin-right: 0;
     }
+    .report-comments .comment{
+        border: 1px dashed black;
+        margin-left: 10px;
+        width: auto;
+    }
     
+}
+@media (min-width: 768px){
+    .com-rat>i.fa-thumbs-up:hover{
+        color:green;
+    }
+    .com-rat>i.fa-thumbs-down:hover{
+        color:red;
+    }
 }
 .container{
     width: 100% !important;

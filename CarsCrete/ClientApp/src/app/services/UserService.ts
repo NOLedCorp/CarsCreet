@@ -1,5 +1,6 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Car } from '../services/CarsService';
 
 export class UserService {
     openForm:boolean=false;
@@ -36,6 +37,7 @@ export interface User{
     Id:number;
     Name:string;
     Email:string;
+    Phone:string;
     CreatedDate:Date;
     ModifiedDate:Date;
     Reports:FeedBack[];
@@ -45,9 +47,34 @@ export interface FeedBack{
     Id:number;
     UserId:number;
     CarId:number;
+    Look:number;
+    Drive:number;
+    Comfort:number;
+    Likes:number;
+    Dislikes:number;
     Mark:number;
     Text:string;
     CreatedDate:Date;
+    User:ReportUser;
+    Car:Car;
+    Comments:ReportComment[];
+}
+
+export interface ReportComment{
+    Id:number;
+    UserId:number;
+    FeedBackId:number;
+    Likes:number;
+    Dislikes:number;
+    Text:string;
+    CreatedDate:Date;
+    User:ReportUser;
+
+}
+export class ReportUser{
+    id:number;
+    Name:string;
+    Photo:string;
 }
 export interface Book{
     Id:number;

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace CarsCrete.Data.Models
 {
-    public class FeedBack
+    public class ReportComment
     {
         #region Constructor
-        public FeedBack()
+        public ReportComment()
         {
 
         }
@@ -23,19 +24,14 @@ namespace CarsCrete.Data.Models
         [Required]
         public long UserId { get; set; }
         [Required]
-        public long CarId { get; set; }
+        public long FeedBackId { get; set; }
         [Required]
-        public double Look { get; set; }
-        [Required]
+        [DefaultValue(0)]
         public int Likes { get; set; }
         [Required]
+        [DefaultValue(0)]
         public int Dislikes { get; set; }
-        [Required]
-        public double Comfort { get; set; }
-        [Required]
-        public double Drive { get; set; }
-        [Required]
-        public double Mark { get; set; }
+
         [Required]
         public string Text { get; set; }
         [Required]
@@ -45,13 +41,6 @@ namespace CarsCrete.Data.Models
         #region Lazy-loading
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        [ForeignKey("CarId")]
-        public virtual Car Car { get; set; }
-
-        public virtual List<ReportComment> Comments { get; set; }
         #endregion
-
-
-
     }
 }

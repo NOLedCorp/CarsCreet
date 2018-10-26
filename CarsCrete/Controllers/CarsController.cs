@@ -259,7 +259,11 @@ namespace CarsCrete.Controllers
             //DbContext.SaveChanges();
             var cars = DbContext.Cars
                 .Include(x => x.Reports)
-                    .ThenInclude(y => y.User)
+                    .ThenInclude(c => c.Comments)
+                        .ThenInclude(u => u.User)
+                .Include(x => x.Reports)
+                    .ThenInclude(u => u.User)
+                    
                 .Include(x => x.Books).ProjectToType<CarDTO>().ToList();
 
             foreach (CarDTO car in cars)
@@ -327,6 +331,48 @@ namespace CarsCrete.Controllers
                 {
                     Formatting = Formatting.Indented
                 });
+        }
+        public class Like
+        {
+            public long CommentId { get; set; }
+            public bool Type { get; set; }
+            public bool Report { get; set; }
+        }
+        [HttpPost("add-likes")]
+        public bool AddLikes([FromBody]Like model)
+        {
+            
+            if (model.Report)
+            {
+                var report = DbContext.Reports.Where(x => x.Id == model.CommentId).FirstOrDefault();
+                if (model.Type)
+                {
+                    report.Likes += 1;
+                }
+                else
+                {
+                    report.Dislikes += 1;
+                }
+                DbContext.SaveChanges();
+            }
+            else
+            {
+                var report = DbContext.Comments.Where(x => x.Id == model.CommentId).FirstOrDefault();
+                if (model.Type)
+                {
+                    report.Likes += 1;
+                }
+                else
+                {
+                    report.Dislikes += 1;
+                }
+                DbContext.SaveChanges();
+            }
+            
+            
+            DbContext.SaveChanges();
+
+            return true;
         }
     }
 }

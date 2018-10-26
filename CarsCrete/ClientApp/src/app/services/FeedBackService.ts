@@ -12,6 +12,7 @@ export class FeedBackService{
   buttons:any = [];
   number:number=0;
 
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     
     
@@ -33,12 +34,17 @@ export class FeedBackService{
     
     return this.http.post<Report>(this.baseUrl + 'api/quest/savereport', { "Name": report.firstName, "Surname": report.sur, "Text":report.report, "Skill": report.skill, "Mark": report.mark, "VisitTime": new Date(report.date) });
   }
+  addLikeOrDislike(id:number,type:boolean, report:boolean){
+    return this.http.post<Report>(this.baseUrl + 'cars/add-likes', { "Type": type, "CommentId": id, "Report":report});
+  }
   
   changePage(floor:number, top:number){
     this.curReports = [];
+    
     for(let i = floor;i<top;i++){
       if(i<this.number){
         this.curReports.push(this.reports[i]);
+        this.reports[i].ShowForm=false;
       }
       else{
         break;
@@ -60,6 +66,7 @@ export interface Report {
     Mark: number;
     Text:string;
     CreateDate: Date;
+    ShowForm:boolean;
 }
 
 

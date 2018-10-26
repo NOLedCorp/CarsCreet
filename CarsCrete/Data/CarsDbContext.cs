@@ -26,6 +26,7 @@ namespace CarsCrete.Data
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<User>().HasMany(u => u.Reports).WithOne(i => i.User);
             modelBuilder.Entity<User>().HasMany(u => u.Books).WithOne(i => i.User);
+            modelBuilder.Entity<User>().HasMany(u => u.Comments).WithOne(i => i.User);
 
             modelBuilder.Entity<Car>().ToTable("Cars");
             modelBuilder.Entity<Car>().Property(i => i.Id).ValueGeneratedOnAdd();
@@ -42,6 +43,11 @@ namespace CarsCrete.Data
             modelBuilder.Entity<FeedBack>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<FeedBack>().HasOne(u => u.Car).WithMany(u => u.Reports);
             modelBuilder.Entity<FeedBack>().HasOne(u => u.User).WithMany(u => u.Reports);
+            modelBuilder.Entity<FeedBack>().HasMany(c => c.Comments);
+
+            modelBuilder.Entity<ReportComment>().ToTable("Comments");
+            modelBuilder.Entity<ReportComment>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<ReportComment>().HasOne(u => u.User).WithMany(u => u.Comments);
 
 
         }
@@ -51,6 +57,7 @@ namespace CarsCrete.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<FeedBack> Reports { get; set; }
+        public DbSet<ReportComment> Comments { get; set; }
         #endregion Properties
     }
 }

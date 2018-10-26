@@ -1,34 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarsCrete.Data.Models
 {
-    public class FeedBackDTO
+    public class ReportCommentDTO
     {
         #region Constructor
-        public FeedBackDTO()
+        public ReportCommentDTO()
         {
 
         }
         #endregion
         #region Properties
-
         public long Id { get; set; }
         public long UserId { get; set; }
-        public long CarId { get; set; }
-        public double Look { get; set; }
-        public double Comfort { get; set; }
-        public double Drive { get; set; }
+        public long FeedBackId { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
-        public double Mark { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
+        #endregion
+
+        #region Lazy-loading
         public virtual ReportUser User { get; set; }
-        public virtual Car Car { get; set; }
-        public virtual List<ReportCommentDTO> Comments { get; set; }
         #endregion
     }
 }

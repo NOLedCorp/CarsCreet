@@ -18,12 +18,15 @@ namespace CarsCrete.Data.Models
 
         #region Properties
         public long Id { get; set; }
+        public string Photo { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public List<FeedBackDTO> Reports { get; set; }
         public List<BookDTO> Books { get; set; }
+        public virtual List<ReportComment> Comments { get; set; }
         #endregion
 
     }

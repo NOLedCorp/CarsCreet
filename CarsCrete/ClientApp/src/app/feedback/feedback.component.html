@@ -63,14 +63,14 @@
     <div class="comments" *ngIf="feedBackService.curReports">
         <div *ngFor="let com of feedBackService.curReports"  class="comment" [ngClass]='{"comment-good":com.Mark>3, "comment-bad":com.Mark<=3}' >
             <div class="row">
-                <div class="col-sm-7">
+                <div class="col-sm-9">
                     <p>
                         <span class="glyphicon glyphicon-user"></span> {{com.User.Name}} 
                         <br>
                         <i class="fa fa-car"></i> {{com.Car.Model}}
                     </p>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <span class="glyphicon glyphicon-time"></span> {{com.CreatedDate | date: 'dd.MM.yyyy'}}
                     <br>
                     <rating [mark]="com.Mark"></rating>
@@ -79,18 +79,113 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-7">
+                <div class="col-sm-9">
                     <p>{{com.Text}}</p>
+                    <div class="report-comments">
+                        <div *ngFor="let comment of com.Comments" class="comment">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <p>
+                                        <span class="glyphicon glyphicon-user"></span> {{comment.User.Name}} 
+                                    </p>
+                                    <p>{{comment.Text}}</p>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="glyphicon glyphicon-time"></span> {{comment.CreatedDate | date: 'dd.MM.yyyy'}}
+                                    <br>
+                                    <div class="com-rat" (click)="addLikes(comment, true, false)">
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <span>{{comment.Likes}}</span>
+                                    </div>
+                                    <div class="com-rat" (click)="addLikes(comment, false, false)">
+                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                        <span>{{comment.Dislikes}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-5">
-                    
+                <div class="col-sm-3">
+                    <div class="com-rat" (click)="addLikes(com, true, true)">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span>{{com.Likes}}</span>
+                    </div>
+                    <div class="com-rat" (click)="addLikes(com, false, true)">
+                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        <span>{{com.Dislikes}}</span>
+                    </div>
+                    <div class="com-rat">
+                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                            <span>{{com.Comments.length}}</span>
+                    </div>
                     
 
                 </div>
             </div>
-            
-            
-            
+            <button class="btn" (click)="showForm(com)"  >Ответить</button>
+            <form [formGroup]="registerForm" *ngIf="com.ShowForm" (ngSubmit)="onSubmit()" class="review">
+                <div >
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">Имя*</span>
+                        <input formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" name="name" type="text" required #name>
+                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.firstName.errors.required">Введите имя</span>
+                            
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span>Фамилия</span>
+                        <input formControlName="sur"   type="text" #sur>
+                        
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.date.errors }">Дата посещения*</span>
+                        <input formControlName="date" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" type="date" #date required>
+                        <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.date.errors.required">Введите дату</span>
+                            
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.mark.errors }">Оценка*</span>
+                        <select formControlName="mark" [ngClass]="{ 'is-invalid': submitted && f.mark.errors }" #mark>
+                            <option >Отлично</option>
+                            <option >Хорошо</option>
+                            <option >Плохо</option>
+                            <option >Очень плохо</option>
+                        </select>
+                        <div *ngIf="submitted && f.mark.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.mark.errors.required">Укажите вашу оценку</span>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="item">
+                        <span>Ваш опыт в квестах</span>
+                        <select formControlName="skill" #skill>
+                            <option >Новичок</option>
+                            <option >Любитель</option>
+                            <option >Профессионал</option>
+                        </select>
+                        
+                    </div>
+                </div>
+                <div class="item ">
+                    <span [ngClass]="{ 'is-invalid': submitted && f.report.errors }">Отзыв*</span>
+                    <textarea formControlName="report" [ngClass]="{ 'is-invalid': submitted && f.report.errors }" cols="10" rows="5" #report></textarea>
+                    <div *ngIf="submitted && f.report.errors" class="invalid-feedback">
+                        <span class="d-block is-invalid" *ngIf="f.report.errors.required">Введите отзыв</span>
+                        <span class="d-block is-invalid" *ngIf="f.report.errors.minlength">Введите не меньше 5 символов!</span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-primary" >Оставить отзыв</button>
+                    <button class="btn btn-default" (click)="showForm(com)">Отмена</button>
+                </div>
+                
+            </form>
+            <div *ngIf="com.ShowForm" class="background-blur" (click)="showForm(com)"></div>
         </div>
         <pages *ngIf="feedBackService.reports.length>21" [service]="feedBackService"></pages>
     </div>
