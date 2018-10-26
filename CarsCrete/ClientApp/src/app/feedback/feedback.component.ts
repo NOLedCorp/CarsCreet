@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../services/AlertService';
-import { FeedBackService, Report } from '../services/FeedBackService';
-import { ReportComment } from '../services/UserService';
+
+import { FeedBackService } from '../services/FeedBackService';
+import { ReportComment, UserService, FeedBack } from '../services/UserService';
 
 @Component({
   selector: 'feedback',
@@ -12,14 +13,15 @@ import { ReportComment } from '../services/UserService';
 })
 export class FeedbackComponent implements OnInit {
   registerForm: FormGroup;
+  commentForm: FormGroup;
   submitted = false;
   
-  @Input() reports:Report[]=[];
+  @Input() reports:FeedBack[]=[];
 
   buttons:boolean[] = [];
   alertService = new AlertService(); 
   
-  constructor(private formBuilder: FormBuilder, public feedBackService:FeedBackService){}
+  constructor(private formBuilder: FormBuilder, public feedBackService:FeedBackService, public userService:UserService){}
 
   
   ngOnInit() {
@@ -29,7 +31,7 @@ export class FeedbackComponent implements OnInit {
     else{
       this.feedBackService.reports=this.reports;
       this.feedBackService.number=this.reports.length;
-      console.log(this.reports);
+ 
       this.feedBackService.changePage(0,21);
     }
     
@@ -42,27 +44,49 @@ export class FeedbackComponent implements OnInit {
       skill: [''],
       report: ['', [Validators.required]]
     });
+    this.commentForm = this.formBuilder.group({
+      report:['', Validators.required]
+    });
   }
   addLikes(comment:any, k:boolean, report:boolean){
  
     if(k){
       comment.Likes+=1;
       this.feedBackService.addLikeOrDislike(comment.Id, true, report).subscribe(data => {
-        console.log(data);
+
       })
     }
     else{
-      console.log(comment);
+
       comment.Dislikes+=1;
       this.feedBackService.addLikeOrDislike(comment.Id, k, report).subscribe(data => {
-        console.log(data);
+
       })
     }
     
   }
-  showForm(com:Report){
-    console.log(com);
-    com.ShowForm=!com.ShowForm;
+  showForm(com:FeedBack){
+    if(localStorage.getItem("currentUser")){
+      this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
+      com.ShowForm=!com.ShowForm;
+    }
+    else{
+      this.userService.ShowForm(0);
+    }
+    this.submitted=false;
+    
+  }
+  addComment(text:string, report:FeedBack){
+    this.submitted = true;
+    if (this.commentForm.invalid) {  
+        return;
+    }
+    this.feedBackService.addComment(text, this.userService.currentUser.Id, report.Id).subscribe(data =>{
+      report.ShowForm=!report.ShowForm;
+      this.commentForm.reset();
+      report.Comments.push(data);
+    })
+    this.submitted=false;
   }
   get f() { return this.registerForm.controls; }
  

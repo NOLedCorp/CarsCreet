@@ -58,6 +58,7 @@ export interface FeedBack{
     User:ReportUser;
     Car:Car;
     Comments:ReportComment[];
+    ShowForm:boolean;
 }
 
 export interface ReportComment{

@@ -122,63 +122,17 @@
                 </div>
             </div>
             <button class="btn" (click)="showForm(com)"  >Ответить</button>
-            <form [formGroup]="registerForm" *ngIf="com.ShowForm" (ngSubmit)="onSubmit()" class="review">
-                <div >
-                    <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">Имя*</span>
-                        <input formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" name="name" type="text" required #name>
-                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.firstName.errors.required">Введите имя</span>
-                            
-                        </div>
-                    </div>
-                    <div class="item">
-                        <span>Фамилия</span>
-                        <input formControlName="sur"   type="text" #sur>
-                        
-                    </div>
-                    <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.date.errors }">Дата посещения*</span>
-                        <input formControlName="date" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" type="date" #date required>
-                        <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.date.errors.required">Введите дату</span>
-                            
-                        </div>
-                    </div>
-                    <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.mark.errors }">Оценка*</span>
-                        <select formControlName="mark" [ngClass]="{ 'is-invalid': submitted && f.mark.errors }" #mark>
-                            <option >Отлично</option>
-                            <option >Хорошо</option>
-                            <option >Плохо</option>
-                            <option >Очень плохо</option>
-                        </select>
-                        <div *ngIf="submitted && f.mark.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.mark.errors.required">Укажите вашу оценку</span>
-                            
-                        </div>
-                        
-                    </div>
-                    <div class="item">
-                        <span>Ваш опыт в квестах</span>
-                        <select formControlName="skill" #skill>
-                            <option >Новичок</option>
-                            <option >Любитель</option>
-                            <option >Профессионал</option>
-                        </select>
-                        
-                    </div>
-                </div>
+            <form [formGroup]="commentForm"  *ngIf="com.ShowForm"  class="review">
                 <div class="item ">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.report.errors }">Отзыв*</span>
+                    <span [ngClass]="{ 'is-invalid': submitted && f.report.errors }">Комментарий</span>
                     <textarea formControlName="report" [ngClass]="{ 'is-invalid': submitted && f.report.errors }" cols="10" rows="5" #report></textarea>
                     <div *ngIf="submitted && f.report.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.report.errors.required">Введите отзыв</span>
+                        <span class="d-block is-invalid" *ngIf="f.report.errors.required">Введите комментарий</span>
                         <span class="d-block is-invalid" *ngIf="f.report.errors.minlength">Введите не меньше 5 символов!</span>
                     </div>
                 </div>
                 <div class="buttons">
-                    <button class="btn btn-primary" >Оставить отзыв</button>
+                    <button class="btn btn-primary" (click)="addComment(report.value, com)">Отправить</button>
                     <button class="btn btn-default" (click)="showForm(com)">Отмена</button>
                 </div>
                 
@@ -190,3 +144,4 @@
     
 </div>
 <alert  [alert] ="alertService"></alert>
+<user-form *ngIf="userService.openForm" [service]="userService" [alert]="alertService"></user-form>

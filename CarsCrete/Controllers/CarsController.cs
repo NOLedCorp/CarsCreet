@@ -332,6 +332,30 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        public class NewComment
+        {
+            public long UserId { get; set; }
+            public long FeedBackId { get; set; }
+            public string Text { get; set; }
+        }
+        [HttpPut("add-comment")]
+        public IActionResult AddComment([FromBody]NewComment model)
+        {
+
+            var report = model.Adapt<ReportComment>();
+            report.CreatedDate = DateTime.Now;
+            DbContext.Comments.Add(report);
+            DbContext.SaveChanges();
+            var result = report.Adapt<ReportCommentDTO>();
+            result.User = DbContext.Users.Where(u => u.Id == model.UserId).ProjectToType<ReportUser>().FirstOrDefault();
+
+            return new JsonResult(
+                result,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
         public class Like
         {
             public long CommentId { get; set; }
