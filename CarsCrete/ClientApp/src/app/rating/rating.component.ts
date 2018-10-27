@@ -1,21 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ShortFeedBack } from '../services/FeedBackService';
+import { checkNoChanges } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'rating',
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.css']
 })
-export class RatingComponent implements OnInit {
+export class RatingComponent implements OnInit, OnChanges {
   @Input() mark:number;
   @Input() markOut:any;
   @Input() prop:string;
-  stars:Star[]=[{Id:0, Type:0},{Id:1, Type:0},{Id:2, Type:0},{Id:3, Type:0},{Id:4, Type:0}];
-  Mark:number = 0;
+  stars:Star[];
+  Mark:number;
   constructor() { 
     
   }
 
   ngOnInit() {
+    this.stars = [{Id:0, Type:0},{Id:1, Type:0},{Id:2, Type:0},{Id:3, Type:0},{Id:4, Type:0}];
+    this.Mark=0;
     if(this.mark>0){
       this.Mark = this.mark;
       let i = 0;
@@ -33,6 +37,17 @@ export class RatingComponent implements OnInit {
     }
     
 
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    
+    if(changes.markOut){
+
+      
+      if(changes.markOut.currentValue[this.prop]==0){
+        this.ngOnInit();
+      }
+    }
+    
   }
   setRating(star: Star){
     this.markOut[this.prop]=star.Id+1;

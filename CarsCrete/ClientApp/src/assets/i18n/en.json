@@ -36,7 +36,8 @@
     "CONSUMPTION":"Consumption",
     "L":"l",
     "KM":"km",
-    "OUR_CARS":"Our cars"
+    "OUR_CARS":"Our cars",
+    "NO_DATA":"No data"
     
 
 }

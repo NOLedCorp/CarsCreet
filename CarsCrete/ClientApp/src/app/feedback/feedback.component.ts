@@ -151,7 +151,6 @@ export class FeedbackComponent implements OnInit {
         if(data) {
           this.feedBackService.getReports();
           this.feedBack = new ShortFeedBack();
-          
           this.alertService.showA({type:'success',message:'Комментарий успешно оставлен.',show:true});
         }
         this.registerForm.reset();

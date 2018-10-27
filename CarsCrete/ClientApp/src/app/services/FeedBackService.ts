@@ -75,12 +75,13 @@ export class FeedBackService{
 // }
 export class ShortFeedBack{
   CarId:number=0;
-  DateStart:Date=new Date();
+  DateStart:Date;
   Look:number=0;
   Comfort:number=0;
   Drive:number=0;
   Report:string='';
   UserId:number=0;
+  Clear:boolean=false;
 }
 
 
