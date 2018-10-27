@@ -42,7 +42,7 @@ export class BookingFormComponent implements OnInit {
         }
         this.service.BookCar(this.book).subscribe(data => {
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
-          console.log(data);
+         
         })
       }
       else{
@@ -62,7 +62,7 @@ export class BookingFormComponent implements OnInit {
 
         }
         this.service.BookCarNew(this.book).subscribe(data => {
-          console.log(data);
+       
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
           
         },error => {
@@ -104,7 +104,7 @@ export class BookingFormComponent implements OnInit {
           this.service.car.Reports.forEach(r => {
             r.CreatedDate=new Date(r.CreatedDate);
           })
-          console.log(this.service.car);
+        
           
         }
         else{

@@ -144,11 +144,12 @@
               
             </form>
       </div>
-      <div class="reports-container">
-        <feedback *ngIf="service.car" [reports]="service.car.Reports"></feedback>
-      </div>
     </div>
   </div>
+  <div class="reports-container">
+    <feedback *ngIf="service.car" [reports]="service.car.Reports"></feedback>
+  </div>
+    
   <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
   <alert  [alert] ="alert"></alert>
   

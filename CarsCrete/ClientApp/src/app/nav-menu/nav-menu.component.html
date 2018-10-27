@@ -76,7 +76,7 @@
                                     </a>
                                 </li>
                                 <li [routerLinkActive]='["link-active"]' (click)="changePage(2)">
-                                    <a [routerLink]='["/feedback"]' (click)='collapse()'>
+                                    <a [routerLink]='["/policy"]' (click)='collapse()'>
                                         <span class='glyphicon glyphicon-info-sign'></span> {{"RENTAL_POLICY" | translate}}
                                     </a>
                                 </li>
@@ -85,8 +85,8 @@
                                         <i class="fa fa-book"></i> {{"ABOUT_CRETE" | translate}}
                                     </a>
                                 </li>
-                                <li [routerLinkActive]='["link-active"]' (click)="changePage(4)">
-                                    <a [routerLink]='["/contacts"]' (click)='collapse()'>
+                                <li [routerLinkActive]='["link-active"]' >
+                                    <a [routerLink]='["/feedback"]' (click)='collapse()'>
                                         <i class="fa fa-comments"></i> {{"COMMENTS" | translate}}
                                     </a>
                                 </li>

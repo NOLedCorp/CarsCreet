@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
 import {User, ReportComment, FeedBack} from '../services/UserService';
-import {CarsService, Car, Filter, Book} from '../services/CarsService';
+import {CarsService, Car, Book} from '../services/CarsService';
 import { Observable } from 'rxjs';
 
 
@@ -22,6 +22,7 @@ export class FeedBackService{
     this.number=0;
     this.http.get<FeedBack[]>(this.baseUrl + 'cars/get-reports').subscribe(data => {
       this.reports=data;
+   
       this.reports.forEach(r => {
           r.CreatedDate = new Date(r.CreatedDate);
       })
@@ -30,9 +31,9 @@ export class FeedBackService{
 
     })
   }
-  saveReport(report:any){
+  saveReport(report:ShortFeedBack){
     
-    return this.http.post<FeedBack>(this.baseUrl + 'api/quest/savereport', { "Name": report.firstName, "Surname": report.sur, "Text":report.report, "Skill": report.skill, "Mark": report.mark, "VisitTime": new Date(report.date) });
+    return this.http.put<FeedBack>(this.baseUrl + 'cars/add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive, "DateStart": new Date(report.DateStart), "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Report });
   }
   addLikeOrDislike(id:number,type:boolean, report:boolean){
     return this.http.post<FeedBack>(this.baseUrl + 'cars/add-likes', { "Type": type, "CommentId": id, "Report":report});
@@ -53,6 +54,7 @@ export class FeedBackService{
       }
       
     }
+  
 
   }
 }
@@ -71,6 +73,15 @@ export class FeedBackService{
 //     ShowForm:boolean;
 
 // }
+export class ShortFeedBack{
+  CarId:number=0;
+  DateStart:Date=new Date();
+  Look:number=0;
+  Comfort:number=0;
+  Drive:number=0;
+  Report:string='';
+  UserId:number=0;
+}
 
 
 

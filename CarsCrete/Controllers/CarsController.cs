@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarsCrete.Controllers
 {
-    
+
     [Route("[controller]")]
     public class CarsController : Controller
     {
@@ -36,13 +36,13 @@ namespace CarsCrete.Controllers
         [HttpGet("get-user")]
         public IActionResult GetUser(UserEntrance user1)
         {
-            
+
             var user = DbContext.Users.Where(x => x.Email == user1.Email).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
             if (user == null)
             {
                 return new StatusCodeResult(500);
             }
-            if(user.Password != user1.Password)
+            if (user.Password != user1.Password)
             {
                 return new StatusCodeResult(501);
             }
@@ -87,7 +87,7 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
-        
+
         public class UserPassword
         {
             public long Id { get; set; }
@@ -150,7 +150,7 @@ namespace CarsCrete.Controllers
         [HttpPut("add-booking-new")]
         public IActionResult AddBookingNew([FromBody]BookNew model)
         {
-            
+
             foreach (BookTimes bookTime in GetBookTimes(model.CarId))
             {
                 if (model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
@@ -194,7 +194,7 @@ namespace CarsCrete.Controllers
                 {
                     Formatting = Formatting.Indented
                 });
-            
+
         }
 
         [HttpGet("get-book/{id}")]
@@ -263,7 +263,7 @@ namespace CarsCrete.Controllers
                         .ThenInclude(u => u.User)
                 .Include(x => x.Reports)
                     .ThenInclude(u => u.User)
-                    
+
                 .Include(x => x.Books).ProjectToType<CarDTO>().ToList();
 
             foreach (CarDTO car in cars)
@@ -278,6 +278,45 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+
+        public class ReportCar
+        {
+            public long Id { get; set; }
+            public string Photo { get; set; }
+            public string Model { get; set; }
+        }
+
+        [HttpGet("get-report-cars")]
+        public IActionResult GetReportCars()
+        {
+            //var carr = new Car()
+            //{
+            //    Model = "VW Golf 7",
+            //    Photo = "../../assets/images/VW_golf_7.jpg",
+            //    Passengers = 5,
+            //    Doors = 5,
+            //    Transmission = "Automatic",
+            //    Fuel = "Diesel",
+            //    Consumption = 7,
+            //    Description = "Автомобиль с АКПП, 1,4 литра, 120 лошадиных сил. Климат-контроль, радио-CD, расход топлива 6 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.",
+            //    Price = 65,
+            //    Description_ENG = "Eng description of the car."
+
+
+            //};
+            //DbContext.Cars.Add(carr);
+            //DbContext.SaveChanges();
+            var cars = DbContext.Cars
+                .ProjectToType<ReportCar>().ToList();
+
+            return new JsonResult(
+                cars,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+
 
         public class BookTimes
         {
@@ -298,18 +337,10 @@ namespace CarsCrete.Controllers
         [HttpGet("get-reports")]
         public IActionResult GetReports()
         {
-            var rep = new FeedBack()
-            {
-                UserId = 7,
-                CarId = 4,
-                Mark = 3.5,
-                Text = "Средненькая тачка.",
-                CreatedDate = DateTime.Now
-            };
-            DbContext.Reports.Add(rep);
-            DbContext.SaveChanges();
-            var reports = DbContext.Reports.Include(c => c.Car).Include(u => u.User).ProjectToType<FeedBackDTO>().ToList();
-
+            
+            
+            var reports = DbContext.Reports.Include(c => c.Car).Include(u => u.User).ProjectToType<FeedBackDTO>().OrderByDescending(r => r.CreatedDate).ToList();
+            
             return new JsonResult(
                 reports,
                 new JsonSerializerSettings()
@@ -322,6 +353,8 @@ namespace CarsCrete.Controllers
         {
 
             var report = model.Adapt<FeedBack>();
+            report.CreatedDate = DateTime.Now;
+            report.Mark = Math.Round(report.Mark, 2);
             DbContext.Reports.Add(report);
             DbContext.SaveChanges();
 

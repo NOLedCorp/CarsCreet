@@ -25,6 +25,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PagesComponent } from './pages/pages.component';
 import { FeedBackService } from './services/FeedBackService';
 import { RatingComponent } from './rating/rating.component';
+import { PickerComponent } from './picker/picker.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -45,7 +46,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     BookingFormComponent,
     FeedbackComponent,
     PagesComponent,
-    RatingComponent
+    RatingComponent,
+    PickerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -59,14 +61,15 @@ export function HttpLoaderFactory1(http: HttpClient) {
         useFactory: (HttpLoaderFactory),
         deps: [HttpClient]
       }
-    }),
+    }), 
     
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'cars', component: CarsComponent },
-      { path: 'booking/:id', component: BookingFormComponent }
+      { path: 'booking/:id', component: BookingFormComponent },
+      { path: 'feedback', component:FeedbackComponent}
     ])
   ],
   providers: [UserService, CarsService, AlertService, FeedBackService],

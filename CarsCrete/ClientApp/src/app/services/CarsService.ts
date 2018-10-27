@@ -17,7 +17,9 @@ export class CarsService implements OnInit{
     GetCar(id:string){
         return this.http.get<Car>(this.baseUrl+'cars/get-car/'+id);
     }
-
+    GetReportCars(){
+        return this.http.get<ReportCar[]>(this.baseUrl+'cars/get-report-cars');
+    }
     AddCar(){
         return this.http.put<Car>(this.baseUrl + 'cars/add-car',{});
     }
@@ -75,6 +77,11 @@ export interface Book{
     Name?:string;
 }
 
+export interface ReportCar{
+    Id:number;
+    Photo:string;
+    Model:string;
+} 
 export interface Filter{
     Name:string;
     Value:string;

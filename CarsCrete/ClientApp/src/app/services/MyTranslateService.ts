@@ -11,7 +11,7 @@ export class MyTranslateService {
     changeLang(lang:string){
         this.lang=lang;
         this.translate.use(lang);
-        console.log(this.translate);
+     
        
     }
   }

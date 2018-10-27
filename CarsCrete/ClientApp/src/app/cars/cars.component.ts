@@ -24,7 +24,7 @@ export class CarsComponent {
     service.ngOnInit();
     
     this.service.GetCars().subscribe(data => {
-      console.log(data);
+   
       if(data.length!=0){
         
         this.cars=data;
@@ -33,7 +33,7 @@ export class CarsComponent {
             r.CreatedDate = new Date(r.CreatedDate);
           })
         })
-        console.log(this.cars);
+      
         
         
       }
@@ -81,12 +81,12 @@ export class CarsComponent {
   
   bookCar(car:Car){
     this.service.car=car;
-    console.log(car);
+
     this.service.showBookingForm=true;
   }
   showCarInfo(car:Car){
     this.service.car=car;
-    console.log(car);
+
     this.service.showCarInfo=true;
   }
 

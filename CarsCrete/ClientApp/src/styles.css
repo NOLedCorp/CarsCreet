@@ -20,6 +20,10 @@ body{
 .is-invalid:not(span){
     border-color: rgb(255, 0, 0)
 }
+.booking-container{
+    width: 100%;
+    max-width: 1030px;
+}
 .user-img-small{
     width: 30px;
     height: 30px;

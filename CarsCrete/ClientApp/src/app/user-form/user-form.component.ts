@@ -34,9 +34,9 @@ export class UserFormComponent implements OnInit {
     if(this.service.type==1){
       this.service.AddUser(this.userForm.value).subscribe(data=>{
         this.service.currentUser=data;
-        console.log(data);
+
         localStorage.setItem('currentUser',JSON.stringify(data));
-        console.log(JSON.stringify(localStorage.getItem("currentUser")));
+     
         this.alert.showA({type:'success',message:'Пользователь успешно зарегистрирован',show:true});
         this.service.ShowForm();
       },error => {
