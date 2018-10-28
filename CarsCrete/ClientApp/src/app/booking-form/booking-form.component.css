@@ -27,14 +27,7 @@ select,input{
     height: 30px;
 }
 form{
-    
     width: 100%;
- 
-    
-
-    
-    
-    
 }
 .detail-item{
     display: flex;
@@ -73,7 +66,7 @@ form{
 
 .car-info{
     margin-bottom: 20px;
-    font-size: 14pt;
+    font-size: 12pt;
     
 
 }
@@ -110,6 +103,8 @@ form{
     position: absolute;
     height: 10px;
     left: 0;
+    width: 0;
+    transition: 1s;
     
 }
 /* .pros{

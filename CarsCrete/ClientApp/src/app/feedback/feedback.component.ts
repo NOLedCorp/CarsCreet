@@ -32,7 +32,9 @@ export class FeedbackComponent implements OnInit {
 
   
   ngOnInit() {
-    console.log(this.reports);
+
+    
+    
     if(localStorage.getItem("currentUser")){
 
       this.autorized=true;
@@ -41,14 +43,13 @@ export class FeedbackComponent implements OnInit {
       this.cars=data;
   
     })
-    if(this.reports.length==0){
-      if(this.type=='all'){
-        this.feedBackService.getReports();
-      }
+    if(this.type=='all'){
+      this.feedBackService.getReports();
       
     
     }
-    else{
+    if(this.type=='car'){
+      console.log(this.reports);
       this.feedBackService.reports=this.reports;
       this.feedBackService.number=this.reports.length;
  

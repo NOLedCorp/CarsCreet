@@ -180,7 +180,7 @@
     </div>
   </div>
   <div class="reports-container">
-    <feedback *ngIf="service.car" [reports]="service.car.Reports" [type]="car"></feedback>
+    <feedback *ngIf="service.car?!!service.car.Reports:false" [reports]="service.car.Reports" [type]="'car'"></feedback>
   </div>
     
   <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>

@@ -23,12 +23,16 @@ export class BookingFormComponent implements OnInit {
   constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { }
   get f() { return this.bookingForm.controls; }
   Round(k:number){
-    return Math.round(k*100)/100
+    let res = Math.round(k*100)/100;
+    
+    return res.toFixed(2)
   }
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
+      console.log(this.bookingForm.value);
       this.submitted=true;
       if (this.bookingForm.invalid) {
-        return;
+        return
+        
       }
      
       if(localStorage.getItem("currentUser")){
@@ -44,6 +48,7 @@ export class BookingFormComponent implements OnInit {
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
+        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
          
@@ -97,6 +102,11 @@ export class BookingFormComponent implements OnInit {
       this.service.showCarInfo=true;
     }
     getProgress(type:string, car:Car){
+      if(car.Reports.length==0){
+        
+        this.rating[type]=0;
+        return 0;
+      }
       this.res=0;
       car.Reports.forEach(element => {
         this.res+=element[type];
@@ -109,6 +119,18 @@ export class BookingFormComponent implements OnInit {
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
       }
+      this.service.car=null;
+      this.bookingForm = this.formBuilder.group({
+        Name: [this.user.Name, Validators.required],
+        Email: [this.user.Email, Validators.required],
+        Password: [this.user?'123':'', Validators.required],
+        Tel: [''],
+        DateStart:['', Validators.required],
+        DateFinish:['', Validators.required],
+        Place:['', Validators.required],
+        Comment:['']
+      });
+      
       this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
        
         if(data){
@@ -118,7 +140,6 @@ export class BookingFormComponent implements OnInit {
             r.CreatedDate=new Date(r.CreatedDate);
             r.ButtonText= "Показать комментарии";
           })
-        
           
         }
         else{
@@ -158,16 +179,7 @@ export class BookingFormComponent implements OnInit {
           // };
         
       }})
-      this.bookingForm = this.formBuilder.group({
-        Name: ['', Validators.required],
-        Email: ['', Validators.required],
-        Password: ['', Validators.required],
-        Tel: [''],
-        DateStart:['', Validators.required],
-        DateFinish:['', Validators.required],
-        Place:['', Validators.required],
-        Comment:['']
-      });
+      
   }
 
 }
