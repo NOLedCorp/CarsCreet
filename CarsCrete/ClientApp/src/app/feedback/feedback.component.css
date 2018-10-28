@@ -56,12 +56,11 @@
     border-radius: 4px;
 }
 .row{
-    display: flex;
-    align-content: stretch;
+
 }
-.col-sm-9{
-    
-    border-right: 1px solid gray;
+
+.col-sm-3{
+    height: 100%;
 }
 .col-sm-9>p{
     display: flex;
@@ -197,6 +196,11 @@ textarea{
     width: auto;
 }
 @media (max-width: 767px){
+    .review{
+        width: 100%;
+        left: 0;
+        bottom: -250px;
+    }
     .item, .form-container .item{
         width: 100%;
         margin-right: 0;
@@ -209,6 +213,10 @@ textarea{
     
 }
 @media (min-width: 768px){
+    .col-sm-9{
+    
+        border-right: 1px solid gray;
+    }
     .com-rat>i.fa-thumbs-up:hover{
         color:green;
     }

@@ -67,7 +67,7 @@
         <div class="comments" *ngIf="feedBackService.curReports">
             <div *ngFor="let com of feedBackService.curReports"  class="comment" [ngClass]='{"comment-good":com.Mark>3, "comment-bad":com.Mark<=3}' >
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-9" style="height: 42px;">
                         <p>
                             <img class ="user-img-small"  src="{{com.User.Photo}}"> {{com.User.Name}}   |   
                             

@@ -1,8 +1,9 @@
 
-<div class="container-fluid">
+<div *ngIf="service.car" class="container-fluid">
   <div class="booking-container">
       <div class="form-container">
           <div class="car-info">
+            <h1>{{service.car?service.car.Model:''}}</h1>
             <div class="row">
               <div class="col-sm-4">
                 <div (click)="showCarInfo()" class="car-img">
@@ -12,6 +13,38 @@
                 
               </div>
               <div class="col-sm-7">
+                <div class="bars">
+                  <div class="pros">
+                    <span>Внешний вид</span>
+                    <div class="progress-container">
+                      
+                        <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Look', service.car)}" ></div>
+                        <span class="bars-label"> {{Round(rating.Look/200*5)}}</span>
+                    </div>
+                  
+                  </div>
+                  <div class="pros">
+                    <span>Комфорт</span>
+                    <div class="progress-container">
+                        
+                        <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Comfort', service.car)}" ></div>
+                        <span class="bars-label"> {{Round(rating.Comfort/200*5)}}</span>
+                    </div>
+                   
+                  </div>
+                  <div class="pros">
+                    <span>Ходовые характеристики</span>
+                    <div class="progress-container">
+                        <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Drive', service.car)}" ></div>
+                        <span class="bars-label"> {{Round(rating.Drive/200*5)}}</span>
+                    </div>
+                    
+                  </div>
+                  
+                  
+                  
+                </div>
+                
                 <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
                 <div class="details">
                   <div class="detail-item">

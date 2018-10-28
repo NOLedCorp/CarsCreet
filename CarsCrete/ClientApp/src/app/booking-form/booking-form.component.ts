@@ -14,13 +14,17 @@ import {TranslateService} from '@ngx-translate/core';
 export class BookingFormComponent implements OnInit {
   bookingForm: FormGroup;
   submitted = false;
+  res:number=0;
+  rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book;
   public user:User;
   
   
   constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { }
   get f() { return this.bookingForm.controls; }
-  
+  Round(k:number){
+    return Math.round(k*100)/100
+  }
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
       if (this.bookingForm.invalid) {
@@ -92,6 +96,15 @@ export class BookingFormComponent implements OnInit {
 
       this.service.showCarInfo=true;
     }
+    getProgress(type:string, car:Car){
+      this.res=0;
+      car.Reports.forEach(element => {
+        this.res+=element[type];
+      });
+      this.res = this.res/car.Reports.length/5*100*2;
+      this.rating[type]=this.res;
+      return Math.round(this.res).toString()+'px';
+    }
     ngOnInit() {
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
@@ -157,4 +170,9 @@ export class BookingFormComponent implements OnInit {
       });
   }
 
+}
+export interface Raiting{
+  Look:number;
+  Comfort:number;
+  Drive:number;
 }

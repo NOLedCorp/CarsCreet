@@ -91,6 +91,39 @@ form{
 
     bottom: 0;
 }
+.bars{
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px 0;
+    border-bottom: 1px solid gray;
+    font-size: 10pt;
+
+}
+.bars-label{
+    position: absolute;
+    right: -35px;
+    top:-4px;
+
+}
+.progress{
+    
+    position: absolute;
+    height: 10px;
+    left: 0;
+    
+}
+/* .pros{
+    display: flex;
+    align-items: center;
+} */
+.progress-container{
+   
+    border-radius: 4px;
+    width: 200px;
+    height: 10px;
+    position: relative;
+    background-color: rgb(230, 230, 230);
+}
 .car-info img{
     width: 100%;
     border-radius: 4px;
@@ -101,9 +134,7 @@ button{
     width: 150px;
 }
 @media (min-width: 768px){
-    .car-info .row{
-        height: 235px;
-    }
+    
     .car-info img{
         max-height: 235px;
         max-width: 356px;
