@@ -103,6 +103,7 @@ export class BookingFormComponent implements OnInit {
           this.service.car=data;
           this.service.car.Reports.forEach(r => {
             r.CreatedDate=new Date(r.CreatedDate);
+            r.ButtonText= "Показать комментарии";
           })
         
           

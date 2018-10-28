@@ -23,6 +23,7 @@ export class FeedbackComponent implements OnInit {
   feedBack:ShortFeedBack= new ShortFeedBack();
   
   @Input() reports:FeedBack[]=[];
+  @Input() type:string='all';
 
   buttons:boolean[] = [];
   alertService = new AlertService(); 
@@ -31,6 +32,7 @@ export class FeedbackComponent implements OnInit {
 
   
   ngOnInit() {
+    console.log(this.reports);
     if(localStorage.getItem("currentUser")){
 
       this.autorized=true;
@@ -40,7 +42,10 @@ export class FeedbackComponent implements OnInit {
   
     })
     if(this.reports.length==0){
-      this.feedBackService.getReports();
+      if(this.type=='all'){
+        this.feedBackService.getReports();
+      }
+      
     
     }
     else{
@@ -75,6 +80,17 @@ export class FeedbackComponent implements OnInit {
       })
     }
     
+  }
+  showComments(com:FeedBack){
+    if(com.ShowComments){
+      com.ShowComments=!com.ShowComments;
+      com.ButtonText="Показать комментарии";
+    }
+    else{
+      com.ShowComments=!com.ShowComments;
+      com.ButtonText="Скрыть комментарии";
+    }
+
   }
   showForm(com:FeedBack){
     if(this.autorized){

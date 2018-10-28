@@ -59,6 +59,8 @@ export interface FeedBack{
     Car:Car;
     Comments:ReportComment[];
     ShowForm:boolean;
+    ShowComments:boolean;
+    ButtonText:string;
 }
 
 export interface ReportComment{

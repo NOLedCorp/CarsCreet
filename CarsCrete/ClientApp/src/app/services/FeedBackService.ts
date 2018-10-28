@@ -25,7 +25,9 @@ export class FeedBackService{
    
       this.reports.forEach(r => {
           r.CreatedDate = new Date(r.CreatedDate);
+          r.ButtonText = "Показать комментарии";
       })
+      console.log(this.reports);
       this.number=this.reports.length;
       this.changePage(0,21);
 

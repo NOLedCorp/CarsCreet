@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="container booking-container" >
-        <h1>Отзывы</h1>
-        <form *ngIf="reports.length==0" [formGroup]="registerForm"  class="review-top">
+        <h1 *ngIf="reports.length!=0">Отзывы</h1>
+        <form *ngIf="type=='all'" [formGroup]="registerForm"  class="review-top">
             <div class="form-container row">
                 <div class="col-sm-6">
                     <div class="item">
@@ -83,7 +83,8 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <p>{{com.Text}}</p>
-                        <div class="report-comments">
+                        <p class="line" *ngIf="com.Comments.length>0"><span (click)="showComments(com)">{{com.ButtonText}} <i class="fa" [ngClass] = "{'fa-angle-down':!com.ShowComments, ' fa-angle-up':com.ShowComments}"></i></span></p>
+                        <div *ngIf="com.ShowComments" class="report-comments">
                             <div *ngFor="let comment of com.Comments" class="comment">
                                 <div class="row">
                                     <div class="col-sm-9">

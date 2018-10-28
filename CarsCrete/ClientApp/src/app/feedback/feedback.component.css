@@ -1,3 +1,28 @@
+.line {
+    font-size: 12pt;
+    
+    position: relative;
+}
+.line span {
+    background-color: #ffffff;
+    position: relative;
+    margin-left: 30px;
+    z-index: 1;
+    padding: 0px 8px;
+    cursor: pointer;
+    color: rgb(185, 192, 194);
+}
+.line:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(185, 192, 194);
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    z-index: 0;
+}
 .item{
     display: flex;
     flex-direction: column;
