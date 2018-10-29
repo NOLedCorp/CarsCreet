@@ -55,7 +55,6 @@ namespace CarsCrete.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<long>(nullable: false),
-                    ReportId = table.Column<long>(nullable: false),
                     Likes = table.Column<int>(nullable: false),
                     Dislikes = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: false),

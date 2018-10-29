@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarsCrete.Data.Migrations
 {
     [DbContext(typeof(CarsDbContext))]
-    [Migration("20181026110423_NewUser")]
-    partial class NewUser
+    [Migration("20181029143436_Init1")]
+    partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,8 @@ namespace CarsCrete.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("CarId");
+
+                    b.Property<DateTime>("CreateDate");
 
                     b.Property<DateTime>("DateFinish");
 
@@ -134,7 +136,7 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<int>("Dislikes");
 
-                    b.Property<long?>("FeedBackId");
+                    b.Property<long>("FeedBackId");
 
                     b.Property<int>("Likes");
 
@@ -162,6 +164,8 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired();
+
+                    b.Property<string>("Lang");
 
                     b.Property<DateTime>("ModifiedDate");
 
@@ -211,7 +215,8 @@ namespace CarsCrete.Data.Migrations
                 {
                     b.HasOne("CarsCrete.Data.Models.FeedBack")
                         .WithMany("Comments")
-                        .HasForeignKey("FeedBackId");
+                        .HasForeignKey("FeedBackId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CarsCrete.Data.Models.User", "User")
                         .WithMany("Comments")

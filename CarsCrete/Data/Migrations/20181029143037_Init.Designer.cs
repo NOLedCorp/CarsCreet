@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarsCrete.Data.Migrations
 {
     [DbContext(typeof(CarsDbContext))]
-    [Migration("20181029141208_Mig")]
-    partial class Mig
+    [Migration("20181029143037_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
