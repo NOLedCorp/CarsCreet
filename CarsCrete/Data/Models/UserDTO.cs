@@ -22,6 +22,7 @@ namespace CarsCrete.Data.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string Lang { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public List<FeedBackDTO> Reports { get; set; }

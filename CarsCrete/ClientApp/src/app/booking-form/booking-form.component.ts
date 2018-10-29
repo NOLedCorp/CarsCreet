@@ -43,7 +43,7 @@ export class BookingFormComponent implements OnInit {
           UserId:this.user.Id,
           DateStart:this.bookingForm.value.DateStart,
           DateFinish:this.bookingForm.value.DateFinish,
-          Price:this.service.car.Price*(this.bookingForm.value.DateFinish - this.bookingForm.value.DateStart),
+          Price:this.service.car.Price,
           Place:"Iraklion airport",
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
@@ -52,7 +52,21 @@ export class BookingFormComponent implements OnInit {
         this.service.BookCar(this.book).subscribe(data => {
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
          
-        })
+        },error => {
+          console.clear();
+          if(error.status==501){
+
+            this.alert.showA({type:'wrong',message:'Время занято',show:true});
+            this.submitted=false;
+            df.value="";
+            ds.value="";
+            this.bookingForm.value.DateStart="";
+            
+          }
+          else{
+            this.alert.showA({type:'wrong',message:'Введены некорректные данные',show:true});
+            this.submitted=false;
+          }})
       }
       else{
         this.book = {

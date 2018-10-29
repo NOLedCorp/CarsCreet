@@ -30,6 +30,7 @@ namespace CarsCrete.Data.Models
         [Required]
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string Lang { get; set; }
         [Required]
         public string Password { get; set; }
 

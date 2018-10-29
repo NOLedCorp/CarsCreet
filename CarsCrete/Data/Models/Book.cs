@@ -31,6 +31,8 @@ namespace CarsCrete.Data.Models
         public double Price { get; set; }
         [Required]
         public string Place { get; set; }
+        [Required]
+        public DateTime CreateDate { get; set; }
         #endregion
         #region Lazy-loading
         [ForeignKey("UserId")]

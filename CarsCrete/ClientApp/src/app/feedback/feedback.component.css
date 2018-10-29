@@ -55,9 +55,7 @@
     margin: 0 -10px 0 -10px;
     border-radius: 4px;
 }
-.row{
 
-}
 
 .col-sm-3{
     height: 100%;
@@ -183,6 +181,9 @@ textarea{
     width: auto;
     color:blue;
 
+}
+.picker{
+    width: auto !important;
 }
 .comment>.btn:hover{
     text-decoration: underline;

@@ -120,9 +120,21 @@ namespace CarsCrete.Controllers
                     return new StatusCodeResult(501);
                 }
             }
-            var book = model.Adapt<Book>();
+            if (model.DateStart > model.DateFinish)
+            {
+                return new StatusCodeResult(500);
+            }
+            var book = new Book()
+            {
+                DateStart = model.DateStart,
+                DateFinish = model.DateFinish,
+                CarId = model.CarId,
+                UserId = model.UserId,
+                Place = model.Place,
+                Price = model.Price
+            };
             DbContext.Books.Add(book);
-            //DbContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return new JsonResult(
                 book.Adapt<BookDTO>(),

@@ -4,7 +4,7 @@
         <form *ngIf="type=='all'" [formGroup]="registerForm"  class="review-top">
             <div class="form-container row">
                 <div class="col-sm-6">
-                    <div class="item">
+                    <div class="item picker">
                         <span [ngClass]="{ 'is-invalid': submitted && feedBack.CarId==0 }">Автомобиль*</span>
                         <picker *ngIf="cars.length!=0" [items]="cars" [out]="feedBack" [prop]="'CarId'"></picker>
                         <div *ngIf="submitted && feedBack.CarId==0" class="invalid-feedback">
