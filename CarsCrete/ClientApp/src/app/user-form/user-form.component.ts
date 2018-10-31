@@ -26,7 +26,8 @@ export class UserFormComponent implements OnInit {
       if(this.service.type==1){
         return;
       }
-      if(this.f.Password.errors || this.f.Email.errors){
+      if(this.f.Password.errors || this.f.Email.errors ){
+        console.log(this.f);
         return;
       }
       
@@ -77,7 +78,7 @@ export class UserFormComponent implements OnInit {
       Name: ['', Validators.required],
       Email: ['', Validators.required],
       Password: ['', Validators.required],
-      
+      Tel:['']      
     });
 
   }

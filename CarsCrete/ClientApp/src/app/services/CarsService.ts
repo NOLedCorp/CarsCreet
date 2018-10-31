@@ -31,7 +31,7 @@ export class CarsService implements OnInit{
     }
     BookCarNew(book:Book){
         console.log(book);
-        return this.http.put<Book>(this.baseUrl + 'cars/add-booking-new', {"Id":123,"DateStart":book.DateStart, "DateFinish":book.DateFinish,  "CarId":book.CarId, "Price":book.Price, "Place":book.Place,"Email":book.Email, "Password":book.Password, "Name":book.Name, "Tel":book.Tel, "Comment":book.Comment});
+        return this.http.put<Book>(this.baseUrl + 'cars/add-booking-new', {"Id":123,"DateStart":book.DateStart, "DateFinish":book.DateFinish,  "CarId":book.CarId, "Price":book.Price, "Place":book.Place,"Email":book.Email, "Password":book.Password, "Name":book.Name, "Phone":book.Tel, "Comment":book.Comment});
     }
 
     ngOnInit(){

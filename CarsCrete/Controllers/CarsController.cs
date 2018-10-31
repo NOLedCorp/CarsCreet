@@ -58,6 +58,7 @@ namespace CarsCrete.Controllers
             public string Name { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
+            public string Phone { get; set; }
         }
 
         [HttpPut("add-user")]
@@ -71,7 +72,9 @@ namespace CarsCrete.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
+                Phone = model.Phone,
                 Password = model.Password,
+                Photo = "../../assets/images/default_user_photo.jpg",
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now
             };
@@ -109,17 +112,22 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
-
+        public bool CheckDate(long CarId, DateTime DateStart, DateTime DateFinish)
+        {
+            bool res = true;
+            foreach (BookTimes bookTime in GetBookTimes(CarId))
+            {
+                if (DateStart >= bookTime.DateStart && DateStart <= bookTime.DateFinish || DateFinish >= bookTime.DateStart && DateFinish <= bookTime.DateFinish)
+                {
+                    return false;
+                }
+            }
+            return res;
+        }
         [HttpPut("add-booking")]
         public IActionResult AddBooking([FromBody]BookDTO model)
         {
-            foreach (BookTimes bookTime in GetBookTimes(model.CarId))
-            {
-                if (model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
-                {
-                    return new StatusCodeResult(501);
-                }
-            }
+            
             if (model.DateStart > model.DateFinish)
             {
                 return new StatusCodeResult(500);
@@ -156,7 +164,7 @@ namespace CarsCrete.Controllers
             public string Name { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
-            public string Tel { get; set; }
+            public string Phone { get; set; }
             public string Comment { get; set; }
         }
         [HttpPut("add-booking-new")]
@@ -173,7 +181,7 @@ namespace CarsCrete.Controllers
             var user = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault();
             if (user == null)
             {
-                AddUser(user.Adapt<UserReg>());
+                AddUser(model.Adapt<UserReg>());
                 model.UserId = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault().Id;
             }
             else
@@ -191,21 +199,24 @@ namespace CarsCrete.Controllers
             {
                 DateStart = model.DateStart,
                 DateFinish = model.DateFinish,
+                CreateDate = DateTime.Now,
                 CarId = model.CarId,
                 UserId = model.UserId,
                 Place = model.Place,
                 Price = model.Price
             };
+            try
+            {
+                DbContext.Books.Add(book);
+                DbContext.SaveChanges();
+                return new StatusCodeResult(200);
+            }
+            catch
+            {
+                return new StatusCodeResult(505);
+            }
 
-            DbContext.Books.Add(book);
-            DbContext.SaveChanges();
-
-            return new JsonResult(
-                book.Adapt<BookDTO>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+            
 
         }
 

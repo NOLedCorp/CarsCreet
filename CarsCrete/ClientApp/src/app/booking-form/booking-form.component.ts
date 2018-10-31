@@ -12,6 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./booking-form.component.css']
 })
 export class BookingFormComponent implements OnInit {
+  showBook:boolean = false;
   bookingForm: FormGroup;
   submitted = false;
   res:number=0;
@@ -85,7 +86,7 @@ export class BookingFormComponent implements OnInit {
 
         }
         this.service.BookCarNew(this.book).subscribe(data => {
-       
+          this.showBook=true;
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
           
         },error => {
@@ -135,8 +136,8 @@ export class BookingFormComponent implements OnInit {
       }
       this.service.car=null;
       this.bookingForm = this.formBuilder.group({
-        Name: [this.user.Name, Validators.required],
-        Email: [this.user.Email, Validators.required],
+        Name: [this.user?this.user.Name:'', Validators.required],
+        Email: [this.user?this.user.Email:'', Validators.required],
         Password: [this.user?'123':'', Validators.required],
         Tel: [''],
         DateStart:['', Validators.required],

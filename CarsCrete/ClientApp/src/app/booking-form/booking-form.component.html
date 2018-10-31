@@ -1,6 +1,6 @@
 
 <div *ngIf="service.car" class="container-fluid">
-  <div class="booking-container">
+  <div *ngIf="!showBook" class="booking-container">
       <div class="form-container">
           <div class="car-info">
             <h1>{{service.car?service.car.Model:''}}</h1>
@@ -178,13 +178,16 @@
             </form>
       </div>
     </div>
-  </div>
-  <div class="reports-container">
-    <feedback *ngIf="service.car?!!service.car.Reports:false" [reports]="service.car.Reports" [type]="'car'"></feedback>
-  </div>
-    
-  <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
-  <alert  [alert] ="alert"></alert>
+    <div *ngIf="showBook" class="result">
+      <p>Ваш заказ сформирован, изменить и отменить его вы можете в <span class="ref">личном кабинете</span>.</p>
+    </div>
+</div>
+<div class="reports-container">
+  <feedback *ngIf="service.car?!!service.car.Reports:false" [reports]="service.car.Reports" [type]="'car'"></feedback>
+</div>
+  
+<car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
+<alert  [alert] ="alert"></alert>
   
   
   
