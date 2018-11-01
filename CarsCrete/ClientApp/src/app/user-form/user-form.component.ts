@@ -34,6 +34,7 @@ export class UserFormComponent implements OnInit {
     }
     if(this.service.type==1){
       this.service.AddUser(this.userForm.value).subscribe(data=>{
+        console.log(data);
         this.service.currentUser=data;
 
         localStorage.setItem('currentUser',JSON.stringify(data));

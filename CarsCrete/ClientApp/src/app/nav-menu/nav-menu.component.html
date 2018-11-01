@@ -30,8 +30,8 @@
                     <div class='navbar navbar-inverse'>
                         <div class='navbar-header'>
                             <div class="row menu-prop">
-                                    <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div>
-                                    <div *ngIf="!!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Name}}</span></div>
+                                    <!-- <div *ngIf="!userService.currentUser" (click)="userService.ShowForm(1)"><span  class='glyphicon glyphicon-plus'></span><span>{{"REGISTRATION" | translate}}</span></div> -->
+                                    <div *ngIf="!!userService.currentUser" [routerLinkActive]='["link-active"]' [routerLink]='["/user"]' ><span  class='glyphicon glyphicon-user'></span><span>{{userService.currentUser.Email}}</span></div>
                                     <div (click)="userService.currentUser?Exit():userService.ShowForm(0)"><span *ngIf="!userService.currentUser"   class='glyphicon glyphicon-user'></span><span>{{(userService.currentUser?"LOG_OUT":"LOG_IN") | translate}}</span></div>
                                     <div class = "lang">
                                         
@@ -66,7 +66,7 @@
                                 </li>
                                 
                                 <li [routerLinkActive]='["link-active"]'> 
-                                    <a [routerLink]='["/cars"]' (click)='collapse()'>
+                                    <a [routerLink]='["/allcars"]' (click)='collapse()'>
                                         <i class="fa fa-car"></i> {{"CARS" | translate}}
                                     </a>
                                 </li>

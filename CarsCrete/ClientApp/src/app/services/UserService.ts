@@ -22,6 +22,10 @@ export class UserService {
         let params = new HttpParams().set('Email', user.Email).set('Password', user.Password);
         return this.http.get<User>(this.baseUrl + 'cars/get-user', {params})
     }
+    GetUserById(id:number){
+        
+        return this.http.get<User>(this.baseUrl + 'cars/get-user-by-id/'+id)
+    }
 
 }
 export interface EUser{

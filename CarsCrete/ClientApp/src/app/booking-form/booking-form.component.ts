@@ -57,15 +57,20 @@ export class BookingFormComponent implements OnInit {
           console.clear();
           if(error.status==501){
 
-            this.alert.showA({type:'wrong',message:'Время занято',show:true});
+            this.alert.showA({type:'wrong',message:'Время забронированно',show:true});
             this.submitted=false;
             df.value="";
             ds.value="";
             this.bookingForm.value.DateStart="";
+            this.bookingForm.value.DateFinish="";
             
           }
-          else{
-            this.alert.showA({type:'wrong',message:'Введены некорректные данные',show:true});
+          else if(error.status==502){
+            this.alert.showA({type:'wrong',message:'Неверный пароль',show:true});
+            this.submitted=false;
+          }
+          else if(error.status==503 || error.status==500){
+            this.alert.showA({type:'wrong',message:'Некорректные данные',show:true});
             this.submitted=false;
           }})
       }
@@ -98,10 +103,15 @@ export class BookingFormComponent implements OnInit {
             df.value="";
             ds.value="";
             this.bookingForm.value.DateStart="";
+            this.bookingForm.value.DateFinish="";
             
           }
-          else{
+          else if(error.status==502){
             this.alert.showA({type:'wrong',message:'Неверный пароль',show:true});
+            this.submitted=false;
+          }
+          else if(error.status==503 || error.status==500){
+            this.alert.showA({type:'wrong',message:'Некорректные данные',show:true});
             this.submitted=false;
           }
         }

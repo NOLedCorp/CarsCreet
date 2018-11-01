@@ -33,21 +33,35 @@ namespace CarsCrete.Controllers
             public string Email { get; set; }
             public string Password { get; set; }
         }
-        [HttpGet("get-user")]
-        public IActionResult GetUser(UserEntrance user1)
+        [HttpGet("get-user-by-id/{id}")]
+        public IActionResult GetUserById(long id)
         {
 
-            var user = DbContext.Users.Where(x => x.Email == user1.Email).Include(x => x.Reports).Include(x => x.Books).FirstOrDefault();
+            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Books).ProjectToType<UserDTO>().FirstOrDefault();
             if (user == null)
             {
                 return new StatusCodeResult(500);
             }
-            if (user.Password != user1.Password)
-            {
-                return new StatusCodeResult(501);
-            }
+
             return new JsonResult(
-                user.Adapt<UserDTO>(),
+                user,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+        [HttpGet("get-user")]
+        public IActionResult GetUser(UserEntrance user1)
+        {
+
+            var user = DbContext.Users.Where(x => (x.Email == user1.Email && x.Password==user1.Password)).Include(x => x.Reports).Include(x => x.Books).ProjectToType<UserDTO>().FirstOrDefault();
+            if (user == null)
+            {
+                return new StatusCodeResult(500);
+            }
+            
+            return new JsonResult(
+                user,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented
@@ -115,6 +129,7 @@ namespace CarsCrete.Controllers
         public bool CheckDate(long CarId, DateTime DateStart, DateTime DateFinish)
         {
             bool res = true;
+            var bs = GetBookTimes(CarId);
             foreach (BookTimes bookTime in GetBookTimes(CarId))
             {
                 if (DateStart >= bookTime.DateStart && DateStart <= bookTime.DateFinish || DateFinish >= bookTime.DateStart && DateFinish <= bookTime.DateFinish)
@@ -131,6 +146,14 @@ namespace CarsCrete.Controllers
             if (model.DateStart > model.DateFinish)
             {
                 return new StatusCodeResult(500);
+            }
+            if (model.DateStart < DateTime.Now)
+            {
+                return new StatusCodeResult(503);
+            }
+            if (!CheckDate(model.CarId, model.DateStart, model.DateFinish))
+            {
+                return new StatusCodeResult(501);
             }
             var book = new Book()
             {
@@ -170,13 +193,17 @@ namespace CarsCrete.Controllers
         [HttpPut("add-booking-new")]
         public IActionResult AddBookingNew([FromBody]BookNew model)
         {
-
-            foreach (BookTimes bookTime in GetBookTimes(model.CarId))
+            if(model.DateStart < DateTime.Now)
             {
-                if (model.DateStart >= bookTime.DateStart && model.DateStart <= bookTime.DateFinish || model.DateFinish >= bookTime.DateStart && model.DateFinish <= bookTime.DateFinish)
-                {
-                    return new StatusCodeResult(501);
-                }
+                return new StatusCodeResult(503);
+            }
+            if (!CheckDate(model.CarId, model.DateStart, model.DateFinish))
+            {
+                return new StatusCodeResult(501);
+            }
+            if (model.DateStart > model.DateFinish)
+            {
+                return new StatusCodeResult(500);
             }
             var user = DbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault();
             if (user == null)
@@ -192,7 +219,7 @@ namespace CarsCrete.Controllers
                 }
                 else
                 {
-                    return new StatusCodeResult(500);
+                    return new StatusCodeResult(502);
                 }
             }
             var book = new Book()
