@@ -88,6 +88,7 @@ export interface Book{
     Id:number;
     DateStart:Date;
     DateFinish:Date;
+    CreateDate:Date;
     UserId:number;
     CarId:number;
     Price:number;

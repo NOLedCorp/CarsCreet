@@ -23,11 +23,13 @@ export class PagesComponent implements OnInit {
   change(curPage:number,floor:number=null,top:number=null){
     if(floor!=null){
       this.service.changePage(floor,top);
+      window.scrollTo(0,500);
       this.curPage=curPage;
     }else{
       if(curPage>0 && curPage<Math.ceil(this.service.number/this.k+1)){
         this.service.changePage((curPage-1)*this.k,(curPage-1)*this.k+this.k);
         this.curPage=curPage;
+        window.scrollTo(0,500);
       }
       
     }

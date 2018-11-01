@@ -1,3 +1,97 @@
-<p>
-  user-profile works!
-</p>
+<div *ngIf="userService.currentUser" class="container-fluid">
+  <div class="main-info">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="d-flex flex-column justify-content-center">
+          <img class="img-circle img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'../../assets/images/default_user_photo.jpg'}}" alt="">
+          <p style="text-align: center; font-size:18pt">{{userService.currentUser?userService.currentUser.Name:''}}</p>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-7">
+        <h1>{{'MAIN_INFO'|translate}}</h1>
+        <div >
+          <div class="item">
+            <div class="row">
+              <div class="col-xs-4">
+                <span>{{'EMAIL' | translate}}: </span>
+              </div>
+              <div class="col-xs-6">
+                <p>{{userService.currentUser?userService.currentUser.Email:''}}</p>
+                <i  class="fa fa-pencil"></i>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-xs-4">
+                <span>{{'PHONE' | translate}}: </span>
+              </div>
+              <div class="col-xs-6">
+                <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
+                <i  class="fa fa-pencil"></i>
+              </div> 
+            </div>
+            
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-xs-4">
+                <span>{{'REG_DATE' | translate}}: </span>
+              </div>
+              <div class="col-xs-6">
+                <p>{{userService.currentUser?(userService.currentUser.CreatedDate | date: 'dd.MM.yyyy'):''}}</p>
+                <i  class="fa fa-pencil"></i>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-xs-4">
+                <span>{{'LANG' | translate}}: </span>
+              </div>
+              <div class="col-xs-6">
+                <p>{{userService.currentUser?(userService.currentUser.Lang?userService.currentUser.Lang:('NO_DATA' | translate)):''}}</p>
+                <i  class="fa fa-pencil"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <div *ngIf="userService.currentUser?!!userService.currentUser.Books:false" class="statistics">
+    <h3>{{'MY_BOOKS' | translate}}</h3>
+    <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно'}" *ngFor="let book of userService.currentUser.Books">
+      <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
+      <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>
+      <div class="row">
+        
+        <div class="col-sm-3">
+          <div class="car">
+            <img src="{{book.Car.Photo}}" alt="">
+            <div>
+              <p><i class="fa fa-car"></i>{{book.Car.Model}}</p>
+              <span><i class="fa fa-dollar"></i>{{book.Price}}€</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-sm-2 dates">
+          <span>{{'PLACE' | translate}}: {{book.Place}}</span>
+        </div>
+        <div class="col-sm-4 dates">
+          
+          <span>{{'RENT' | translate}}: {{book.DateStart | date: 'dd.MM.yyyy'}} - {{book.DateFinish | date: 'dd.MM.yyyy'}}</span>
+          
+        </div>
+        <div class="col-sm-3 dates">
+          <span>{{'CREATE_DATE' | translate}}: {{book.CreateDate | date: 'dd.MM.yyyy'}}</span>
+        </div>
+           
+        
+      </div>
+    </div>
+  </div>
+</div>

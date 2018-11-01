@@ -51,6 +51,16 @@ export class UserFormComponent implements OnInit {
     if(this.service.type==0){
       this.service.GetUser(this.userForm.value).subscribe(data=>{
         this.service.currentUser=data;
+        this.service.currentUser.Books.forEach(x =>{
+          x.DateFinish=new Date(x.DateFinish);
+          x.CreateDate=new Date(x.CreateDate);
+          x.DateStart=new Date(x.DateStart);
+        })
+        this.service.currentUser.Reports.forEach(x =>{
+          
+          x.CreatedDate=new Date(x.CreatedDate);
+          
+        })
         localStorage.setItem('currentUser',JSON.stringify(data));
         location.reload();
         this.alert.showA({type:'success',message:'Вы успешно вошли',show:true});

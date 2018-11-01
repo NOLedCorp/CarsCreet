@@ -1,0 +1,53 @@
+.item p{
+    display: inline-block;
+}
+.item{
+    font-size: 13pt;
+}
+.main-info{
+    margin-bottom: 30px;
+}
+.book-item{
+    box-shadow: 0 0 7px rgb(255, 48, 48);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-top: 5px;
+
+}
+.active{
+    background-color: rgba(0, 128, 0, 0.397) !important;
+    border: 1px solid green !important;
+}
+.active-item{
+    box-shadow: 0 0 7px green;
+}
+.book-item .car, .dates{
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+.car img{
+    margin: 5px;
+    border-radius: 4px;
+    width: 130px;
+    height: 90px;
+}
+.statistics{
+    max-width: 1030px;
+    margin: auto;
+}
+.dates{
+    justify-content: center;
+}
+.status{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid rgb(255, 33, 33);
+    background-color: rgba(255, 0, 0, 0.514);
+    z-index: 100;
+}
+

@@ -66,9 +66,11 @@ li .glyphicon, li i {
 }
 
 /* Highlighting rules for nav menu items */
+.link-active,
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
+    border-radius:4px; 
     background-color: #4189C7;
     color: white;
 }

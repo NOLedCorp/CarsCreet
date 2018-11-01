@@ -37,7 +37,16 @@
     "L":"l",
     "KM":"km",
     "OUR_CARS":"Our cars",
-    "NO_DATA":"No data"
+    "NO_DATA":"No data",
+    "MAIN_INFO":"Main info",
+    "PHONE":"Phone",
+    "REG_DATE":"Registration date",
+    "LANG":"Language",
+    "MY_BOOKS":"My orders",
+    "ORDER":"Order",
+    "PLACE":"Take point",
+    "RENT":"Rent",
+    "CREATE_DATE":"Created"
     
 
 }
