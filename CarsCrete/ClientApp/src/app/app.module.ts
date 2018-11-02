@@ -27,6 +27,7 @@ import { FeedBackService } from './services/FeedBackService';
 import { RatingComponent } from './rating/rating.component';
 import { PickerComponent } from './picker/picker.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -49,7 +50,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     PagesComponent,
     RatingComponent,
     PickerComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

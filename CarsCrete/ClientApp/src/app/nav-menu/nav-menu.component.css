@@ -16,6 +16,12 @@
     transition: 0.2s;
     cursor: pointer;
 }
+.menu-prop .link-active{
+    background-color: black;
+}
+.menu-prop .link-active:hover{
+    color:white !important;
+}
 .menu-prop>div{
     margin-right: 10px;
 }

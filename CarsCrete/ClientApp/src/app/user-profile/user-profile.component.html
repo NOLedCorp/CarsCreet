@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="d-flex flex-column justify-content-center">
-          <img class="img-circle img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'../../assets/images/default_user_photo.jpg'}}" alt="">
+          <img class="img-rounded img-responsive" src="{{userService.currentUser?userService.currentUser.Photo:'../../assets/images/default_user_photo.jpg'}}" alt="">
           <p style="text-align: center; font-size:18pt">{{userService.currentUser?userService.currentUser.Name:''}}</p>
         </div>
       </div>
@@ -62,6 +62,7 @@
     </div>
   </div>
   <div *ngIf="userService.currentUser?!!userService.currentUser.Books:false" class="statistics">
+    <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics>
     <h3>{{'MY_BOOKS' | translate}}</h3>
     <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно'}" *ngFor="let book of userService.currentUser.Books">
       <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>

@@ -1,0 +1,20 @@
+.month{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.month-a{
+    background-color: green;
+}
+.month-m{
+    margin-right: 5px;
+    background-color: rgb(11, 8, 199);
+}
+.month-a,.month-m{
+    width: 30px;
+}
+.books-stat{
+    display: flex;
+    height: 200px;
+    
+}

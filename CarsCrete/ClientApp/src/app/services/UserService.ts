@@ -26,7 +26,16 @@ export class UserService {
         
         return this.http.get<User>(this.baseUrl + 'cars/get-user-by-id/'+id)
     }
+    GetStatistics(){
+        return this.http.get<Statistics>(this.baseUrl + 'cars/get-statistics')
+    }
 
+}
+export interface Statistics{
+    Cars:Car[];
+    Users:User[];
+    Books:Book[];
+    Reports:FeedBack[];
 }
 export interface EUser{
     Email:string;
@@ -93,4 +102,5 @@ export interface Book{
     CarId:number;
     Price:number;
     Place:string;
+    Car:Car;
 }

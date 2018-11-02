@@ -42,9 +42,32 @@ namespace CarsCrete.Controllers
             {
                 return new StatusCodeResult(500);
             }
-
+            user.Books=user.Books.OrderByDescending(x => x.DateFinish).ToList();
             return new JsonResult(
                 user,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+        public class Statistics
+        {
+            public List<UserDTO> Users { get; set; }
+            public List<BookDTO> Books { get; set; }
+            public List<FeedBackDTO> Reports { get; set; }
+            public List<CarDTO> Cars { get; set; }
+        }
+        [HttpGet("get-statistics")]
+        public IActionResult GetStatistics()
+        {
+            Statistics result = new Statistics();
+            result.Books = DbContext.Books.ProjectToType<BookDTO>().ToList();
+            result.Cars = DbContext.Cars.Include(x => x.Books).Include(x => x.Reports).ProjectToType<CarDTO>().ToList();
+            result.Reports = DbContext.Reports.Include(x => x.Comments).ProjectToType<FeedBackDTO>().ToList();
+            result.Users = DbContext.Books.ProjectToType<UserDTO>().ToList();
+
+            return new JsonResult(
+                result,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented
@@ -59,7 +82,7 @@ namespace CarsCrete.Controllers
             {
                 return new StatusCodeResult(500);
             }
-            
+            user.Books = user.Books.OrderByDescending(x => x.DateFinish).ToList();
             return new JsonResult(
                 user,
                 new JsonSerializerSettings()
@@ -159,6 +182,7 @@ namespace CarsCrete.Controllers
             {
                 DateStart = model.DateStart,
                 DateFinish = model.DateFinish,
+                CreateDate = DateTime.Now,
                 CarId = model.CarId,
                 UserId = model.UserId,
                 Place = model.Place,

@@ -12,12 +12,14 @@ export class UserProfileComponent implements OnInit {
   constructor(public userService:UserService, private router: Router) { }
 
   ngOnInit() {
+    
     if(localStorage.getItem("currentUser")){
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
-      console.log(this.userService.currentUser);
-      // this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
-      //   console.log(data);
-      // })
+      this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
+        this.userService.currentUser=data;
+        localStorage.setItem('currentUser',JSON.stringify(data));
+        console.log(data);
+      })
     }
     else{
       this.router.navigate(['/allcars']);
