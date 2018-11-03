@@ -6,6 +6,9 @@
         <div class="month-m" [ngStyle] = "{'height':getTrans('Manual', m)*zoom+'px'}"></div>
         <span>{{months[m.MNum].Name}}</span>
       </div>
+      <div class="stat-back">
+        <hr [ngStyle]="{'margin-top':zoom+'px'}" *ngFor="let i of getHeight()">
+      </div>
     </div>
   </div>
 </div>

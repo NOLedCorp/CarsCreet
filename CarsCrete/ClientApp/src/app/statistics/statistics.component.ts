@@ -79,9 +79,16 @@ export class StatisticsComponent implements OnInit {
       })
       if(res.length>this.maxHeight){
         this.maxHeight=res.length;
-        this.zoom = Math.round(190/this.maxHeight);
+        this.zoom = Math.round(200/this.maxHeight);
       }
     })
+  }
+  getHeight(){
+    let h=[];
+    for(let i =0; i<200/this.zoom;i++){
+      h.push(i);
+    }
+    return h
   }
   getTrans(type:string, m:CurMonth){
     let res = [];
