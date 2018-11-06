@@ -128,6 +128,51 @@ namespace CarsCrete.Controllers
                 });
         }
 
+        public class InfoToChange
+        {
+            public string Type { get; set; }
+            public string Value { get; set; }
+            public long UserId { get; set; }
+        }
+        [HttpPost("change-info")]
+        public bool ChangeInfo([FromBody]InfoToChange model)
+        {
+            var user = DbContext.Users.Where(u => u.Id == model.UserId).FirstOrDefault();
+            if(user != null)
+            {
+                switch (model.Type)
+                {
+                    case "Phone":
+                        {
+                            user.Phone = model.Value;
+                            break;
+                        }
+                    case "Email":
+                        {
+                            var users = DbContext.Users.ToList();
+                            foreach( User u in users)
+                            {
+                                if (u.Email == model.Value)
+                                {
+                                    return false;
+                                }
+                            }
+                            user.Email = model.Value;
+                            break;
+                        }
+                    case "Lang":
+                        {
+                            user.Lang = model.Value;
+                            break;
+                        }
+                }
+                DbContext.SaveChanges();
+            }
+            
+
+            return true;
+        }
+
         public class UserPassword
         {
             public long Id { get; set; }

@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
+  changes:boolean[]=[false,false,false];
   constructor(public userService:UserService, private router: Router) { }
 
   ngOnInit() {
@@ -31,6 +31,31 @@ export class UserProfileComponent implements OnInit {
       return "Завершено"
     }else{
       return "Активно"
+    }
+  }
+  changeInfo(item:number,type:string, value:string){
+    if(value != ''){
+      
+      this.userService.ChangeInfo(type, value, this.userService.currentUser.Id).subscribe(data => {
+        if(data){
+          this.userService.currentUser[type]=value;
+          console.log(data);
+        }
+      })
+    }
+    
+    this.changes[item]=false;
+  }
+  showChangeInfo(item:number, show:boolean){
+
+    for(let i =0; i<this.changes.length;i++){
+      if(i==item){
+        this.changes[i]=show;
+      }
+      else{
+        this.changes[i]=false;
+      }
+      
     }
   }
 

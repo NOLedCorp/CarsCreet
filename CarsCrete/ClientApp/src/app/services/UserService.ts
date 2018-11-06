@@ -29,6 +29,9 @@ export class UserService {
     GetStatistics(){
         return this.http.get<Statistics>(this.baseUrl + 'cars/get-statistics')
     }
+    ChangeInfo(type:string, value:string, userId:number){
+        return this.http.post<boolean>(this.baseUrl + 'cars/change-info', { "Type": type, "Value": value, "UserId":userId});
+    }
 
 }
 export interface Statistics{

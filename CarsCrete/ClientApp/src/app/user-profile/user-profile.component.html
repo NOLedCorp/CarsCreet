@@ -18,20 +18,36 @@
               </div>
               <div class="col-xs-6">
                 <p>{{userService.currentUser?userService.currentUser.Email:''}}</p>
-                <i  class="fa fa-pencil"></i>
+                <i (click)="showChangeInfo(0,true)"  class="fa fa-pencil"></i>
               </div>
             </div>
+            <div *ngIf="changes[0]" class="change-panel">
+                <div class="form">
+                  <span>{{'EMAIL' | translate}}: </span>
+                  <input [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" type="email" required #Email>
+                  <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
+                </div>
+            </div>
+            <div *ngIf="changes[0]"  class="background-blur" (click)="showChangeInfo(0,false)"></div>
           </div>
           <div class="item">
             <div class="row">
               <div class="col-xs-4">
                 <span>{{'PHONE' | translate}}: </span>
-              </div>
-              <div class="col-xs-6">
-                <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
-                <i  class="fa fa-pencil"></i>
-              </div> 
             </div>
+            <div class="col-xs-6">
+                <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
+                <i (click)="showChangeInfo(1,true)"  class="fa fa-pencil"></i>
+            </div>
+            <div *ngIf="changes[1]" class="change-panel">
+              <div class="form">
+                <span>{{'PHONE' | translate}}: </span>
+                <input [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" type="tel" required #Tel>
+                <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value)">Изменить</button>
+              </div>
+            </div>
+            <div *ngIf="changes[1]"  class="background-blur" (click)="showChangeInfo(1,false)"></div>
+          </div>
             
           </div>
           <div class="item">
@@ -41,7 +57,6 @@
               </div>
               <div class="col-xs-6">
                 <p>{{userService.currentUser?(userService.currentUser.CreatedDate | date: 'dd.MM.yyyy'):''}}</p>
-                <i  class="fa fa-pencil"></i>
               </div>
             </div>
           </div>
@@ -52,9 +67,20 @@
               </div>
               <div class="col-xs-6">
                 <p>{{userService.currentUser?(userService.currentUser.Lang?userService.currentUser.Lang:('NO_DATA' | translate)):''}}</p>
-                <i  class="fa fa-pencil"></i>
+                <i (click)="showChangeInfo(2,true)"  class="fa fa-pencil"></i>
               </div>
             </div>
+            <div *ngIf="changes[2]" class="change-panel">
+                <div class="form">
+                  <span>{{'LANG' | translate}}: </span>
+                  <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }"  required #Lang>
+                    <option>{{'RU'| translate}}</option>
+                    <option>{{'ENG'| translate}}</option>
+                  </select>
+                  <button class="btn btn-success" (click)="changeInfo(2,'Lang', Lang.value)">Изменить</button>
+                </div>
+            </div>
+            <div *ngIf="changes[2]"  class="background-blur" (click)="showChangeInfo(2,false)"></div>
           </div>
         </div>
       </div>
@@ -62,7 +88,7 @@
     </div>
   </div>
   <div *ngIf="userService.currentUser?!!userService.currentUser.Books:false" class="statistics">
-    <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics>
+    <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
     <h3>{{'MY_BOOKS' | translate}}</h3>
     <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно'}" *ngFor="let book of userService.currentUser.Books">
       <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>

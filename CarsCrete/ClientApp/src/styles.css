@@ -47,6 +47,10 @@ span.is-invalid, p.is-invalid{
     }
 }
 @media (min-width: 768px){
+    .fa-pencil:hover{
+        color: blue;
+        cursor: pointer;
+    }
     .car-img{
         padding: 0;
         border-radius: 4px;
