@@ -130,5 +130,7 @@ span.is-invalid, p.is-invalid{
     cursor: pointer;
     
 }
-
+* {
+    box-sizing:  border-box;
+}
 

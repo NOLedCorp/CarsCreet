@@ -29,6 +29,7 @@ import { PickerComponent } from './picker/picker.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { RentalPolicyComponent } from './rental-policy/rental-policy.component';
+import { ContactsComponent } from './contacts/contacts.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -53,7 +54,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     PickerComponent,
     UserProfileComponent,
     StatisticsComponent,
-    RentalPolicyComponent
+    RentalPolicyComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -77,7 +79,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'booking/:id', component: BookingFormComponent },
       { path: 'feedback', component:FeedbackComponent},
       { path: 'user', component: UserProfileComponent},
-      { path: 'policy', component: RentalPolicyComponent}
+      { path: 'policy', component: RentalPolicyComponent},
+      { path: 'contacts', component: ContactsComponent}
     ])
   ],
   providers: [UserService, CarsService, AlertService, FeedBackService],

@@ -1,6 +1,7 @@
 .topmenu{
     position: relative;
     padding: 10px 0;
+    overflow-x: hidden;
 }
 .menu-prop{
     position: absolute;

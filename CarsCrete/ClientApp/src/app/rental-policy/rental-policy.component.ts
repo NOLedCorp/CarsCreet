@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { worker } from 'cluster';
+
 
 @Component({
   selector: 'rental-policy',
