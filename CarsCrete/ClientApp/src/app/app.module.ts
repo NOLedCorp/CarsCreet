@@ -31,6 +31,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { RentalPolicyComponent } from './rental-policy/rental-policy.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AboutCreteComponent } from './about-crete/about-crete.component';
+import { FooterComponent } from './footer/footer.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -57,7 +58,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     StatisticsComponent,
     RentalPolicyComponent,
     ContactsComponent,
-    AboutCreteComponent
+    AboutCreteComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
