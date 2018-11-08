@@ -121,6 +121,7 @@ li.link-active a:focus {
     }
     .topmenu img{
         margin-left:10%; 
+        max-width: 260px;
     }
     .menu-prop>div:not(.lang):hover{
         border-radius: 7px;
@@ -154,6 +155,14 @@ li.link-active a:focus {
 }
 
 @media (max-width: 940px) {
+    .topmenu img{
+        margin: 0 10%; 
+        max-width: auto;
+        width: 80%;
+    }
+    .col-sm-4{
+        width: 100%;
+    }
     .nav {
         margin-top:20px;
         flex-direction:column;
