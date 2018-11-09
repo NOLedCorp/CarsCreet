@@ -67,8 +67,7 @@ export interface FeedBack{
     Look:number;
     Drive:number;
     Comfort:number;
-    Likes:number;
-    Dislikes:number;
+    Likes:Like[];
     Mark:number;
     Text:string;
     CreatedDate:Date;
@@ -84,8 +83,7 @@ export interface ReportComment{
     Id:number;
     UserId:number;
     FeedBackId:number;
-    Likes:number;
-    Dislikes:number;
+    Likes:Like[];
     Text:string;
     CreatedDate:Date;
     User:ReportUser;
@@ -106,4 +104,12 @@ export interface Book{
     Price:number;
     Place:string;
     Car:Car;
+}
+
+export interface Like{
+    Id:number;
+    UserId:number;
+    FeedBackId:number;
+    CommentId:number;
+    IsLike:boolean;
 }

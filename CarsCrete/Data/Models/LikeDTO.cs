@@ -8,20 +8,22 @@ using System.ComponentModel;
 
 namespace CarsCrete.Data.Models
 {
-    public class Like
+    public class LikeDTO
     {
-        [Key]
+     
         public long Id { get; set; }
-        [Required]
+     
         public long UserId { get; set; }
-        [Required]
+      
         public long CommentId { get; set; }
-        [Required]
+    
         public long FeedBackId { get; set; }
-        [Required]
+      
         public bool IsLike { get; set; }
-
+        
+        public virtual ReportCommentDTO Comment { get; set; }
        
+        public virtual FeedBackDTO Report { get; set; }
 
     }
 }

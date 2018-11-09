@@ -19,14 +19,13 @@ namespace CarsCrete.Data.Models
         public long Id { get; set; }
         public long UserId { get; set; }
         public long FeedBackId { get; set; }
-        public int Likes { get; set; }
-        public int Dislikes { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
         #endregion
 
         #region Lazy-loading
         public virtual ReportUser User { get; set; }
+        public virtual List<LikeDTO> Likes { get; set; }
         #endregion
     }
 }

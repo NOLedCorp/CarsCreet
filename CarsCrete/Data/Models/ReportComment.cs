@@ -25,12 +25,6 @@ namespace CarsCrete.Data.Models
         public long UserId { get; set; }
         [Required]
         public long FeedBackId { get; set; }
-        [Required]
-        [DefaultValue(0)]
-        public int Likes { get; set; }
-        [Required]
-        [DefaultValue(0)]
-        public int Dislikes { get; set; }
 
         [Required]
         public string Text { get; set; }
@@ -41,6 +35,7 @@ namespace CarsCrete.Data.Models
         #region Lazy-loading
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
+        
         #endregion
     }
 }

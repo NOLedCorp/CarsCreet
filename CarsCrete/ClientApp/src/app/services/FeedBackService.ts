@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
-import {User, ReportComment, FeedBack} from '../services/UserService';
+import {User, ReportComment, FeedBack, Like} from '../services/UserService';
 import {CarsService, Car, Book} from '../services/CarsService';
 import { Observable } from 'rxjs';
 
@@ -37,8 +37,8 @@ export class FeedBackService{
     
     return this.http.put<FeedBack>(this.baseUrl + 'cars/add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive, "DateStart": new Date(report.DateStart), "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Report });
   }
-  addLikeOrDislike(id:number,type:boolean, report:boolean){
-    return this.http.post<FeedBack>(this.baseUrl + 'cars/add-likes', { "Type": type, "CommentId": id, "Report":report});
+  addLikeOrDislike(like:Like){
+    return this.http.post<FeedBack>(this.baseUrl + 'cars/add-likes', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
   }
   addComment(text:string, UserId:number, FeedBackId:number ){
     return this.http.put<ReportComment>(this.baseUrl + 'cars/add-comment',{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});

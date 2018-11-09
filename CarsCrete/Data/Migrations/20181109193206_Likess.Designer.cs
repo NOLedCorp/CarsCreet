@@ -4,14 +4,16 @@ using CarsCrete.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarsCrete.Data.Migrations
 {
     [DbContext(typeof(CarsDbContext))]
-    partial class CarsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181109193206_Likess")]
+    partial class Likess
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,15 +134,11 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<bool>("IsLike");
 
-                    b.Property<long?>("ReportCommentId");
-
                     b.Property<long>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FeedBackId");
-
-                    b.HasIndex("ReportCommentId");
 
                     b.ToTable("Likes");
                 });
@@ -232,10 +230,6 @@ namespace CarsCrete.Data.Migrations
                         .WithMany("Likes")
                         .HasForeignKey("FeedBackId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CarsCrete.Data.Models.ReportComment")
-                        .WithMany("Likes")
-                        .HasForeignKey("ReportCommentId");
                 });
 
             modelBuilder.Entity("CarsCrete.Data.Models.ReportComment", b =>

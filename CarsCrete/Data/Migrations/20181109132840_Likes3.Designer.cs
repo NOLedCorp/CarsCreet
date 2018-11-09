@@ -4,14 +4,16 @@ using CarsCrete.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarsCrete.Data.Migrations
 {
     [DbContext(typeof(CarsDbContext))]
-    partial class CarsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181109132840_Likes3")]
+    partial class Likes3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,17 +132,15 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<long>("FeedBackId");
 
-                    b.Property<bool>("IsLike");
-
-                    b.Property<long?>("ReportCommentId");
+                    b.Property<long>("IsLike");
 
                     b.Property<long>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FeedBackId");
+                    b.HasIndex("CommentId");
 
-                    b.HasIndex("ReportCommentId");
+                    b.HasIndex("FeedBackId");
 
                     b.ToTable("Likes");
                 });
@@ -228,14 +228,15 @@ namespace CarsCrete.Data.Migrations
 
             modelBuilder.Entity("CarsCrete.Data.Models.Like", b =>
                 {
-                    b.HasOne("CarsCrete.Data.Models.FeedBack")
+                    b.HasOne("CarsCrete.Data.Models.ReportComment", "Comment")
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CarsCrete.Data.Models.FeedBack", "Report")
                         .WithMany("Likes")
                         .HasForeignKey("FeedBackId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CarsCrete.Data.Models.ReportComment")
-                        .WithMany("Likes")
-                        .HasForeignKey("ReportCommentId");
                 });
 
             modelBuilder.Entity("CarsCrete.Data.Models.ReportComment", b =>

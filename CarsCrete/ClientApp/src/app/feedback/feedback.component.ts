@@ -65,21 +65,61 @@ export class FeedbackComponent implements OnInit {
       report:['', Validators.required]
     });
   }
-  addLikes(comment:any, k:boolean, report:boolean){
- 
-    if(k){
-      comment.Likes+=1;
-      this.feedBackService.addLikeOrDislike(comment.Id, true, report).subscribe(data => {
-
-      })
+  getLikes(com:any, islike:boolean){
+    let res = com.Likes.filter(x => x.IsLike == islike).length;
+    return res;
+  }
+  getUserLike(com:any, islike:boolean = true){
+    if(localStorage.getItem('currentUser')){
+      return com.Likes.filter(x => x.UserId == this.userService.currentUser.Id)[0];
     }
     else{
-
-      comment.Dislikes+=1;
-      this.feedBackService.addLikeOrDislike(comment.Id, k, report).subscribe(data => {
-
-      })
+      return false;
     }
+    
+    
+  }
+  addLikes(report:any, k:boolean, comment?:any){
+    if(this.autorized){
+      if(comment){
+        if(!!this.getUserLike(comment)){
+          return
+        }
+      }
+      else{
+        if(!!this.getUserLike(report)){
+          return
+        }
+      }
+      if(k){
+        let like = {Id:0,UserId:this.userService.currentUser.Id, IsLike: true, CommentId:comment?comment.Id:0, FeedBackId:report.Id};
+        if(comment){
+          comment.Likes.push(like);
+        }
+        else{
+          report.Likes.push(like);
+        }
+        this.feedBackService.addLikeOrDislike(like).subscribe(data => {
+  
+        })
+      }
+      else{
+        let like = {Id:0,UserId:this.userService.currentUser.Id, IsLike: false, CommentId:comment?comment.Id:0, FeedBackId:report.Id};
+        if(comment){
+          comment.Likes.push(like);
+        }
+        else{
+          report.Likes.push(like);
+        }
+        this.feedBackService.addLikeOrDislike(like).subscribe(data => {
+  
+        })
+      }
+    }
+    else{
+      this.userService.ShowForm(0);
+    }
+    
     
   }
   showComments(com:FeedBack){

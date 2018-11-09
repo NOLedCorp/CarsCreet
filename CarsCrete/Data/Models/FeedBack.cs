@@ -27,10 +27,6 @@ namespace CarsCrete.Data.Models
         [Required]
         public double Look { get; set; }
         [Required]
-        public int Likes { get; set; }
-        [Required]
-        public int Dislikes { get; set; }
-        [Required]
         public double Comfort { get; set; }
         [Required]
         public double Drive { get; set; }
@@ -49,6 +45,7 @@ namespace CarsCrete.Data.Models
         public virtual Car Car { get; set; }
 
         public virtual List<ReportComment> Comments { get; set; }
+        public virtual List<Like> Likes { get; set; }
         #endregion
 
 

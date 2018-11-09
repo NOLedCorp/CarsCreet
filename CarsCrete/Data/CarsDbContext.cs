@@ -44,16 +44,24 @@ namespace CarsCrete.Data
             modelBuilder.Entity<FeedBack>().HasOne(u => u.Car).WithMany(u => u.Reports);
             modelBuilder.Entity<FeedBack>().HasOne(u => u.User).WithMany(u => u.Reports);
             modelBuilder.Entity<FeedBack>().HasMany(c => c.Comments);
+            modelBuilder.Entity<FeedBack>().HasMany(c => c.Likes);
 
             modelBuilder.Entity<ReportComment>().ToTable("Comments");
             modelBuilder.Entity<ReportComment>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<ReportComment>().HasOne(u => u.User).WithMany(u => u.Comments);
+            //modelBuilder.Entity<ReportComment>().HasMany(c => c.Likes);
+
+            modelBuilder.Entity<Like>().ToTable("Likes");
+            modelBuilder.Entity<Like>().Property(i => i.Id).ValueGeneratedOnAdd();
+            //modelBuilder.Entity<Like>().HasOne(u => u.Comment).WithMany(u => u.Likes);
+           // modelBuilder.Entity<Like>().HasOne(u => u.Report).WithMany(u => u.Likes);
 
 
         }
         #endregion
         #region Properties
         public DbSet<User> Users { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<FeedBack> Reports { get; set; }

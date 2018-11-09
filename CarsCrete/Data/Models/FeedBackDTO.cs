@@ -21,14 +21,13 @@ namespace CarsCrete.Data.Models
         public double Look { get; set; }
         public double Comfort { get; set; }
         public double Drive { get; set; }
-        public int Likes { get; set; }
-        public int Dislikes { get; set; }
         public double Mark { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
         public virtual ReportUser User { get; set; }
         public virtual Car Car { get; set; }
         public virtual List<ReportCommentDTO> Comments { get; set; }
+        public virtual List<LikeDTO> Likes { get; set; }
         #endregion
     }
 }

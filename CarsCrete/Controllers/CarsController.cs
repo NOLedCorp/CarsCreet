@@ -456,10 +456,13 @@ namespace CarsCrete.Controllers
         [HttpGet("get-reports")]
         public IActionResult GetReports()
         {
-            
-            
-            var reports = DbContext.Reports.Include(c => c.Car).Include(u => u.User).ProjectToType<FeedBackDTO>().OrderByDescending(r => r.CreatedDate).ToList();
-            
+            var reports = DbContext.Reports.ProjectToType<FeedBackDTO>().OrderByDescending(r1 => r1.CreatedDate).ToList();
+            foreach(FeedBackDTO f in reports)
+            {
+                
+                f.Likes.RemoveAll(x => x.CommentId != 0);
+                f.Comments.ForEach(x => x.Likes = DbContext.Likes.Where(y => y.CommentId == x.Id).ToList().Adapt<List<LikeDTO>>());
+            }
             return new JsonResult(
                 reports,
                 new JsonSerializerSettings()
@@ -499,6 +502,7 @@ namespace CarsCrete.Controllers
             DbContext.Comments.Add(report);
             DbContext.SaveChanges();
             var result = report.Adapt<ReportCommentDTO>();
+            result.Likes = new List<LikeDTO>();
             result.User = DbContext.Users.Where(u => u.Id == model.UserId).ProjectToType<ReportUser>().FirstOrDefault();
 
             return new JsonResult(
@@ -508,45 +512,56 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
-        public class Like
+        public class LikeIn
         {
             public long CommentId { get; set; }
-            public bool Type { get; set; }
-            public bool Report { get; set; }
+            public bool IsLike { get; set; }
+            public long FeedBackId { get; set; }
+            public long UserId { get; set; }
         }
         [HttpPost("add-likes")]
-        public bool AddLikes([FromBody]Like model)
+        public bool AddLikes([FromBody]LikeIn model)
         {
-            
-            if (model.Report)
+            var like = new Like
             {
-                var report = DbContext.Reports.Where(x => x.Id == model.CommentId).FirstOrDefault();
-                if (model.Type)
-                {
-                    report.Likes += 1;
-                }
-                else
-                {
-                    report.Dislikes += 1;
-                }
-                DbContext.SaveChanges();
-            }
-            else
-            {
-                var report = DbContext.Comments.Where(x => x.Id == model.CommentId).FirstOrDefault();
-                if (model.Type)
-                {
-                    report.Likes += 1;
-                }
-                else
-                {
-                    report.Dislikes += 1;
-                }
-                DbContext.SaveChanges();
-            }
+                UserId = model.UserId,
+                FeedBackId = model.FeedBackId,
+                CommentId =model.CommentId,
+                IsLike = model.IsLike
             
-            
+            };
+
+            DbContext.Likes.Add(like);
             DbContext.SaveChanges();
+            //if (model.Report)
+            //{
+            //    var report = DbContext.Reports.Where(x => x.Id == model.CommentId).FirstOrDefault();
+            //    if (model.Type)
+            //    {
+            //        report.Likes += 1;
+            //    }
+            //    else
+            //    {
+            //        report.Dislikes += 1;
+            //    }
+            //    DbContext.SaveChanges();
+            //}
+            //else
+            //{
+            //    var report = DbContext.Comments.Where(x => x.Id == model.CommentId).FirstOrDefault();
+            //    if (model.Type)
+            //    {
+            //        report.Likes += 1;
+            //    }
+            //    else
+            //    {
+            //        report.Dislikes += 1;
+            //    }
+            //    DbContext.SaveChanges();
+            //}
+            
+            
+            
 
             return true;
         }

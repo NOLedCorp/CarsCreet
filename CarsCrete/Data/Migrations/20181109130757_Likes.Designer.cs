@@ -4,14 +4,16 @@ using CarsCrete.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarsCrete.Data.Migrations
 {
     [DbContext(typeof(CarsDbContext))]
-    partial class CarsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181109130757_Likes")]
+    partial class Likes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +102,11 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<int>("Dislikes");
+
                     b.Property<double>("Drive");
+
+                    b.Property<int>("Likes");
 
                     b.Property<double>("Look");
 
@@ -120,31 +126,6 @@ namespace CarsCrete.Data.Migrations
                     b.ToTable("FeedBack");
                 });
 
-            modelBuilder.Entity("CarsCrete.Data.Models.Like", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CommentId");
-
-                    b.Property<long>("FeedBackId");
-
-                    b.Property<bool>("IsLike");
-
-                    b.Property<long?>("ReportCommentId");
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FeedBackId");
-
-                    b.HasIndex("ReportCommentId");
-
-                    b.ToTable("Likes");
-                });
-
             modelBuilder.Entity("CarsCrete.Data.Models.ReportComment", b =>
                 {
                     b.Property<long>("Id")
@@ -153,7 +134,11 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<int>("Dislikes");
+
                     b.Property<long>("FeedBackId");
+
+                    b.Property<int>("Likes");
 
                     b.Property<string>("Text")
                         .IsRequired();
@@ -224,18 +209,6 @@ namespace CarsCrete.Data.Migrations
                         .WithMany("Reports")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CarsCrete.Data.Models.Like", b =>
-                {
-                    b.HasOne("CarsCrete.Data.Models.FeedBack")
-                        .WithMany("Likes")
-                        .HasForeignKey("FeedBackId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CarsCrete.Data.Models.ReportComment")
-                        .WithMany("Likes")
-                        .HasForeignKey("ReportCommentId");
                 });
 
             modelBuilder.Entity("CarsCrete.Data.Models.ReportComment", b =>

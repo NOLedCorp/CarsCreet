@@ -182,6 +182,12 @@ textarea{
     color:blue;
 
 }
+.checked-up{
+    color:green;
+}
+.checked-down{
+    color: red;
+}
 .picker{
     width: auto !important;
 }
