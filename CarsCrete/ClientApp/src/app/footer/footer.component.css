@@ -1,5 +1,8 @@
 img{
     width: 70%;
+    background-color: white;
+    border-radius: 4px;
+    padding: 5px;
 }
 .row{
     overflow: hidden;
