@@ -519,8 +519,37 @@ namespace CarsCrete.Controllers
             public long FeedBackId { get; set; }
             public long UserId { get; set; }
         }
+        public class LikeChange
+        {
+            public long LikeId { get; set; }
+            public bool IsLike { get; set; }
+        }
+        [HttpPost("change-like")]
+        public bool ChangeLike([FromBody]LikeChange model)
+        {
+            var like = DbContext.Likes.Where(x => x.Id == model.LikeId).FirstOrDefault();
+            if (like != null)
+            {
+                like.IsLike = model.IsLike;
+            }
+            DbContext.SaveChanges();
+            return true;
+        }
+        [HttpDelete("delete-like/{id}")]
+        public bool DeleteLike(long id)
+        {
+            var like = DbContext.Likes.Where(x => x.Id == id).FirstOrDefault();
+            if (like!=null)
+            {
+                DbContext.Likes.Remove(like);
+            }
+           
+            
+            DbContext.SaveChanges();
+            return true;
+        }
         [HttpPost("add-likes")]
-        public bool AddLikes([FromBody]LikeIn model)
+        public IActionResult AddLikes([FromBody]LikeIn model)
         {
             var like = new Like
             {
@@ -533,37 +562,14 @@ namespace CarsCrete.Controllers
 
             DbContext.Likes.Add(like);
             DbContext.SaveChanges();
-            //if (model.Report)
-            //{
-            //    var report = DbContext.Reports.Where(x => x.Id == model.CommentId).FirstOrDefault();
-            //    if (model.Type)
-            //    {
-            //        report.Likes += 1;
-            //    }
-            //    else
-            //    {
-            //        report.Dislikes += 1;
-            //    }
-            //    DbContext.SaveChanges();
-            //}
-            //else
-            //{
-            //    var report = DbContext.Comments.Where(x => x.Id == model.CommentId).FirstOrDefault();
-            //    if (model.Type)
-            //    {
-            //        report.Likes += 1;
-            //    }
-            //    else
-            //    {
-            //        report.Dislikes += 1;
-            //    }
-            //    DbContext.SaveChanges();
-            //}
+            var like1 = DbContext.Likes.Where(x => x.UserId == model.UserId && x.FeedBackId == model.FeedBackId && x.CommentId == model.CommentId).ProjectToType<LikeDTO>().FirstOrDefault();
             
-            
-            
-
-            return true;
+            return new JsonResult(
+                like1,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
         }
     }
 }

@@ -4,7 +4,7 @@ import { AlertService } from '../services/AlertService';
 
 import { CarsService, ReportCar } from '../services/CarsService';
 import { FeedBackService, ShortFeedBack } from '../services/FeedBackService';
-import { ReportComment, UserService, FeedBack } from '../services/UserService';
+import { ReportComment, UserService, FeedBack, Like } from '../services/UserService';
 
 @Component({
   selector: 'feedback',
@@ -79,40 +79,35 @@ export class FeedbackComponent implements OnInit {
     
     
   }
-  addLikes(report:any, k:boolean, comment?:any){
+  changeLike(like:Like, IsLike:boolean, com:any){
+    if(like.IsLike!=IsLike){
+      
+      this.feedBackService.changeLike(like.Id, IsLike).subscribe(() =>{
+        like.IsLike = IsLike;
+        console.log(like);
+      })
+    }
+    else{
+      this.feedBackService.deleteLike(like.Id).subscribe((res) =>{
+        com.Likes = com.Likes.filter(x => x.Id!=like.Id);
+      })
+    }
+  }
+  addLikes(report:any, IsLike:boolean, comment?:any){
     if(this.autorized){
-      if(comment){
-        if(!!this.getUserLike(comment)){
-          return
-        }
+      var like = this.getUserLike(comment?comment:report);
+      if(like){
+        this.changeLike(like,IsLike, comment?comment:report)
       }
       else{
-        if(!!this.getUserLike(report)){
-          return
-        }
-      }
-      if(k){
-        let like = {Id:0,UserId:this.userService.currentUser.Id, IsLike: true, CommentId:comment?comment.Id:0, FeedBackId:report.Id};
-        if(comment){
-          comment.Likes.push(like);
-        }
-        else{
-          report.Likes.push(like);
-        }
-        this.feedBackService.addLikeOrDislike(like).subscribe(data => {
-  
-        })
-      }
-      else{
-        let like = {Id:0,UserId:this.userService.currentUser.Id, IsLike: false, CommentId:comment?comment.Id:0, FeedBackId:report.Id};
-        if(comment){
-          comment.Likes.push(like);
-        }
-        else{
-          report.Likes.push(like);
-        }
-        this.feedBackService.addLikeOrDislike(like).subscribe(data => {
-  
+        let like = {Id:0,UserId: this.userService.currentUser.Id, FeedBackId:report.Id, CommentId:comment?comment.Id:0,IsLike:IsLike};
+        this.feedBackService.addLikeOrDislike(like).subscribe((data) =>{
+          if(comment){
+            comment.Likes.push(data);
+          }
+          else{
+            report.Likes.push(data);
+          }
         })
       }
     }

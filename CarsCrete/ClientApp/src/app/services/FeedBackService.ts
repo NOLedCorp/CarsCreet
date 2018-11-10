@@ -37,8 +37,14 @@ export class FeedBackService{
     
     return this.http.put<FeedBack>(this.baseUrl + 'cars/add-report', { "UserId": report.UserId, "CarId": report.CarId, "Look":report.Look, "Comfort": report.Comfort, "Drive": report.Drive, "DateStart": new Date(report.DateStart), "Mark":((report.Look+report.Comfort+report.Drive)/3), "Text":report.Report });
   }
+  changeLike(LikeId:number, IsLike){
+    return this.http.post<FeedBack>(this.baseUrl + 'cars/change-like', { "IsLike": IsLike, "LikeId": LikeId});
+  }
+  deleteLike(LikeId:number){
+    return this.http.delete(this.baseUrl + 'cars/delete-like/'+LikeId);
+  }
   addLikeOrDislike(like:Like){
-    return this.http.post<FeedBack>(this.baseUrl + 'cars/add-likes', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
+    return this.http.post<Like>(this.baseUrl + 'cars/add-likes', { "IsLike": like.IsLike, "CommentId": like.CommentId, "FeedBackId":like.FeedBackId, "UserId":like.UserId});
   }
   addComment(text:string, UserId:number, FeedBackId:number ){
     return this.http.put<ReportComment>(this.baseUrl + 'cars/add-comment',{"Text":text, "UserId":UserId, "FeedBackId":FeedBackId});
