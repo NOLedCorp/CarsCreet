@@ -382,6 +382,7 @@ namespace CarsCrete.Controllers
             //};
             //DbContext.Cars.Add(carr);
             //DbContext.SaveChanges();
+            //sssss
             var cars = DbContext.Cars
                 .Include(x => x.Reports)
                     .ThenInclude(c => c.Comments)
