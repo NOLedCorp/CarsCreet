@@ -41,3 +41,8 @@ img{
 .fa-info-circle{
     color:blue;
 }
+
+/*Снизу я долго не думал и двигаю полностью class row*/
+.row{
+  margin-left: 220px;
+}
