@@ -1,2 +1,7 @@
 dotnet ef database update
 dotnet ef migrations add "Init" -o "Data\Migrations"
+
+
+# SQL Server files
+*.mdf
+*.ldf
