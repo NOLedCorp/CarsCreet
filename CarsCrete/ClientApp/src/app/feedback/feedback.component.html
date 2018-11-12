@@ -5,57 +5,57 @@
             <div class="form-container row">
                 <div class="col-sm-6">
                     <div class="item picker">
-                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.CarId==0 }">Автомобиль*</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.CarId==0 }">{{'CAR'|translate}}*</span>
                         <picker *ngIf="cars.length!=0" [items]="cars" [out]="feedBack" [prop]="'CarId'"></picker>
                         <div *ngIf="submitted && feedBack.CarId==0" class="invalid-feedback">
-                            <span class="d-block is-invalid" >Укажите автомобиль</span>
+                            <span class="d-block is-invalid" >{{'ENTER_CAR'|translate}}</span>
                             
                         </div>
                         
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">Дата начала использования*</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">{{'DATE_START'|translate}}*</span>
                         <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #date required>
                         <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">Введите дату</span>
+                            <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
                             
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted  && feedBack.Look==0}">Внешний вид машины</span>
+                        <span [ngClass]="{ 'is-invalid': submitted  && feedBack.Look==0}">{{'CAR_LOOK'|translate}}</span>
                         <rating [markOut]="feedBack" [prop]="'Look'"></rating>
                         <div *ngIf="submitted && feedBack.Look==0" class="invalid-feedback">
-                            <span class="d-block is-invalid">Укажите автомобиль</span>                          
+                            <span class="d-block is-invalid">{{'ENTER_MARK'|translate}}</span>                          
                         </div>
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.Comfort==0 }">Комфорт</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.Comfort==0 }">{{'CAR_COMFORT'|translate}}</span>
                         <rating [markOut]="feedBack" [prop]="'Comfort'"></rating>
                         <div *ngIf="submitted && feedBack.Comfort==0" class="invalid-feedback">
-                            <span class="d-block is-invalid">Укажите автомобиль</span>                    
+                            <span class="d-block is-invalid">{{'ENTER_MARK'|translate}}</span>                    
                         </div>
                         
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.Drive==0 }">Ходовые качества</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && feedBack.Drive==0 }">{{'CAR_DRIVE'|translate}}</span>
                         <rating [markOut]="feedBack" [prop]="'Drive'"></rating>
                         <div *ngIf="submitted && feedBack.Drive==0" class="invalid-feedback">
-                            <span class="d-block is-invalid">Укажите автомобиль</span>                   
+                            <span class="d-block is-invalid">{{'ENTER_MARK'|translate}}</span>                   
                         </div>
                     </div>
                 </div>
             </div>
             <div class="item">
-                <span [ngClass]="{ 'is-invalid': submitted && f.Report.errors }">Отзыв*</span>
+                <span [ngClass]="{ 'is-invalid': submitted && f.Report.errors }">{{'REPORT'|translate}}*</span>
                 <textarea formControlName="Report" [ngClass]="{ 'is-invalid': submitted && f.Report.errors }"  rows="5" cols="20" #report></textarea>
                 <div *ngIf="submitted && f.Report.errors" class="invalid-feedback">
-                    <span class="d-block is-invalid" *ngIf="f.Report.errors.required">Введите отзыв</span>
-                    <span class="d-block is-invalid" *ngIf="f.Report.errors.minlength">Введите не меньше 5 символов!</span>
+                    <span class="d-block is-invalid" *ngIf="f.Report.errors.required">{{'ENTER_REPORT'|translate}}</span>
+                    <span class="d-block is-invalid" *ngIf="f.Report.errors.minlength">{{'REPORT_MIN_SIZE'|translate}}</span>
                 </div>
             </div>
-            <button class="btn btn-primary" (click)="onSubmit()">Оставить отзыв</button>
+            <button class="btn btn-primary" (click)="onSubmit()">{{'SEND'|translate}}</button>
             <div *ngIf="!autorized" class="blur-form">
                 <button class="btn btn-primary" (click)="userService.ShowForm(0)" >{{"LOG_IN" | translate}}</button>
                 <button class="btn btn-success" (click)="userService.ShowForm(1)">{{"REGISTRATION" | translate}}</button>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <p>{{com.Text}}</p>
-                        <p class="line" *ngIf="com.Comments.length>0"><span (click)="showComments(com)">{{com.ButtonText}} <i class="fa" [ngClass] = "{'fa-angle-down':!com.ShowComments, ' fa-angle-up':com.ShowComments}"></i></span></p>
+                        <p class="line" *ngIf="com.Comments.length>0"><span (click)="showComments(com)">{{com.ButtonText | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!com.ShowComments, ' fa-angle-up':com.ShowComments}"></i></span></p>
                         <div *ngIf="com.ShowComments" class="report-comments">
                             <div *ngFor="let comment of com.Comments" class="comment">
                                 <div class="row">
@@ -126,19 +126,19 @@
     
                     </div>
                 </div>
-                <button class="btn" (click)="showForm(com)"  >Ответить</button>
+                <button class="btn" (click)="showForm(com)"  >{{'ANSWER' | translate}}</button>
                 <form [formGroup]="commentForm"  *ngIf="com.ShowForm"  class="review">
                     <div class="item ">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.report.errors }">Комментарий</span>
-                        <textarea maxlength="1000" formControlName="report" [ngClass]="{ 'is-invalid': submitted && f.report.errors }" cols="10" rows="5" #report></textarea>
-                        <div *ngIf="submitted && f.report.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.report.errors.required">Введите комментарий</span>
-                            <span class="d-block is-invalid" *ngIf="f.report.errors.minlength">Введите не меньше 5 символов!</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && f1.report.errors }">{{'COMMENT'|translate}}</span>
+                        <textarea maxlength="1000" formControlName="report" [ngClass]="{ 'is-invalid': submitted && f1.report.errors }" cols="10" rows="5" #report></textarea>
+                        <div *ngIf="submitted && f1.report.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f1.report.errors.required">{{'ENTER_COMMENT'|translate}}</span>
+                            <span class="d-block is-invalid" *ngIf="f1.report.errors.minlength">{{'REPORT_MIN_SIZE'|translate}}</span>
                         </div>
                     </div>
                     <div class="buttons">
-                        <button class="btn btn-primary" (click)="addComment(report.value, com)">Отправить</button>
-                        <button class="btn btn-default" (click)="showForm(com)">Отмена</button>
+                        <button class="btn btn-primary" (click)="addComment(report.value, com)">{{'SEND' | translate}}</button>
+                        <button class="btn btn-default" (click)="showForm(com)">{{'CANCEL' | translate}}</button>
                     </div>
                     
                 </form>

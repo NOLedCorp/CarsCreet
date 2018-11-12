@@ -31,7 +31,7 @@ export class CarsComponent {
         this.cars.forEach(c => {
           c.Reports.forEach(r => {
             r.CreatedDate = new Date(r.CreatedDate);
-            r.ButtonText =  "Показать комментарии";
+            r.ButtonText =  "SHOW_COMMENTS";
           })
         })
         console.log(this.cars);

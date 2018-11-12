@@ -15,7 +15,7 @@
               <div class="col-sm-7">
                 <div class="bars">
                   <div class="pros">
-                    <span>Внешний вид</span>
+                    <span>{{'CAR_LOOK' | translate}}</span>
                     <div class="progress-container">
                       
                         <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Look', service.car)}" ></div>
@@ -24,7 +24,7 @@
                   
                   </div>
                   <div class="pros">
-                    <span>Комфорт</span>
+                    <span>{{'CAR_COMFORT' | translate}}</span>
                     <div class="progress-container">
                         
                         <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Comfort', service.car)}" ></div>
@@ -33,7 +33,7 @@
                    
                   </div>
                   <div class="pros">
-                    <span>Ходовые характеристики</span>
+                    <span>{{'CAR_DRIVE' | translate}}</span>
                     <div class="progress-container">
                         <div style="background-color: rgb(34, 174, 255)" class="progress" [ngStyle]="{'width':getProgress('Drive', service.car)}" ></div>
                         <span class="bars-label"> {{Round(rating.Drive/200*5)}}</span>
@@ -98,18 +98,18 @@
               <div class="row">
                 <div class="col-sm-6">
                     <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">Имя</span>
+                      <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME'|translate}}</span>
                       <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" value="{{user?user.Name:''}}" required>
                       <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.Name.errors.required">Укажите имя</span>
+                        <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{'NAME_VALIDATION'|translate}}</span>
                 
                       </div>
                     </div>
                     <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">Email</span>
+                      <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
                       <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" value="{{user?user.Email:''}}" name="name" type="Email"  required>
                       <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.Email.errors.required">Укажите Email</span>
+                          <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
                       </div>
                     </div>
                     <div *ngIf="!user" class="item">
@@ -117,51 +117,51 @@
                         <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" required>
                           
                         <div *ngIf="submitted && f.Password.errors">
-                          <span class="d-block is-invalid" *ngIf="f.Password.errors.required">Укажите пароль</span>
+                          <span class="d-block is-invalid" *ngIf="f.Password.errors.required">{{'PASSWORD_VALIDATION'|translate}}</span>
                   
                         </div>
                   
                       </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{'PHONE'|translate}}</span>
                         <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" value="{{user?(user.Tel?user.Tel:''):''}}" name="name" type="tel" pattern="[0-9]{11}" required>
                         <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
                           
-                          <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>
+                          <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">Дата начала</span>
+                      <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">{{'DATE_START'|translate}}</span>
                       <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #DateStart required>
                       <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">Введите дату</span>
+                          <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
                           
                       </div>
                   </div>
                   <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }">Дата конца</span>
+                      <span [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }">{{'DATE_END'|translate}}</span>
                       <input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
                       <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">Введите дату</span>
+                          <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">{{'ENTER_DATE'|translate}}</span>
                           
                       </div>
                   </div>
                   <div class="item">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">Place</span>
+                    <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PLACE'|translate}}</span>
                     <select formControlName="Place" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
-                      <option selected value="Iraklion">Iraklion</option>
+                      <option selected value="Iraklion">{{'IRAKLION' | translate}}</option>
                     </select>
                     <div *ngIf="submitted && f.Place.errors">
-                      <span class="d-block is-invalid" *ngIf="f.Place.errors.required">PLACE_VALIDATION</span>
+                      <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'PLACE_VALIDATION'|translate}}</span>
               
                     </div>
                 
                   </div>
                     
                   <div class="item">
-                    <span>MODEL</span>
+                    <span>{{'MODEL'|translate}}</span>
                     <input value="{{service.car?service.car.Model:''}}" readonly type="text">
                   </div>
                 </div>
@@ -169,11 +169,11 @@
               
               
               <div class="item ">
-                  <span>Комментарий</span>
+                  <span>{{'COMMENT'|translate}}</span>
                   <textarea formControlName="Comment"  cols="10" rows="5" #report></textarea>
                   
               </div>
-              <button class="btn btn-primary">Забронировать</button>
+              <button class="btn btn-primary">{{'BOOK'|translate}}</button>
               
             </form>
       </div>

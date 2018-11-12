@@ -1,6 +1,7 @@
 {
     "HOME":"Главная",
     "CARS": "Автомобили",
+    "CAR": "Автомобиль",
     "CONTACTS": "Контакты",
     "RENTAL_POLICY": "Условия проката",
     "COMMENTS": "Отзывы",
@@ -44,7 +45,38 @@
     "LANG":"Язык",
     "MY_BOOKS":"Мои заказы",
     "ORDER":"Заказ",
+    "PRICE":"Цена",
     "PLACE":"Точка выдачи",
     "RENT":"Аренда",
-    "CREATE_DATE":"Создан"
+    "CREATE_DATE":"Создан",
+    "DATE_START":"Дата начала аренды",
+    "CAR_LOOK":"Внешний вид",
+    "CAR_COMFORT":"Комфорт",
+    "CAR_DRIVE":"Ходовые характеристики",
+    "REPORT":"Отзыв",
+    "SEND":"Отправить",
+    "COMMENT":"Комментарий",
+    "ANSWER":"Ответить",
+    "ENTER_CAR":"Выберете машину",
+    "ENTER_MARK":"Введите оценку",
+    "ENTER_DATE":"Введите дату",
+    "ENTER_REPORT":"Введите текст отзыва",
+    "ENTER_COMMENT":"Введите текст комментария",
+    "SHOW_COMMENTS":"Показать комментарии",
+    "CLOSE_COMMENTS":"Скрыть комментарии",
+    "LICENSED_TEXT":"CarsCrete24.com is a company officially licensed by the GNTO (Greek National Tourism Organization) ",
+    "ADRESS":"Адрес",
+    "OFFICE_HOURS":"Часы работы",
+    "LICENSED":"Лицензия",
+    "CONTACTS_HEADER":"Контакты",
+    "CONTACT_INFO":"Контактная информация",
+    "KOURNAS_LAKE":"Озеро Курна",
+    "BALI_VILLAGE":"Поселок Бали",
+    "CHURCH_PREVELI":"Церковь Превели",
+    "KNOSS_PALACE":"Кносский дворец",
+    "MODEL":"Модель",
+    "DATE_END":"Дата конца аренды"    
+
+
+
 }

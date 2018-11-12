@@ -120,11 +120,11 @@ export class FeedbackComponent implements OnInit {
   showComments(com:FeedBack){
     if(com.ShowComments){
       com.ShowComments=!com.ShowComments;
-      com.ButtonText="Показать комментарии";
+      com.ButtonText="SHOW_COMMENTS";
     }
     else{
       com.ShowComments=!com.ShowComments;
-      com.ButtonText="Скрыть комментарии";
+      com.ButtonText="CLOSE_COMMENTS";
     }
 
   }
@@ -141,7 +141,8 @@ export class FeedbackComponent implements OnInit {
   }
   addComment(text:string, report:FeedBack){
     this.submitted = true;
-    if (this.commentForm.invalid) {  
+    
+    if (this.commentForm.invalid) { 
         return;
     }
     this.feedBackService.addComment(text, this.userService.currentUser.Id, report.Id).subscribe(data =>{
@@ -152,6 +153,7 @@ export class FeedbackComponent implements OnInit {
     this.submitted=false;
   }
   get f() { return this.registerForm.controls; }
+  get f1() { return this.commentForm.controls; }
  
     onSubmit() {
         // stop here if form is invalid
