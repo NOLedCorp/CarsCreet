@@ -132,15 +132,11 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<bool>("IsLike");
 
-                    b.Property<long?>("ReportCommentId");
-
                     b.Property<long>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FeedBackId");
-
-                    b.HasIndex("ReportCommentId");
 
                     b.ToTable("Likes");
                 });
@@ -232,10 +228,6 @@ namespace CarsCrete.Data.Migrations
                         .WithMany("Likes")
                         .HasForeignKey("FeedBackId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CarsCrete.Data.Models.ReportComment")
-                        .WithMany("Likes")
-                        .HasForeignKey("ReportCommentId");
                 });
 
             modelBuilder.Entity("CarsCrete.Data.Models.ReportComment", b =>
