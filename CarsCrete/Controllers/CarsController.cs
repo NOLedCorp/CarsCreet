@@ -334,6 +334,12 @@ namespace CarsCrete.Controllers
         {
 
             var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).ProjectToType<CarDTO>().FirstOrDefault();
+            foreach (FeedBackDTO f in car.Reports)
+            {
+
+                f.Likes.RemoveAll(x => x.CommentId != 0);
+                f.Comments.ForEach(x => x.Likes = DbContext.Likes.Where(y => y.CommentId == x.Id).ToList().Adapt<List<LikeDTO>>());
+            }
             car.Reports = car.Reports.OrderByDescending(r => r.CreatedDate).ToList();
             return new JsonResult(
                 car,
