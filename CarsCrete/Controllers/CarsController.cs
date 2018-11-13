@@ -96,6 +96,7 @@ namespace CarsCrete.Controllers
             public string Email { get; set; }
             public string Password { get; set; }
             public string Phone { get; set; }
+            public string Lang { get; set; }
         }
 
         [HttpPut("add-user")]
@@ -111,6 +112,7 @@ namespace CarsCrete.Controllers
                 Email = model.Email,
                 Phone = model.Phone,
                 Password = model.Password,
+                Lang = model.Lang,
                 Photo = "../../assets/images/default_user_photo.jpg",
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now

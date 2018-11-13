@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MyTranslateService} from '../services/MyTranslateService';
 import {UserService} from '../services/UserService';
 import { AlertService } from '../services/AlertService';
@@ -9,15 +9,13 @@ import { AlertService } from '../services/AlertService';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
   @Input() service: MyTranslateService;
  
   alertService:AlertService = new AlertService();
   isExpanded = false;
   constructor(public userService:UserService){
-    if(localStorage.getItem("currentUser")){
-      this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
-    }
+    
   }
 
   collapse() {
@@ -26,6 +24,7 @@ export class NavMenuComponent {
   Exit(){
     this.userService.currentUser=null;
     localStorage.removeItem("currentUser");
+    sessionStorage.removeItem('curLang')
     location.reload();
   }
   toggle() {
@@ -33,5 +32,15 @@ export class NavMenuComponent {
   }
   changePage(page:string){
     
+  }
+  ngOnInit(){
+    if(localStorage.getItem("currentUser")){
+      this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
+      if(this.userService.currentUser.Lang){
+        if(!sessionStorage.getItem('curLang')){
+          this.service.changeLang(this.userService.currentUser.Lang=="RU"?'ru':'en');
+        }
+      }
+    }
   }
 }

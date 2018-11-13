@@ -87,9 +87,9 @@
      
     </div>
   </div>
-  <div *ngIf="userService.currentUser?!!userService.currentUser.Books:false" class="statistics">
+  <div *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="statistics">
     <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
-    <h3>{{'MY_BOOKS' | translate}}</h3>
+    <h3 >{{'MY_BOOKS' | translate}}</h3>
     <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно'}" *ngFor="let book of userService.currentUser.Books">
       <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
       <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>

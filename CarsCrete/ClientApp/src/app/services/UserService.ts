@@ -16,7 +16,7 @@ export class UserService {
     }
 
     AddUser(user:NewUser){
-        return this.http.put<User>(this.baseUrl + 'cars/add-user', { "Name": user.Name, "Email": user.Email, "Password": user.Password, "Phone": user.Tel});
+        return this.http.put<User>(this.baseUrl + 'cars/add-user', { "Name": user.Name, "Email": user.Email, "Password": user.Password, "Phone": user.Tel, "Lang":user.Lang});
     }
     GetUser(user:EUser){
         let params = new HttpParams().set('Email', user.Email).set('Password', user.Password);
@@ -48,13 +48,15 @@ export interface NewUser{
     Name:string;
     Email:string;
     Password:string;
-    Tel:string
+    Tel:string;
+    Lang:string;
 }
 export interface User{
     Id:number;
     Name:string;
     Email:string;
     Phone:string;
+    Lang:string;
     CreatedDate:Date;
     ModifiedDate:Date;
     Reports:FeedBack[];
