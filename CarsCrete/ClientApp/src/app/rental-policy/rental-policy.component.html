@@ -11,9 +11,9 @@
       <i class="fa fa-shield fa-4x pull-left"></i>
       <h4>
         <i class="fa fa-check"></i>
-        {{rule.Name}}
+        {{Translate.currentLang=='ru'?rule.Name:rule.NameEng}}
       </h4>
-      <p>{{rule.Description}}</p>
+      <p>{{Translate.currentLang=='ru'?rule.Description:rule.DescriptionEng}}</p>
     </div>
     <div class="bg-blurrr" style="background-image: url(../../assets/images/nissan-micra-wide.jpg); background-size: cover">
       <img src="../../assets/images/nissan-micra-wide.jpg" alt="">

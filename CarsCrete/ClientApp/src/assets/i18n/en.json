@@ -74,5 +74,9 @@
     "KNOSS_PALACE":"Knoss palace",
     "MODEL":"Model",
     "DATE_END":"Rent date end",
-    "UPLOAD_PHOTO":"Upload photo"
+    "UPLOAD_PHOTO":"Upload photo",
+    "RENTAL_POLICY_HEADER":"Rent a car Crete - Policy",
+    "RENTAL_POLICY_DESCRIBTION":"Things you have to know before reserving a car. Read these useful terms in order to be prepared.",
+    "RENTAL_POLICY_PRICE_INCLUDE_HEADER":"Our Prices Always include",
+    "RENTAL_POLICY_PRICE_INCLUDE":"Your rental is protected with our <b>Premium Insurance</b>! In the event of damage or theft to the car, you are not required to pay any excess as long as the use of the car is according to terms & conditions below. At rental pick-up no credit card deposit is required and you will not be asked to pay extra for additional insurances."
 }
