@@ -37,9 +37,10 @@ export class NavMenuComponent implements OnInit {
     if(localStorage.getItem("currentUser")){
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       if(this.userService.currentUser.Lang){
-        if(!sessionStorage.getItem('curLang')){
-          this.service.changeLang(this.userService.currentUser.Lang=="RU"?'ru':'en');
-        }
+
+        this.service.changeLang(this.userService.currentUser.Lang=="RU"?'ru':'en');
+        
+
       }
     }
   }

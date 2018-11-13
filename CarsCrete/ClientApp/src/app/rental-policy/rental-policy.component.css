@@ -28,6 +28,8 @@ img{
     margin: 20px 0;
 }
 .bg-blurrr h1{
+    position: absolute;
+    left: 0;
     margin-left: 70px;
     color: white;
     z-index: 11;

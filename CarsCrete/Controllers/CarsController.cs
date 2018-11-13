@@ -179,6 +179,7 @@ namespace CarsCrete.Controllers
         public bool UploadPhoto()
         {
             
+            
             var files = Request.Form.Files;
             var k = 0;
             return true;
