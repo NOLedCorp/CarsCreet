@@ -1,4 +1,4 @@
-<!-- Старый вариант:
+
 
 <div class="container">
    <h1>{{'RENTAL_POLICY_HEADER' | translate}}</h1>
@@ -6,14 +6,14 @@
    <br><br><br>
    <h4>{{'RENTAL_POLICY_PRICE_INCLUDE_HEADER' | translate}}:</h4>
    <p>{{'RENTAL_POLICY_PRICE_INCLUDE' | translate}}</p>
-   <div class="include">
+   <div class="include" *ngFor="let rule of items">
       <hr>
       <i class="fa fa-shield fa-4x pull-left"></i>
       <h4>
         <i class="fa fa-check"></i>
-        {{'RENTAL_POLICY_PRICE_INCLUDE_1' | translate}}
+        {{rule.Name}}
       </h4>
-      <p>Не следует, однако забывать, что дальнейшее развитие различных форм деятельности способствует подготовки и реализации форм развития. С другой стороны рамки и место обучения кадров способствует подготовки и реализации модели развития. Повседневная практика показывает, что укрепление и развитие структуры обеспечивает широкому кругу (специалистов) участие в формировании дальнейших направлений развития.</p>
+      <p>{{rule.Description}}</p>
     </div>
     <div class="bg-blurrr" style="background-image: url(../../assets/images/nissan-micra-wide.jpg); background-size: cover">
       <img src="../../assets/images/nissan-micra-wide.jpg" alt="">
@@ -33,9 +33,9 @@
     </div>
  </div>
 
--->
 
-<div *ngFor="let i of items" class="item">
+
+<!-- <div *ngFor="let i of items" class="item">
   <div class="row">
     <div class="col-sm-10">
       <h4><i class="fa fa-shield fa-4x pull-left"></i>{{i.Name | translate}}</h4>
@@ -43,4 +43,4 @@
     </div>
   </div>
   <hr>
-</div>
+</div> -->

@@ -32,7 +32,6 @@ export class RentalPolicyComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('worker');
   }
 
 }
