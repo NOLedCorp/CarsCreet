@@ -8,6 +8,7 @@ using Mapster;
 using CarsCrete.Data.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -172,6 +173,14 @@ namespace CarsCrete.Controllers
             }
             
 
+            return true;
+        }
+        [HttpPost("upload-user-photo")]
+        public bool UploadPhoto()
+        {
+            
+            var files = Request.Form.Files;
+            var k = 0;
             return true;
         }
 

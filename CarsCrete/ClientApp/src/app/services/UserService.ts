@@ -26,6 +26,9 @@ export class UserService {
         
         return this.http.get<User>(this.baseUrl + 'cars/get-user-by-id/'+id)
     }
+    UploadPhoto(data:any){
+        return this.http.post(this.baseUrl + 'cars/upload-user-photo', {"uploadedFile":data})
+    }
     GetStatistics(){
         return this.http.get<Statistics>(this.baseUrl + 'cars/get-statistics')
     }
