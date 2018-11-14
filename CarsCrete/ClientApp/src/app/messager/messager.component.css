@@ -154,6 +154,7 @@ h3{
 .message-body span{
     display: block;
     width: 100%;
+    margin-bottom: 10px; 
     
     
 }
