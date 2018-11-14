@@ -89,7 +89,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'policy', component: RentalPolicyComponent},
       { path: 'contacts', component: ContactsComponent},
       { path: 'about', component: AboutCreteComponent},
-    ])
+    ],{ useHash: true})
   ],
   providers: [UserService, CarsService, AlertService, FeedBackService],
   bootstrap: [AppComponent]
