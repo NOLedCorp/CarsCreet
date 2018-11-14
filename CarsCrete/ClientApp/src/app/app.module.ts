@@ -33,6 +33,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AboutCreteComponent } from './about-crete/about-crete.component';
 import { FooterComponent } from './footer/footer.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MessagerComponent } from './messager/messager.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -61,7 +62,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     RentalPolicyComponent,
     ContactsComponent,
     AboutCreteComponent,
-    FooterComponent
+    FooterComponent,
+    MessagerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
