@@ -27,6 +27,16 @@ img{
     background-position: center center;
     margin: 20px 0;
 }
+@media (max-width:767px){
+    .bg-blurrr{
+        height: auto;
+    }
+    .bg-blurrr h1{
+        left: 10px !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+    }
+}
 .bg-blurrr h1{
     position: absolute;
     left: 0;
