@@ -34,8 +34,8 @@
     <button class="btn btn-primary" (click)="send()">{{'SEND' | translate }}</button>
   </form>
   <div *ngIf="userProfile" class="panel">
-    <textarea></textarea>
-    <i class="fa fa-paper-plane"></i>
+    <textarea #message></textarea>
+    <i class="fa fa-paper-plane" (click)="sendMessage(message)"></i>
   </div>
   <div *ngIf=" userProfile" class="messages">
     <div *ngIf="!messages.length>0 && userProfile" class="no-message">

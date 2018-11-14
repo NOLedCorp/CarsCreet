@@ -100,5 +100,13 @@ export class MessagerComponent implements OnInit {
       return;
     }
   }
+  sendMessage(message:HTMLInputElement){
+    this.messages.unshift({
+      UserId:this.userId,
+      UserReciverId:10,
+      Text:message.value,
+      CreateDate: new Date()
+    })
+  }
 
 }

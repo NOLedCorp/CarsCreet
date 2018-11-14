@@ -99,7 +99,7 @@
     font-size: 30px;
     border-radius: 5px;
     position: absolute;
-    left: -50px;
+    left: -70px;
 }
 .item{
     display: flex;
@@ -184,6 +184,10 @@ h3{
     z-index: 290;
 }
 @media (max-width:768px){
+    .message-body{
+        max-width: 80%;
+        
+    }
     .header-small{
         display: flex;
         align-items: center;
@@ -228,7 +232,28 @@ h3{
         margin-bottom: 2px;
     }
     .messages{
-        height: 100%;
+        height: 95%;
     }
     
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(99, 128, 255, 0.445); 
+    border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #2011ee; 
 }
