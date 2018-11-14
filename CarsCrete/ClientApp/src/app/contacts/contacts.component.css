@@ -1,5 +1,5 @@
 .item{
-    display: fle;
+    display: flex;
     flex-direction: column;
 }
 .item h5{
@@ -22,4 +22,9 @@ a{
 }
 a:hover{
     color: rgb(51, 51, 177);
+}
+@media (max-width: 767px){
+    .col-md-7{
+        border-right:none;
+    }
 }

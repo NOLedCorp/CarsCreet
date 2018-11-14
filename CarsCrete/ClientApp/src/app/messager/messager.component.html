@@ -1,3 +1,40 @@
-<p>
-  messager works!
-</p>
+<div class="container" [ngClass] = "{'show':(showMess && !showAll && !userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
+  <div class="header" (click)="show(showAll)">
+    <i class="fa fa-comments" ></i>
+    <h3 *ngIf="!userProfile">{{'SEND_MESSAGE' | translate}}</h3>
+    
+  </div>
+  <form [formGroup]="messageForm" *ngIf="!userProfile">
+    <div class="item">
+      <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME' | translate }}</span>
+      <input formControlName="Name" type="text">
+      <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+        <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{"NAME_VALIDATION" | translate}}</span>
+    
+      </div>
+    </div>
+    <div class="item">
+      <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL' | translate }}*</span>
+      <input formControlName="Email" type="email">
+      <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+        <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{"EMAIL_VALIDATION" | translate}}</span>
+  
+      </div>
+    </div>
+    <div class="item">
+      <span [ngClass]="{ 'is-invalid': submitted && f.Message.errors }">{{'MESSAGE' | translate }}*</span>
+      <textarea formControlName="Message" cols="30" rows="4"></textarea>
+      <div *ngIf="submitted && f.Message.errors" class="invalid-feedback">
+        <span class="d-block is-invalid" *ngIf="f.Message.errors.required">{{"MESSAGE_VALIDATION" | translate}}</span>
+    
+      </div>
+
+    </div>
+    <button class="btn btn-primary" (click)="send()">{{'SEND' | translate }}</button>
+  </form>
+  <div *ngIf="userProfile" class="panel">
+    <textarea></textarea>
+    <i class="fa fa-paper-plane"></i>
+  </div>
+  
+</div>

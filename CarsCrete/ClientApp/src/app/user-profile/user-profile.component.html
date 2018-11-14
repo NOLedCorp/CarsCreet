@@ -98,6 +98,7 @@
       </div>
      
     </div>
+    <messager [userProfile]='true'></messager>
   </div>
   <div *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="statistics">
     <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
@@ -134,3 +135,4 @@
     </div>
   </div>
 </div>
+

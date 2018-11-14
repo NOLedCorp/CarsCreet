@@ -1,0 +1,114 @@
+.container{
+    z-index: 300;
+    margin: 0;
+    position: fixed;
+    bottom: -283px;
+    left:20px;
+    width: 200px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.747);
+    padding: 10px;
+    transition: 0.5s;
+}
+.InPage{
+    position: relative;
+    display: block;
+    bottom: auto;
+    left:auto;
+    width: 100% !important;
+    border: none !important;
+    border-radius: 4px;
+    box-shadow: none;
+}
+.Profile{
+    position: absolute;
+    display: block;
+    bottom: auto;
+    right: -520px;
+    top: 10px;
+    left:auto;
+    width: 500px !important;
+    border: none !important;
+    border-radius: 4px;
+    box-shadow: none;
+    background-color: rgb(113, 113, 238);
+}
+.panel{
+    border: none;
+    display: flex;
+    position: relative;
+    height: 30px;
+
+}
+.panel i{
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    line-height: 26px;
+    background-color: blue;
+    color:white;
+    border-radius: 0 4px 4px 0;
+    width: 30px;
+    height: 30px;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Profile textarea{
+    width: 100%;
+    padding-right: 33px;
+    border-radius: 4px; 
+}
+.InPage .header{
+    background-color: transparent;
+    color:black;
+    text-align: start;
+    display: block;
+    padding-top: 20px;
+}
+.InPage .header h3, .InPage .header i{
+    
+    display: inline;
+    font-size: 24px;
+}
+.Profile .header{
+    width: auto;
+    border-radius: 5px;
+    position: absolute;
+    left: -50px;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+}
+.item:first-child{
+    margin-top: 10px;
+}
+h3{
+    margin: 0;
+    font-size: 17px;
+    margin-left: 2px;
+}
+.header{
+    padding: 10px;
+    text-align: center;
+    margin: -10px -10px 0 -10px;
+    background-color: rgb(69, 189, 69); 
+    border-radius: 4px 4px 0 0;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    
+}
+.show{
+    bottom: 20px;
+    width: 300px;
+}
+.showP{
+    right: 10px !important;
+}
