@@ -25,10 +25,10 @@
         <div >
           <div class="item">
             <div class="row">
-              <div class="col-xs-4">
+              <div class="col-sm-4">
                 <span>{{'EMAIL' | translate}}: </span>
               </div>
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <p>{{userService.currentUser?userService.currentUser.Email:''}}</p>
                 <i (click)="showChangeInfo(0,true)"  class="fa fa-pencil"></i>
               </div>
@@ -44,10 +44,10 @@
           </div>
           <div class="item">
             <div class="row">
-              <div class="col-xs-4">
+              <div class="col-sm-4">
                 <span>{{'PHONE' | translate}}: </span>
             </div>
-            <div class="col-xs-6">
+            <div class="col-sm-6">
                 <p>{{userService.currentUser?(userService.currentUser.Phone?userService.currentUser.Phone:('NO_DATA' | translate)):''}}</p>
                 <i (click)="showChangeInfo(1,true)"  class="fa fa-pencil"></i>
             </div>
@@ -64,20 +64,20 @@
           </div>
           <div class="item">
             <div class="row">
-              <div class="col-xs-4">
+              <div class="col-sm-4">
                 <span>{{'REG_DATE' | translate}}: </span>
               </div>
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <p>{{userService.currentUser?(userService.currentUser.CreatedDate | date: 'dd.MM.yyyy'):''}}</p>
               </div>
             </div>
           </div>
           <div class="item">
             <div class="row">
-              <div class="col-xs-4">
+              <div class="col-sm-4">
                 <span>{{'LANG' | translate}}: </span>
               </div>
-              <div class="col-xs-6">
+              <div class="col-sm-6">
                 <p>{{userService.currentUser?(userService.currentUser.Lang?userService.currentUser.Lang:('NO_DATA' | translate)):''}}</p>
                 <i (click)="showChangeInfo(2,true)"  class="fa fa-pencil"></i>
               </div>
