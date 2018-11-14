@@ -1,5 +1,6 @@
-<div class="container" [ngClass] = "{'show':(showMess && !showAll && !userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
-  <div class="header" (click)="show(showAll)">
+<div class="container" [ngClass] = "{'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
+  
+  <div class="header" [ngClass]="{'hidden-header':(showMess && userProfile)}" (click)="show(showAll)">
     <i class="fa fa-comments" ></i>
     <h3 *ngIf="!userProfile">{{'SEND_MESSAGE' | translate}}</h3>
     
@@ -42,11 +43,18 @@
     </div>
     <div class="message" [ngClass]="{'my-message': mes.UserId == 7}" *ngFor="let mes of messages">
       <div class="message-body">
-        <span>{{mes.CreateDate | date: 'dd.MM.yyyy HH:mm:ss'}}</span>
+        
         <p>{{mes.Text}}</p>
+        <span>{{mes.CreateDate | date: 'HH:mm'}}</span>
       </div>
     </div>
   </div>
   
 </div>
 <div *ngIf="showMess" style="background-color: transparent"  [ngClass] = "{'blurProf':userProfile}" class="background-blur" (click)="show(showAll)"></div>
+<div *ngIf="userProfile" style="z-index: 310" class="header-small"  (click)="show(showAll)">
+  <i class="fa fa-comments" ></i>
+</div>
+<div *ngIf="!userProfile && !showAll" [ngClass]="{'hidden-header':showMess}" class="header-small"  (click)="show(showAll)">
+  <i class="fa fa-comments" ></i>
+</div>

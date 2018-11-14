@@ -11,6 +11,7 @@ import { IMPLICIT_REFERENCE } from '@angular/compiler/src/render3/view/util';
 })
 export class AppComponent implements OnInit {
   title = 'app';
+  showMes:boolean = true;
   service:MyTranslateService ;
   constructor(private router:Router, private translate: TranslateService){
     this.service = new MyTranslateService(translate);
@@ -19,8 +20,15 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     window.scrollTo(0, 0);
     this.router.events.subscribe((evt) => {
+      
       if (!(evt instanceof NavigationEnd)) {
           return;
+      }
+      if(evt.url=='/user'){
+        this.showMes=false;
+      }
+      else{
+        this.showMes=true;
       }
       window.scrollTo(0, 0)
      });

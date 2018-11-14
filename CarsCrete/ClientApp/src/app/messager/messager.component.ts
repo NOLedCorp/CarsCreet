@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message } from '../services/MessagerService';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'messager',
@@ -72,7 +73,9 @@ export class MessagerComponent implements OnInit {
   messageForm: FormGroup;
   submitted = false;
   
-  constructor(private formBuilder: FormBuilder){ }
+  constructor(private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
+    // console.log(ARouter.snapshot.url);
+   }
   get f() { return this.messageForm.controls; }
   get g() { return this.messageForm.controls; }
   ngOnInit() {
