@@ -36,5 +36,17 @@
     <textarea></textarea>
     <i class="fa fa-paper-plane"></i>
   </div>
+  <div *ngIf=" userProfile" class="messages">
+    <div *ngIf="!messages.length>0 && userProfile" class="no-message">
+      <span><span>{{'NO_DATA_MESSAGER' | translate }}</span></span>
+    </div>
+    <div class="message" [ngClass]="{'my-message': mes.UserId == 7}" *ngFor="let mes of messages">
+      <div class="message-body">
+        <span>{{mes.CreateDate | date: 'dd.MM.yyyy HH:mm:ss'}}</span>
+        <p>{{mes.Text}}</p>
+      </div>
+    </div>
+  </div>
   
 </div>
+<div *ngIf="showMess" style="background-color: transparent"  [ngClass] = "{'blurProf':userProfile}" class="background-blur" (click)="show(showAll)"></div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User, UserService, Book} from '../services/UserService';
 import {Router} from '@angular/router';
-import { FileUploader } from 'ng2-file-upload';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
 
 const URL = '/cars/upload-user-photo';

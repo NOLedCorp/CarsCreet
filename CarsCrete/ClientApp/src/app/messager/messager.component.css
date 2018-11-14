@@ -4,7 +4,7 @@
     position: fixed;
     bottom: -283px;
     left:20px;
-    width: 200px;
+    width: 220px;
     background: white;
     border: 1px solid black;
     border-radius: 4px;
@@ -13,6 +13,7 @@
     transition: 0.5s;
 }
 .InPage{
+    
     position: relative;
     display: block;
     bottom: auto;
@@ -22,12 +23,23 @@
     border-radius: 4px;
     box-shadow: none;
 }
+.blurProf{
+    z-index: 305;
+}
+.messages{
+    max-height: 600px;
+    overflow-y: scroll;
+    padding: 10px;
+
+}
 .Profile{
+    z-index: 310;
     position: absolute;
     display: block;
     bottom: auto;
     right: -520px;
     top: 10px;
+
     left:auto;
     width: 500px !important;
     border: none !important;
@@ -111,4 +123,42 @@ h3{
 }
 .showP{
     right: 10px !important;
+}
+
+.no-message{
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:30px;
+
+}
+.message{
+    margin: 10px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+.my-message .message-body{
+    background-color: rgb(101, 255, 170);
+}
+.my-message{
+    
+    justify-content: flex-end !important;
+}
+.message-body{
+    max-width: 60%;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(101, 168, 255);
+}
+.message-body span{
+    display: block;
+    width: 100%;
+    
+    
+}
+
+
+.my-message .message-body span{
+    text-align: end;
 }
