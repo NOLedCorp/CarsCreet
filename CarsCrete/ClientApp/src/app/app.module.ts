@@ -24,6 +24,7 @@ import { AlertService } from './services/AlertService';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { PagesComponent } from './pages/pages.component';
 import { FeedBackService } from './services/FeedBackService';
+import { MessagerService } from './services/MessagerService';
 import { RatingComponent } from './rating/rating.component';
 import { PickerComponent } from './picker/picker.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -91,7 +92,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'about', component: AboutCreteComponent},
     ],{ useHash: true})
   ],
-  providers: [UserService, CarsService, AlertService, FeedBackService],
+  providers: [UserService, CarsService, AlertService, FeedBackService, MessagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

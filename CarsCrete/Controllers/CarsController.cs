@@ -38,12 +38,14 @@ namespace CarsCrete.Controllers
         public IActionResult GetUserById(long id)
         {
 
-            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Books).ProjectToType<UserDTO>().FirstOrDefault();
+            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Books).Include(x => x.Messages).ProjectToType<UserDTO>().FirstOrDefault();
             if (user == null)
             {
                 return new StatusCodeResult(500);
             }
+            user.Messages.AddRange(DbContext.Messages.Where(x => x.UserReciverId == user.Id).ProjectToType<MessageDTO>().ToList());
             user.Books=user.Books.OrderByDescending(x => x.DateFinish).ToList();
+            user.Messages=user.Messages.OrderByDescending(x => x.CreateDate).ToList();
             return new JsonResult(
                 user,
                 new JsonSerializerSettings()
@@ -51,6 +53,9 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+
+
+
         public class Statistics
         {
             public List<UserDTO> Users { get; set; }
@@ -585,6 +590,23 @@ namespace CarsCrete.Controllers
             
             return new JsonResult(
                 like1,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+
+        [HttpPut("save-message")]
+        public IActionResult SaveMessage([FromBody]MessageDTO model)
+        {
+            var message = model.Adapt<Message>();
+            message.CreateDate = DateTime.Now;
+            DbContext.Messages.Add(message);
+            DbContext.SaveChanges();
+            model.User = DbContext.Users.Where(x => x.Id == model.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+
+            return new JsonResult(
+                model,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented

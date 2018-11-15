@@ -41,7 +41,7 @@
     <div *ngIf="!messages.length>0 && userProfile" class="no-message">
       <span><span>{{'NO_DATA_MESSAGER' | translate }}</span></span>
     </div>
-    <div class="message" [ngClass]="{'my-message': mes.UserId == 7}" *ngFor="let mes of messages">
+    <div class="message" [ngClass]="{'my-message': mes.UserId == userId}" *ngFor="let mes of messages">
       <div class="message-body">
         
         <p>{{mes.Text}}</p>
