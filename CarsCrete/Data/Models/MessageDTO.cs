@@ -15,8 +15,8 @@ namespace CarsCrete.Data.Models
         
         public long UserId { get; set; }
         
-        public long UserReciverId { get; set; }
+        public long TopicId { get; set; }
 
-        public virtual UserDTO User { get; set; }
+
     }
 }

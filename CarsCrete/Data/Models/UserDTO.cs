@@ -28,7 +28,7 @@ namespace CarsCrete.Data.Models
         public List<FeedBackDTO> Reports { get; set; }
         public List<BookDTO> Books { get; set; }
         public virtual List<ReportComment> Comments { get; set; }
-        public virtual List<MessageDTO> Messages { get; internal set; }
+        public virtual List<TopicDTO> Topics { get; internal set; }
         #endregion
 
     }

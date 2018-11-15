@@ -37,15 +37,35 @@ namespace CarsCrete.Controllers
         [HttpGet("get-user-by-id/{id}")]
         public IActionResult GetUserById(long id)
         {
-
-            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Books).Include(x => x.Messages).ProjectToType<UserDTO>().FirstOrDefault();
+            
+            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Books).Include(x => x.Topics).ProjectToType<UserDTO>().FirstOrDefault();
             if (user == null)
             {
                 return new StatusCodeResult(500);
             }
-            user.Messages.AddRange(DbContext.Messages.Where(x => x.UserReciverId == user.Id).ProjectToType<MessageDTO>().ToList());
+            if(id == 6)
+            {
+                user.Topics = DbContext.Topics.Where(x => x.UserReciverId == id).OrderByDescending(x => x.ModifyDate).ProjectToType<TopicDTO>().ToList();
+            }
+            else
+            {
+                user.Topics = user.Topics.OrderByDescending(x => x.ModifyDate).ToList();
+            }
+            
             user.Books=user.Books.OrderByDescending(x => x.DateFinish).ToList();
-            user.Messages=user.Messages.OrderByDescending(x => x.CreateDate).ToList();
+            foreach(TopicDTO t in user.Topics)
+            {
+                t.Messages = t.Messages.OrderByDescending(x => x.CreateDate).ToList();
+                if(id == 6)
+                {
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserId).ProjectToType<UserDTO>().FirstOrDefault();
+                }
+                else
+                {
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+                }
+                
+            }
             return new JsonResult(
                 user,
                 new JsonSerializerSettings()
@@ -601,12 +621,32 @@ namespace CarsCrete.Controllers
         {
             var message = model.Adapt<Message>();
             message.CreateDate = DateTime.Now;
+            var topic = DbContext.Topics.Where(x => x.Id == model.TopicId).FirstOrDefault();
+            topic.ModifyDate = DateTime.Now;
             DbContext.Messages.Add(message);
             DbContext.SaveChanges();
-            model.User = DbContext.Users.Where(x => x.Id == model.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+            //model.User = DbContext.Users.Where(x => x.Id == model.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
 
             return new JsonResult(
                 model,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+        [HttpPut("create-topic")]
+        public IActionResult CreateTopic([FromBody]TopicDTO model)
+        {
+            var topic = model.Adapt<Topic>();
+            topic.ModifyDate = DateTime.Now;
+            topic.UserReciverId = 6;
+            DbContext.Topics.Add(topic);
+            DbContext.SaveChanges();
+            var result = DbContext.Topics.Where(x => (x.UserId == topic.UserId && x.UserReciverId == topic.UserReciverId)).ProjectToType<TopicDTO>().FirstOrDefault();
+            result.User = DbContext.Users.Where(x => x.Id == result.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+
+            return new JsonResult(
+                result,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented

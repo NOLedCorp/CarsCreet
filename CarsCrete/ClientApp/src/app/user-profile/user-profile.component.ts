@@ -19,9 +19,13 @@ export class UserProfileComponent implements OnInit {
     if(localStorage.getItem("currentUser")){
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
+        data.Topics.forEach(x => {
+          x.ModifyDate= new Date(x.ModifyDate);
+        })
         this.userService.currentUser=data;
+        console.log(this.userService.currentUser);
         localStorage.setItem('currentUser',JSON.stringify(data));
-        console.log(data);
+       
       })
     }
     else{

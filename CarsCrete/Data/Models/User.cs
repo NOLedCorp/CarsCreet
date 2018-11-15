@@ -48,7 +48,7 @@ namespace CarsCrete.Data.Models
         public virtual List<FeedBack> Reports { get; set; }
         public virtual List<Book> Books { get; set; }
         public virtual List<ReportComment> Comments { get; set; }
-        public virtual List<Message> Messages { get; internal set; }
+        public virtual List<Topic> Topics { get; internal set; }
         #endregion
 
     }

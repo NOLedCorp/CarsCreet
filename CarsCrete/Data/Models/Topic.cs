@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarsCrete.Data.Models
 {
-    public class Message
+    public class Topic
     {
         [Key]
         [Required]
         public long Id { get; set; }
         [Required]
-        public DateTime CreateDate { get; set; }
-        [Required]
-        public string Text { get; set; }
-        [Required]
         public long UserId { get; set; }
         [Required]
-        public long TopicId { get; set; }
+        public long UserReciverId { get; set; }
+        [Required]
+        public DateTime ModifyDate { get; set; }
 
 
-
+        public virtual List<Message> Messages { get; set; }
     }
 }

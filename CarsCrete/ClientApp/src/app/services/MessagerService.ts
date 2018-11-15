@@ -12,6 +12,10 @@ export class MessagerService{
     
         return this.http.put<Message>(this.baseUrl + 'cars/save-message', mess);
     }
+    createTopic(top:any){
+    
+        return this.http.put<Topic>(this.baseUrl + 'cars/create-topic', top);
+    }
 }
 
 export interface Message{
@@ -19,6 +23,14 @@ export interface Message{
     CreateDate:Date;
     Text:string;
     UserId:number;
+    TopicId:number;
+}
+
+export interface Topic{
+    Id:number;
+    UserId:number;
     UserReciverId:number;
-    User?:User;
+    ModifyDate:Date;
+    User:User;
+    Messages:Message[];
 }

@@ -1,6 +1,7 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Car } from '../services/CarsService';
+import { Topic } from './MessagerService';
 
 export class UserService {
     openForm:boolean=false;
@@ -60,6 +61,7 @@ export interface User{
     Email:string;
     Phone:string;
     Lang:string;
+    Topics?:Topic[];
     CreatedDate:Date;
     ModifiedDate:Date;
     Reports:FeedBack[];
