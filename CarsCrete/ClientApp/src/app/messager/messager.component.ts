@@ -61,16 +61,19 @@ export class MessagerComponent implements OnInit, OnChanges {
     }
     else{
       this.currentTopic = top;
-      if(!top.Seen && this.user.Id == top.UserReciverId){
-        this.messagerService.changeSeen(top.Id).subscribe(data => {
-          if(data){
-            
-            top.Seen = true;
-            
-            console.log(top);
-          }
-        })
+      if(this.user){
+        if(!top.Seen && this.user.Id == top.UserReciverId){
+          this.messagerService.changeSeen(top.Id).subscribe(data => {
+            if(data){
+              
+              top.Seen = true;
+              
+              console.log(top);
+            }
+          })
+        }
       }
+      
     }
   }
   ngOnChanges(ch:SimpleChanges){

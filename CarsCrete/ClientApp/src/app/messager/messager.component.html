@@ -36,7 +36,7 @@
   </form>
   <div class="topic top-topic" (click) = "showTopic()" [ngStyle]="{'margin-top':showTopics?'10px':''}"  *ngIf="(userProfile || showTopics) && (!!currentTopic)">
     <div class="row">
-      <div class="col-sm-7"><span>{{currentTopic.User.Name}}</span></div>
+      <div class="col-sm-7"><span>{{currentTopic.User?currentTopic.User.Name:''}}</span></div>
       <div class="col-sm-5"><span>{{currentTopic.ModifyDate | date: 'HH:mm'}}</span></div>
     </div>
   </div>
