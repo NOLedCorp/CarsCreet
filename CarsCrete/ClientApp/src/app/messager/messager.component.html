@@ -53,7 +53,7 @@
     </div>
     <div class="topic" [ngClass]="{'hidden':!!currentTopic, 'not-seen':(!top.Seen && this.userId == top.UserReciverId)}" (click) = "showTopic(top)"  *ngFor="let top of topics">
       <div class="row">
-        <div class="col-sm-7"><span>{{top.User.Name}}</span></div>
+        <div class="col-sm-7"><span>{{top.User?top.User.Name:''}}</span></div>
         <div class="col-sm-5"><span>{{top.ModifyDate | date: 'HH:mm'}}</span></div>
       </div>
     </div>

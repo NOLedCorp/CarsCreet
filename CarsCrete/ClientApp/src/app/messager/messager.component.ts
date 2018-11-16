@@ -67,8 +67,6 @@ export class MessagerComponent implements OnInit, OnChanges {
             if(data){
               
               top.Seen = true;
-              
-              console.log(top);
             }
           })
         }
@@ -109,7 +107,13 @@ export class MessagerComponent implements OnInit, OnChanges {
   }
   showScroll(x:number, y:number, c?:boolean){
     if(c){
-      window.scrollTo(x,y)
+      if(window.innerWidth>940){
+        window.scrollTo(x,y);
+      }
+      else{
+        window.scrollTo(x,y+150);
+      }
+      
     }
     
   }
