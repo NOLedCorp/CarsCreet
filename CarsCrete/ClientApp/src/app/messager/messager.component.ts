@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, ViewRef, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message, MessagerService, Topic } from '../services/MessagerService';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from '../services/UserService';
 
 @Component({
   selector: 'messager',
@@ -10,31 +11,49 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MessagerComponent implements OnInit, OnChanges {
   showMess:boolean=false;
-  
+  message:string = "";
   @Input() showAll:boolean = false;
   @Input() userProfile:boolean = false;
-  @Input() userId:number = 0;
+  
   @Input() topics:Topic[] = [];
+
+  @ViewChild('messages')
+  public m:ElementRef;
+  showTopics:boolean = false;
   messageForm: FormGroup;
+  userId:number = 0;
+  user:User;
   currentTopic:Topic = null;
   submitted = false;
   
   constructor(private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
     // console.log(ARouter.snapshot.url);
+    
    }
   get f() { return this.messageForm.controls; }
   get g() { return this.messageForm.controls; }
   ngOnInit() {
-    if(this.topics.length==1){
-      this.currentTopic = this.topics[0];
+    if(localStorage.getItem('currentUser')){
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+      this.userId = this.user.Id;
     }
+    if(this.topics.length==1){
+      this.showTopic(this.topics[0]);
+    }
+    
     console.log(this.currentTopic);
     this.messageForm = this.formBuilder.group({
-      Name: [''],
-      Email: ['', Validators.required],
-      Message: ['', Validators.required],
+      Name: [this.user?this.user.Name:''],
+      Email: [this.user?this.user.Email:'', Validators.required],
+      Message: ['', Validators.required]
          
     });
+    if(!this.userProfile && !this.showAll){
+      
+      if(this.user?this.user.Id==6:false){
+        this.send(true);
+      }
+    }
   }
   showTopic(top?:Topic){
     if(this.currentTopic){
@@ -42,14 +61,32 @@ export class MessagerComponent implements OnInit, OnChanges {
     }
     else{
       this.currentTopic = top;
+      if(!top.Seen && this.user.Id == top.UserReciverId){
+        this.messagerService.changeSeen(top.Id).subscribe(data => {
+          if(data){
+            
+            top.Seen = true;
+            
+            console.log(top);
+          }
+        })
+      }
     }
   }
   ngOnChanges(ch:SimpleChanges){
     console.log(ch);
     if(ch.topics){
+      
       if(this.currentTopic){
         this.currentTopic = ch.topics.currentValue.find(x => x.Id = this.currentTopic.Id);
       }
+    }
+
+  }
+  sendButton(event:KeyboardEvent, message:HTMLInputElement){
+    
+    if(event.key=="Enter"){
+      this.sendMessage(message)
     }
 
   }
@@ -58,14 +95,69 @@ export class MessagerComponent implements OnInit, OnChanges {
     if(!show){
       this.submitted=false;
       this.showMess=!this.showMess;
+      if(this.userProfile ){
+        window.scrollTo(0,100);
+      }
+      
+      
+      
     }
     
   }
-  send(){
-    this.submitted=true;
-    if(this.messageForm.invalid){
-      return;
+  showScroll(x:number, y:number, c?:boolean){
+    if(c){
+      window.scrollTo(x,y)
     }
+    
+  }
+  send(admin?:boolean){
+    if(!admin){
+      this.submitted=true;
+      if(this.messageForm.invalid){
+        return;
+      }
+    
+      
+      this.messagerService.sendMessage({
+        Email:this.messageForm.value.Email,
+        Name:this.messageForm.value.Name,
+        Text:this.messageForm.value.Message
+      }).subscribe(data => {
+        if(!this.showAll){
+          this.topics=data;
+          if(this.topics.length==1){
+            this.showTopic(this.topics[0]);
+          }
+          if(!this.user){
+            this.user = this.topics[0].User;
+            this.userId = this.user.Id;
+          }
+          this.showTopics=true;
+        }
+        else{
+          console.log(true);
+          this.messageForm.setValue({Name: this.user?this.user.Name:'',
+          Email: this.user?this.user.Email:'',
+          Message: ''});
+          this.submitted = false;
+        }
+      
+        })
+      }
+      else{
+        
+        if(this.topics.length==0){
+          this.messagerService.getTopics(this.userId).subscribe(data =>{
+            
+            data.forEach(x => {
+              x.ModifyDate = new Date(x.ModifyDate);
+            })
+            this.topics = data;
+            this.showTopics=true;
+          })
+        }
+          
+      }
   }
   CreateTopic(){
     this.messagerService.createTopic({
@@ -77,7 +169,7 @@ export class MessagerComponent implements OnInit, OnChanges {
       data.ModifyDate = new Date(data.ModifyDate);
       
       this.topics.unshift(data);
-      this.currentTopic = this.topics[0];
+      this.showTopic(this.topics[0]);
     })
   }
   sendMessage(message:HTMLInputElement){
@@ -88,11 +180,24 @@ export class MessagerComponent implements OnInit, OnChanges {
       Text:message.value,
       CreateDate: new Date()
     }).subscribe(data => {
+      this.m.nativeElement.scrollTo(0,0);
       data.CreateDate= new Date(data.CreateDate);
       this.currentTopic.Messages.unshift(data);
       message.value="";
+
     })
     
+  }
+  getSeen(){
+    var res =false;
+    if(this.topics){
+      this.topics.forEach(x => {
+        if(!x.Seen && this.userId == x.UserReciverId){
+          res = true;
+        }
+      })
+    }
+    return res;
   }
 
 }

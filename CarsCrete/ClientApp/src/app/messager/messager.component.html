@@ -1,11 +1,12 @@
-<div class="container" [ngClass] = "{'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
+<div (mouseover)="showScroll(0,100,showMess && userProfile)" class="container" [ngStyle]="{'height':showTopics?'500px':'auto', 'bottom':showTopics && !showMess?'-463px':''}" [ngClass] = "{'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
   
-  <div class="header" [ngClass]="{'hidden-header':(showMess && userProfile)}" (click)="show(showAll)">
+  <div class="header"  [ngClass]="{'hidden-header':(showMess && userProfile)}" (click)="show(showAll)">
     <i class="fa fa-comments" ></i>
     <h3 *ngIf="!userProfile">{{'SEND_MESSAGE' | translate}}</h3>
+    <i *ngIf="getSeen()" class="fa fa-bell" aria-hidden="true"></i>
     
   </div>
-  <form [formGroup]="messageForm" *ngIf="!userProfile">
+  <form [formGroup]="messageForm" *ngIf="!userProfile && !showTopics">
     <div class="item">
       <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME' | translate }}</span>
       <input formControlName="Name" type="text">
@@ -33,24 +34,24 @@
     </div>
     <button class="btn btn-primary" (click)="send()">{{'SEND' | translate }}</button>
   </form>
-  <div class="topic top-topic" (click) = "showTopic()"  *ngIf="userProfile && (!!currentTopic)">
+  <div class="topic top-topic" (click) = "showTopic()" [ngStyle]="{'margin-top':showTopics?'10px':''}"  *ngIf="(userProfile || showTopics) && (!!currentTopic)">
     <div class="row">
       <div class="col-sm-7"><span>{{currentTopic.User.Name}}</span></div>
       <div class="col-sm-5"><span>{{currentTopic.ModifyDate | date: 'HH:mm'}}</span></div>
     </div>
   </div>
-  <div *ngIf="userProfile && (!!currentTopic)" class="panel">
-    <textarea #message></textarea>
-    <i class="fa fa-paper-plane" (click)="sendMessage(message)"></i>
+  <div *ngIf="(userProfile || showTopics) && (!!currentTopic)" class="panel">
+    <textarea (keydown) = "sendButton($event, message, messages)"  #message></textarea>
+    <i class="fa fa-paper-plane" (click)="sendMessage(message, messages)"></i>
   </div>
-  <div *ngIf="userProfile && topics.length==0" class="panel">
+  <div *ngIf="(userProfile || showTopics) && topics.length==0" class="panel">
     <button class="btn btn-default" (click)="CreateTopic()">Написать</button>
   </div>
-  <div *ngIf=" userProfile" class="messages">
+  <div #messages *ngIf=" (userProfile || showTopics)"  [ngStyle]="{'height':!currentTopic && userProfile ?'100%':!currentTopic && !userProfile?'95%':''}" class="messages">
     <div *ngIf="topics.length==0 && userProfile" class="no-message">
       <span><span>{{'NO_DATA_MESSAGER' | translate }}</span></span>
     </div>
-    <div class="topic" [ngClass]="{'hidden':!!currentTopic}" (click) = "showTopic(top)"  *ngFor="let top of topics">
+    <div class="topic" [ngClass]="{'hidden':!!currentTopic, 'not-seen':(!top.Seen && this.userId == top.UserReciverId)}" (click) = "showTopic(top)"  *ngFor="let top of topics">
       <div class="row">
         <div class="col-sm-7"><span>{{top.User.Name}}</span></div>
         <div class="col-sm-5"><span>{{top.ModifyDate | date: 'HH:mm'}}</span></div>

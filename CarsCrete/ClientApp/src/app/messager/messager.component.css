@@ -1,5 +1,6 @@
 .container{
     z-index: 300;
+    max-height: 500px;
     margin: 0;
     position: fixed;
     bottom: -283px;
@@ -11,6 +12,9 @@
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.747);
     padding: 10px;
     transition: 0.5s;
+}
+.not-seen{
+    background-color: rgb(67, 150, 67) !important; 
 }
 .InPage{
     
@@ -26,17 +30,22 @@
 .blurProf{
     z-index: 305;
 }
+.Profile .messages{
+    height: 80%;
+
+}
 .messages{
     position: relative;
-    max-height:600px;
     width: 100%;
     height: 70%;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 10px;
     display: inline-block;
+    
 
 }
+
 .Profile{
     z-index: 310;
     position: absolute;
@@ -45,7 +54,7 @@
     bottom: auto;
     right: -520px;
     top: 0;
-    height: 125%;
+    height: 800px !important;
     left:auto;
     width: 500px !important;
     border: none !important;
@@ -80,7 +89,7 @@
 .panel i:hover{
     background-color: blue;
 }
-.Profile textarea{
+.panel textarea{
     width: 100%;
     padding-right: 33px;
     border-radius: 0 4px 4px 4px; 
@@ -103,6 +112,13 @@
     border-radius: 5px;
     position: absolute;
     left: -70px;
+}
+.header i.fa-bell{
+    position: absolute;
+    right: -5px;
+    font-size: 20px;
+    top: -5px;
+    color:red;
 }
 .item{
     display: flex;
@@ -248,6 +264,7 @@ h3{
     }
     .container{
         width: 100%;
+        max-height: 10000px;
         margin: auto;
         left:auto;
     }
@@ -255,7 +272,7 @@ h3{
     .ProfileShow{
         position: fixed;
         display: block;
-        height: 100%;
+        height: 100% !important;
         width: 100% !important;
         right: 0 !important;
 

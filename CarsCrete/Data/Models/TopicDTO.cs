@@ -11,6 +11,7 @@ namespace CarsCrete.Data.Models
         public long Id { get; set; }
         public long UserId { get; set; }
         public long UserReciverId { get; set; }
+        public bool Seen { get; set; }
         public DateTime ModifyDate { get; set; }
         public virtual UserDTO User { get; set; }
         public virtual List<MessageDTO> Messages { get; set; }

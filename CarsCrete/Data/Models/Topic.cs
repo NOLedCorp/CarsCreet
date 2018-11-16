@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,9 @@ namespace CarsCrete.Data.Models
         public long UserReciverId { get; set; }
         [Required]
         public DateTime ModifyDate { get; set; }
-
+        [Required]
+        [DefaultValue(true)]
+        public bool Seen { get; set; }
 
         public virtual List<Message> Messages { get; set; }
     }

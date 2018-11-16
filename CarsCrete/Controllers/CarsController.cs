@@ -155,6 +155,28 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        private UserDTO AddNewUser(UserReg model)
+        {
+            
+            var user = new User()
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Phone = model.Phone,
+                Password = model.Password,
+                Lang = model.Lang,
+                Photo = "../../assets/images/default_user_photo.jpg",
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
+            DbContext.Users.Add(user);
+            user.Books = new List<Book>();
+            user.Reports = new List<FeedBack>();
+            DbContext.SaveChanges();
+            user.Id = DbContext.Users.Where(x => x.Email == model.Email).FirstOrDefault().Id;
+
+            return user.Adapt<UserDTO>();
+        }
 
         public class InfoToChange
         {
@@ -622,13 +644,91 @@ namespace CarsCrete.Controllers
             var message = model.Adapt<Message>();
             message.CreateDate = DateTime.Now;
             var topic = DbContext.Topics.Where(x => x.Id == model.TopicId).FirstOrDefault();
-            topic.ModifyDate = DateTime.Now;
+            topic.ModifyDate = message.CreateDate;
+            topic.Seen = false;
             DbContext.Messages.Add(message);
             DbContext.SaveChanges();
             //model.User = DbContext.Users.Where(x => x.Id == model.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
 
             return new JsonResult(
                 model,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+        public class NewMessage
+        {
+            public string Email { get; set; }
+            public string Name { get; set; }
+            public string Text { get; set; }
+        }
+        [HttpPut("send-message")]
+        public IActionResult SandMessage([FromBody]NewMessage model)
+        {
+            var user = DbContext.Users.Where(x => x.Email == model.Email).Include(x => x.Topics).ProjectToType<UserDTO>().FirstOrDefault();
+            List<TopicDTO> result = new List<TopicDTO>();
+            var date = DateTime.Now;
+            if (user == null)
+            {
+                user = AddNewUser(new UserReg()
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = GeneratePassword()
+                });
+            }
+            else{
+                if (user.Topics.Count > 0)
+                {
+                    
+                    var t1 = user.Topics.Where(x => (x.UserReciverId == 6 && x.UserId == user.Id)).FirstOrDefault();
+
+                    var m1 = new MessageDTO()
+                    {
+                        UserId = user.Id,
+                        TopicId = t1.Id,
+                        Text = model.Text,
+                        CreateDate = date
+                    };
+                    SaveMessage(m1);
+                    result = DbContext.Topics.Where(x => x.UserId == user.Id).Include(x => x.Messages).ProjectToType<TopicDTO>().ToList();
+                    foreach(TopicDTO tt in result)
+                    {
+                        tt.User = DbContext.Users.Where(x => x.Id == tt.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+                        tt.Messages = tt.Messages.OrderByDescending(x => x.CreateDate).ToList();
+                        if(tt.Id == t1.Id)
+                        {
+                            tt.ModifyDate = date;
+                        }
+                    }
+                    return new JsonResult(
+                        result,
+                        new JsonSerializerSettings()
+                        {
+                            Formatting = Formatting.Indented
+                        });
+                }
+            }
+            var topic = CreateNewTopic(
+                new TopicDTO()
+                {
+                    UserId = user.Id
+                }, date);
+            var m = new MessageDTO()
+            {
+                UserId = user.Id,
+                TopicId = topic.Id,
+                Text = model.Text,
+                CreateDate = date
+            };
+
+            SaveMessage(m);
+            var t = topic.Adapt<TopicDTO>();
+            t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+            result.Add(t);
+            return new JsonResult(
+                result,
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented
@@ -651,6 +751,93 @@ namespace CarsCrete.Controllers
                 {
                     Formatting = Formatting.Indented
                 });
+        }
+        private Topic CreateNewTopic(TopicDTO model, DateTime date)
+        {
+            var topic = model.Adapt<Topic>();
+            topic.ModifyDate = date;
+            topic.UserReciverId = 6;
+            DbContext.Topics.Add(topic);
+            DbContext.SaveChanges();
+            topic = DbContext.Topics.Where(x => x.Id == topic.Id).FirstOrDefault();
+            
+
+            return topic;
+
+
+        }
+        private string GeneratePassword()
+        {
+            string password = "";
+            Random r = new Random();
+            string[] alf = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            for(int i = 0; i < 10; i++)
+            {
+                var k = r.Next(1, 3);
+                if(k == 1)
+                {
+                    int l = r.Next(1, 3);
+                    if (l == 1)
+                    {
+                        password += alf[r.Next(0, alf.Length)].ToUpper();
+                    }
+                    else
+                    {
+                        password += alf[r.Next(0, alf.Length)];
+                    }
+                }
+                else
+                {
+                    password += r.Next(0, 10).ToString();
+                }
+            }
+
+
+            return password;
+        }
+        [HttpDelete("change-seen/{id}")]
+        public bool DeleteSeen(long id)
+        {
+            var topic = DbContext.Topics.Where(x => x.Id == id).FirstOrDefault();
+            if (topic != null)
+            {
+                topic.Seen = true;
+            };
+
+
+            DbContext.SaveChanges();
+            return true;
+        }
+        [HttpGet("get-topics/{id}")]
+        public IActionResult GetTopics(long id)
+        {
+            List<TopicDTO> topics = new List<TopicDTO>();
+            if(id == 6)
+            {
+                topics = DbContext.Topics.Where(x => x.UserReciverId == id).Include(x => x.Messages).ProjectToType<TopicDTO>().OrderByDescending(x => x.ModifyDate).ToList();
+                foreach(var t in topics)
+                {
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserId).ProjectToType<UserDTO>().FirstOrDefault();
+                    t.Messages = t.Messages.OrderByDescending(x => x.CreateDate).ToList();
+                }
+            }
+            else
+            {
+                topics = DbContext.Topics.Where(x => x.UserId == id).Include(x => x.Messages).ProjectToType<TopicDTO>().ToList();
+                foreach (var t in topics)
+                {
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+                }
+            }
+
+            return new JsonResult(
+                topics,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+
+
         }
     }
 }

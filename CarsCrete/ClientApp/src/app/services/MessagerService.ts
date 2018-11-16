@@ -16,6 +16,16 @@ export class MessagerService{
     
         return this.http.put<Topic>(this.baseUrl + 'cars/create-topic', top);
     }
+    sendMessage(mess:any){
+    
+        return this.http.put<Topic[]>(this.baseUrl + 'cars/send-message', mess);
+    }
+    changeSeen(TopicId:number){
+        return this.http.delete(this.baseUrl + 'cars/change-seen/'+TopicId);
+    }
+    getTopics(UserId:number){
+        return this.http.get<Topic[]>(this.baseUrl + 'cars/get-topics/'+UserId);
+    }
 }
 
 export interface Message{
@@ -33,4 +43,5 @@ export interface Topic{
     ModifyDate:Date;
     User:User;
     Messages:Message[];
+    Seen:boolean;
 }

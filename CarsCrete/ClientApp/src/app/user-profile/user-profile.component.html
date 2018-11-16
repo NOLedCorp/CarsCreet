@@ -98,7 +98,7 @@
       </div>
      
     </div>
-    <messager *ngIf="this.userService.currentUser.Topics" [userProfile]='true' [userId]="this.userService.currentUser.Id" [topics]="this.userService.currentUser.Topics"></messager>
+    <messager *ngIf="this.userService.currentUser.Topics" [userProfile]='true'  [topics]="this.userService.currentUser.Topics"></messager>
   </div>
   <div *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="statistics">
     <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
