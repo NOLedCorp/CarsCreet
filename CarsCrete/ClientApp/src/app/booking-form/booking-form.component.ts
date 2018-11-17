@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarsService, Car, Book } from '../services/CarsService';
 import { AlertService } from '../services/AlertService';
-import {User} from '../services/UserService';
+import {User, ShowSale} from '../services/UserService';
 import { ActivatedRoute } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
 
@@ -14,6 +14,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class BookingFormComponent implements OnInit {
   showBook:boolean = false;
   bookingForm: FormGroup;
+  public sales:ShowSale[];
   submitted = false;
   sale:BookSale = {SalesId:0};
   res:number=0;
@@ -167,6 +168,17 @@ export class BookingFormComponent implements OnInit {
             r.CreatedDate=new Date(r.CreatedDate);
             r.ButtonText= "SHOW_COMMENTS";
           })
+          this.service.car.Sales.forEach(r => {
+            r.DateStart=new Date(r.DateStart);
+            r.DateFinish=new Date(r.DateFinish);
+          })
+          this.sales = this.service.car.Sales.map(x =>{
+            return {Model:x.NewPrice+"%", Id:x.Id, NewPrice:x.NewPrice}
+          }
+            
+            
+          )
+
           
         }
         else{

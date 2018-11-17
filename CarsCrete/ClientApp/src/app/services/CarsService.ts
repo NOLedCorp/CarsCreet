@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {FeedBack} from '../services/UserService';
+import {FeedBack, Sale} from '../services/UserService';
 
 export class CarsService implements OnInit{
     showCarInfo:boolean=false;
@@ -58,6 +58,7 @@ export interface Car{
     Price:number;
     Reports:FeedBack[];
     Books:Book[];
+    Sales:Sale[];
 }
 export interface BookTimes{
     CarId:number;

@@ -120,3 +120,20 @@ export interface Like{
     CommentId:number;
     IsLike:boolean;
 }
+
+export class Sale{
+    Id:number;
+    CarId:number;
+    DateStart:Date;
+    DateFinish:Date;
+    Discount:number;
+    Type:number;
+    NewPrice:number;
+    DaysNumber:number;
+}
+
+export class ShowSale{
+    Model:string;
+    NewPrice:number;
+    Id:number;
+}

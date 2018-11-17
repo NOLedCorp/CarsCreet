@@ -130,7 +130,7 @@
                           <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
                         </div>
                     </div>
-                    <picker *ngIf = "service.car.Sales.length>0" [items]="service.car.Sales" [out]="sale" [prop]="'SalesId'"></picker>
+                    <picker *ngIf = "service.car.Sales.length>0" [items]="sales" [out]="sale" [prop]="'SalesId'"></picker>
                 </div>
                 <div class="col-sm-6">
                   <div class="item">
