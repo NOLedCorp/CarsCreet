@@ -854,7 +854,7 @@ namespace CarsCrete.Controllers
         [HttpPut("add-sale")]
         public IActionResult AddSale([FromBody] SaleDTO model)
         {
-            //var sale = model.Adapt<Sale>();
+            var sale = model.Adapt<Sale>();
             DbContext.Sales.Add(sale);
             DbContext.SaveChanges();
             return new JsonResult(
