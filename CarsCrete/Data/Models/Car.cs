@@ -61,6 +61,7 @@ namespace CarsCrete.Data.Models
         /// </summary>
         public virtual List<FeedBack> Reports { get; set; }
         public virtual List<Book> Books { get; set; }
+        public virtual List<Sale> Sales { get; set; }
         #endregion
     }
 }

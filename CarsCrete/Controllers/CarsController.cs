@@ -29,6 +29,7 @@ namespace CarsCrete.Controllers
         }
         #endregion Constructor
         // GET: /<controller>/
+        #region User
         public class UserEntrance
         {
             public string Email { get; set; }
@@ -253,6 +254,8 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        #endregion User
+        #region Booking
         public bool CheckDate(long CarId, DateTime DateStart, DateTime DateFinish)
         {
             bool res = true;
@@ -282,6 +285,9 @@ namespace CarsCrete.Controllers
             {
                 return new StatusCodeResult(501);
             }
+            if(model.SaleId!=0 && !CheckSale(model.DateStart, model.DateFinish, model.SaleId, model.CarId)){
+                return new StatusCodeResult(300);
+            }
             var book = new Book()
             {
                 DateStart = model.DateStart,
@@ -290,7 +296,9 @@ namespace CarsCrete.Controllers
                 CarId = model.CarId,
                 UserId = model.UserId,
                 Place = model.Place,
-                Price = model.Price
+                Price = model.Price,
+                Sum = model.Price * (model.DateStart - model.DateFinish).Days,
+                SaleId = model.SaleId
             };
             DbContext.Books.Add(book);
             DbContext.SaveChanges();
@@ -388,11 +396,28 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        public class BookTimes
+        {
+            public long CarId { get; set; }
+            public DateTime DateStart { get; set; }
+            public DateTime DateFinish { get; set; }
+        }
+
+        [HttpGet("get-book-times")]
+        public BookTimes[] GetBookTimes(long Carid)
+        {
+
+            var books = DbContext.Books.Where(b => b.CarId == Carid).Where(b => b.DateStart > DateTime.Now).ToArray();
+
+            return books.Adapt<BookTimes[]>();
+        }
+        #endregion Booking
+        #region Car
         [HttpGet("get-car/{id}")]
         public IActionResult GetCar(long Id)
         {
 
-            var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).ProjectToType<CarDTO>().FirstOrDefault();
+            var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).Include(x => x.Sales).ProjectToType<CarDTO>().FirstOrDefault();
             foreach (FeedBackDTO f in car.Reports)
             {
 
@@ -501,24 +526,8 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
-
-
-        public class BookTimes
-        {
-            public long CarId { get; set; } 
-            public DateTime DateStart { get; set; }
-            public DateTime DateFinish { get; set; }
-        }
-
-        [HttpGet("get-book-times")]
-        public BookTimes[] GetBookTimes(long Carid)
-        {
-
-            var books = DbContext.Books.Where(b => b.CarId==Carid).Where(b => b.DateStart>DateTime.Now).ToArray();
-
-            return books.Adapt<BookTimes[]>();
-        }
-
+        #endregion Car
+        #region Report
         [HttpGet("get-reports")]
         public IActionResult GetReports()
         {
@@ -637,7 +646,8 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
-
+        #endregion Report
+        #region Messager
         [HttpPut("save-message")]
         public IActionResult SaveMessage([FromBody]MessageDTO model)
         {
@@ -839,5 +849,48 @@ namespace CarsCrete.Controllers
 
 
         }
+        #endregion Messager
+        #region Sales
+        [HttpPut("add-sale")]
+        public IActionResult AddSale([FromBody] SaleDTO model)
+        {
+            //var sale = model.Adapt<Sale>();
+            DbContext.Sales.Add(sale);
+            DbContext.SaveChanges();
+            return new JsonResult(
+                sale.Adapt<SaleDTO>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+
+        private bool CheckSale(DateTime DateStart, DateTime DateFinish, long SaleId, long CarId )
+        {
+            var sale = DbContext.Sales.Where(x => x.Id == SaleId).FirstOrDefault();
+            bool res = false;
+            if (sale != null)
+            {
+                if(sale.CarId == CarId)
+                {
+                    if(sale.DateStart <= DateStart && sale.DateFinish >= DateFinish)
+                    {
+                        if(sale.Type == 0)
+                        {
+                            res = true;
+                        }
+                        else
+                        {
+                            if((DateFinish - DateStart).Days >= sale.DaysNumber)
+                            {
+                                res = true;
+                            }
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+        #endregion Sales
     }
 }

@@ -33,10 +33,12 @@ namespace CarsCrete.Data
             modelBuilder.Entity<Car>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Car>().HasMany(u => u.Reports).WithOne(i => i.Car);
             modelBuilder.Entity<Car>().HasMany(u => u.Books).WithOne(i => i.Car);
+            modelBuilder.Entity<Car>().HasMany(u => u.Sales);
 
             modelBuilder.Entity<Book>().ToTable("Books");
             modelBuilder.Entity<Book>().HasOne(u => u.Car).WithMany(u => u.Books);
             modelBuilder.Entity<Book>().HasOne(u => u.User).WithMany(u => u.Books);
+            modelBuilder.Entity<Book>().HasOne(u => u.Sale);
             modelBuilder.Entity<Book>().Property(i => i.Id).ValueGeneratedOnAdd();
             
 
@@ -64,6 +66,10 @@ namespace CarsCrete.Data
             modelBuilder.Entity<Topic>().HasMany(u => u.Messages);
             modelBuilder.Entity<Topic>().Property(i => i.Id).ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<Sale>().ToTable("Sales");
+            modelBuilder.Entity<Sale>().HasOne(u => u.Car);
+            modelBuilder.Entity<Sale>().Property(i => i.Id).ValueGeneratedOnAdd();
+
 
         }
         #endregion
@@ -76,6 +82,7 @@ namespace CarsCrete.Data
         public DbSet<ReportComment> Comments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         #endregion Properties
     }
 }

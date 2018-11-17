@@ -19,13 +19,17 @@ namespace CarsCrete.Data.Models
         public DateTime DateFinish { get; set; }
         public long UserId { get; set; }
         public long CarId { get; set; }
+        public long SaleId { get; set; }
         public double Price { get; set; }
         public string Place { get; set; }
         public DateTime CreateDate { get; set; }
+        public double Sum { get; set; }
         #endregion
         #region Lazy-loading
         public virtual User User { get; set; }
         public virtual Car Car { get; set; }
+        public virtual SaleDTO Sale { get; set; }
+        public double OldPrice { get; set; }
         #endregion
     }
 }

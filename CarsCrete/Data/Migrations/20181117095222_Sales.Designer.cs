@@ -4,14 +4,16 @@ using CarsCrete.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarsCrete.Data.Migrations
 {
     [DbContext(typeof(CarsDbContext))]
-    partial class CarsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181117095222_Sales")]
+    partial class Sales
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,17 +40,11 @@ namespace CarsCrete.Data.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<long>("SaleId");
-
-                    b.Property<double>("Sum");
-
                     b.Property<long>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
-
-                    b.HasIndex("SaleId");
 
                     b.HasIndex("UserId");
 
@@ -277,11 +273,6 @@ namespace CarsCrete.Data.Migrations
                     b.HasOne("CarsCrete.Data.Models.Car", "Car")
                         .WithMany("Books")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CarsCrete.Data.Models.Sale", "Sale")
-                        .WithMany()
-                        .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CarsCrete.Data.Models.User", "User")

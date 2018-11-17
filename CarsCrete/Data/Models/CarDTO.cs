@@ -29,6 +29,7 @@ namespace CarsCrete.Data.Models
         public double Price { get; set; }
         public virtual List<FeedBackDTO> Reports { get; set; }
         public virtual List<BookDTO> Books { get; set; }
+        public virtual List<SaleDTO> Sales { get; set; }
         #endregion
     }
 }
