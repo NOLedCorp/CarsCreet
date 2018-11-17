@@ -27,7 +27,7 @@ namespace CarsCrete.Data.Models
         public long UserId { get; set; }
         [Required]
         public long CarId { get; set; }
-        public long SaleId { get; set; }
+        public long SalesId { get; set; }
         [Required]
         public double Price { get; set; }
         [Required]
@@ -42,8 +42,6 @@ namespace CarsCrete.Data.Models
         public virtual User User { get; set; }
         [ForeignKey("CarId")]
         public virtual Car Car { get; set; }
-        [ForeignKey("SaleId")]
-        public virtual Sale Sale { get; set; }
 
         
         #endregion

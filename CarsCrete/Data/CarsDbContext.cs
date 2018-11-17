@@ -38,7 +38,6 @@ namespace CarsCrete.Data
             modelBuilder.Entity<Book>().ToTable("Books");
             modelBuilder.Entity<Book>().HasOne(u => u.Car).WithMany(u => u.Books);
             modelBuilder.Entity<Book>().HasOne(u => u.User).WithMany(u => u.Books);
-            modelBuilder.Entity<Book>().HasOne(u => u.Sale);
             modelBuilder.Entity<Book>().Property(i => i.Id).ValueGeneratedOnAdd();
             
 

@@ -285,9 +285,10 @@ namespace CarsCrete.Controllers
             {
                 return new StatusCodeResult(501);
             }
-            if(model.SaleId!=0 && !CheckSale(model.DateStart, model.DateFinish, model.SaleId, model.CarId)){
+            if(model.SalesId!=0 && !CheckSale(model.DateStart, model.DateFinish, model.SalesId, model.CarId)){
                 return new StatusCodeResult(300);
             }
+            var k = (model.DateFinish - model.DateStart).Days;
             var book = new Book()
             {
                 DateStart = model.DateStart,
@@ -297,8 +298,8 @@ namespace CarsCrete.Controllers
                 UserId = model.UserId,
                 Place = model.Place,
                 Price = model.Price,
-                Sum = model.Price * (model.DateStart - model.DateFinish).Days,
-                SaleId = model.SaleId
+                Sum = model.Price * (model.DateFinish - model.DateStart).Days,
+                SalesId = model.SalesId
             };
             DbContext.Books.Add(book);
             DbContext.SaveChanges();
@@ -449,37 +450,16 @@ namespace CarsCrete.Controllers
         [HttpGet("get-cars")]
         public IActionResult GetCars()
         {
-            //var carr = new Car()
-            //{
-            //    Model = "VW Golf 7",
-            //    Photo = "../../assets/images/VW_golf_7.jpg",
-            //    Passengers = 5,
-            //    Doors = 5,
-            //    Transmission = "Automatic",
-            //    Fuel = "Diesel",
-            //    Consumption = 7,
-            //    Description = "Автомобиль с АКПП, 1,4 литра, 120 лошадиных сил. Климат-контроль, радио-CD, расход топлива 6 литров/100 км. В машину свободно входят пять взрослых пассажиров, 2 большие и 2 маленькие дорожные сумки.",
-            //    Price = 65,
-            //    Description_ENG = "Eng description of the car."
-
-
-            //};
-            //DbContext.Cars.Add(carr);
-            //DbContext.SaveChanges();
-            //sssss
             var cars = DbContext.Cars
-                .Include(x => x.Reports)
-                    .ThenInclude(c => c.Comments)
-                        .ThenInclude(u => u.User)
-                .Include(x => x.Reports)
-                    .ThenInclude(u => u.User)
+                //.Include(x => x.Reports)
+                //    .ThenInclude(c => c.Comments)
+                //        .ThenInclude(u => u.User)
+                //.Include(x => x.Reports)
+                //    .ThenInclude(u => u.User)
+                //.Include(x => x.Books)
+                .Include(x => x.Sales).ProjectToType<CarDTO>().ToList();
 
-                .Include(x => x.Books).ProjectToType<CarDTO>().ToList();
-
-            foreach (CarDTO car in cars)
-            {
-                car.Reports = car.Reports.OrderByDescending(r => r.CreatedDate).ToList();
-            }
+            
 
             return new JsonResult(
                 cars,
@@ -867,13 +847,14 @@ namespace CarsCrete.Controllers
 
         private bool CheckSale(DateTime DateStart, DateTime DateFinish, long SaleId, long CarId )
         {
+            DateTime date = DateTime.Now;
             var sale = DbContext.Sales.Where(x => x.Id == SaleId).FirstOrDefault();
             bool res = false;
             if (sale != null)
             {
                 if(sale.CarId == CarId)
                 {
-                    if(sale.DateStart <= DateStart && sale.DateFinish >= DateFinish)
+                    if(sale.DateStart <= date && sale.DateFinish >= date)
                     {
                         if(sale.Type == 0)
                         {
