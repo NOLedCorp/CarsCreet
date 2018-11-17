@@ -70,6 +70,7 @@ export interface Book{
     DateFinish:Date;
     UserId:number;
     CarId:number;
+    SalesId?:number;
     Price:number;
     Place:string;
     Email?:string;

@@ -15,6 +15,7 @@ export class BookingFormComponent implements OnInit {
   showBook:boolean = false;
   bookingForm: FormGroup;
   submitted = false;
+  sale:BookSale = {SalesId:0};
   res:number=0;
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book;
@@ -161,6 +162,7 @@ export class BookingFormComponent implements OnInit {
         if(data){
         
           this.service.car=data;
+          console.log(this.service.car);
           this.service.car.Reports.forEach(r => {
             r.CreatedDate=new Date(r.CreatedDate);
             r.ButtonText= "SHOW_COMMENTS";
@@ -212,4 +214,7 @@ export interface Raiting{
   Look:number;
   Comfort:number;
   Drive:number;
+}
+export interface BookSale{
+  SalesId:number;
 }
