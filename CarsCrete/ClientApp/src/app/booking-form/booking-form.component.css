@@ -186,3 +186,43 @@ input, select {
   input:focus {
     border-color: black;
   }
+.sales{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.sale{
+    margin: 0 10px 0 10px;
+    width: 200px;
+    position: relative;
+}
+.sale span{
+    position: absolute;
+}
+.sale span{
+    padding: 5px;
+    background-color:rgb(231, 38, 38);
+    border-radius: 4px;
+    color:white;
+    top:5px;
+    left: 10px;
+}
+.sale span:last-child{
+    bottom:5px;
+    left: auto;
+    top:auto;
+    right: 10px !important;
+}
+.sale i{
+    display: none;
+    position: absolute;
+    top:5px;
+    right: 10px;
+}
+.sale:hover>i{
+    display: block;
+}
+.checked-sale{
+    display: block !important;
+    color: green;
+}

@@ -130,7 +130,7 @@
                           <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
                         </div>
                     </div>
-                    <picker *ngIf = "service.car.Sales.length>0" [items]="sales" [out]="sale" [prop]="'SalesId'"></picker>
+                    
                 </div>
                 <div class="col-sm-6">
                   <div class="item">
@@ -167,7 +167,14 @@
                   </div>
                 </div>
               </div>
-              
+              <div class="sales">
+                <div (click) = "chooseSale(sale)" class="sale" *ngFor="let sale of sales">
+                  <img src="{{service.car?service.car.Photo:''}}" alt="">
+                  <span>{{sale.Discount}}%</span>
+                  <i class="fa fa-check-square-o" [ngClass]="{'checked-sale':sale.Checked}" aria-hidden="true"></i>
+                  <span>{{sale.NewPrice}}€</span>
+                </div>
+              </div>
               
               <div class="item ">
                   <span>{{'COMMENT'|translate}}</span>

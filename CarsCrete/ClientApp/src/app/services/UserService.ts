@@ -133,7 +133,8 @@ export class Sale{
 }
 
 export class ShowSale{
-    Model:string;
+    Discount:number;
     NewPrice:number;
     Id:number;
+    Checked:boolean;
 }
