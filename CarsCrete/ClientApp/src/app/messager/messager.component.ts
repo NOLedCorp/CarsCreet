@@ -177,16 +177,27 @@ export class MessagerComponent implements OnInit, OnChanges {
     })
   }
   sendMessage(message:HTMLInputElement){
+    let topicId = this.currentTopic?this.currentTopic.Id:0;
     this.messagerService.saveMessage({
       Id:0,
       UserId:this.userId,
-      TopicId:this.currentTopic?this.currentTopic.Id:0,
+      TopicId: topicId,
       Text:message.value,
       CreateDate: new Date()
     }).subscribe(data => {
       this.m.nativeElement.scrollTo(0,0);
       data.CreateDate= new Date(data.CreateDate);
-      this.currentTopic.Messages.unshift(data);
+      let topic = this.topics.find(x => x.Id == topicId);
+      topic.ModifyDate = data.CreateDate;
+      topic.Messages.unshift(data);
+      if(this.currentTopic.Id == topicId){
+        this.currentTopic=topic;
+      }
+      this.topics.sort(function(a, b) {
+        return a.ModifyDate>b.ModifyDate ? -1 : a.ModifyDate<b.ModifyDate ? 1 : 0;
+      });
+      
+      
       message.value="";
 
     })

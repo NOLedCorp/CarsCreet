@@ -259,7 +259,7 @@ h3{
         
     }
     
-    .Profile, .container:not(.InPage){
+    .Profile, .container:not(.InPage):not(.ProfileShow){
         display: none;
     }
     .container{
