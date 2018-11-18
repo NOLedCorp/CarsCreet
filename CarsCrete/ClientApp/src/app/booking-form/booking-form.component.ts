@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, SimpleChanges, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarsService, Car, Book } from '../services/CarsService';
 import { AlertService } from '../services/AlertService';
-import {User} from '../services/UserService';
+import {User, ShowSale} from '../services/UserService';
 import { ActivatedRoute } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
 
@@ -11,17 +11,21 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './booking-form.component.html',
   styleUrls: ['./booking-form.component.css']
 })
-export class BookingFormComponent implements OnInit {
+export class BookingFormComponent implements OnInit{
   showBook:boolean = false;
   bookingForm: FormGroup;
-  submitted = false;
+  public sales:ShowSale[];
+  submitted = false;sale:ShowSale = new ShowSale();
+  salesError:boolean = false;
   res:number=0;
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book;
   public user:User;
   
   
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { }
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
+    this.sale.Id = 0;
+  }
   get f() { return this.bookingForm.controls; }
   Round(k:number){
     let res = Math.round(k*100)/100;
@@ -35,22 +39,29 @@ export class BookingFormComponent implements OnInit {
         return
         
       }
+      if(!this.checkSale()){
+        return
+      }
      
       if(localStorage.getItem("currentUser")){
         
         this.book = {
-          Id:123,
+          Id:0,
           CarId:this.service.car.Id,
           UserId:this.user.Id,
+          SalesId:this.sale.Id,
           DateStart:this.bookingForm.value.DateStart,
           DateFinish:this.bookingForm.value.DateFinish,
-          Price:this.service.car.Price,
+          Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
         console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
+          this.bookingForm.reset();
+          this.submitted = false;
+          this.clearSales();
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
          
         },error => {
@@ -76,12 +87,13 @@ export class BookingFormComponent implements OnInit {
       }
       else{
         this.book = {
-          Id:123,
+          Id:0,
           CarId:this.service.car.Id,
-          UserId:123,
+          UserId:0,
+          SalesId:this.sale.Id,
           DateStart:this.bookingForm.value.DateStart,
           DateFinish:this.bookingForm.value.DateFinish,
-          Price:this.service.car.Price,
+          Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Email:this.bookingForm.value.Email,
           Password:this.bookingForm.value.Password,
@@ -92,6 +104,9 @@ export class BookingFormComponent implements OnInit {
         }
         this.service.BookCarNew(this.book).subscribe(data => {
           this.showBook=true;
+          this.clearSales();
+          this.bookingForm.reset();
+          this.submitted = false;
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
           
         },error => {
@@ -143,13 +158,14 @@ export class BookingFormComponent implements OnInit {
     ngOnInit() {
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
+        console.log(this.user);
       }
       this.service.car=null;
       this.bookingForm = this.formBuilder.group({
         Name: [this.user?this.user.Name:'', Validators.required],
         Email: [this.user?this.user.Email:'', Validators.required],
-        Password: [this.user?'123':'', Validators.required],
-        Tel: [''],
+        Password: [this.user?'пароль':'', Validators.required],
+        Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
         DateStart:['', Validators.required],
         DateFinish:['', Validators.required],
         Place:['', Validators.required],
@@ -161,50 +177,68 @@ export class BookingFormComponent implements OnInit {
         if(data){
         
           this.service.car=data;
+          console.log(this.service.car);
           this.service.car.Reports.forEach(r => {
             r.CreatedDate=new Date(r.CreatedDate);
             r.ButtonText= "SHOW_COMMENTS";
           })
-          
-        }
-        else{
-         
-          // this.service.car= {
-          //   Id:1,
-          //   Model:"VW Up",
-          //   Photo:"../../assets/images/car.jpg",
-          //   Passengers:5,
-          //   Doors:5,
-          //   Consumption:7,
-          //   Transmission:"Automatic",
-          //   Fuel:"Petrol",
-          //   Price:28,
-          //   Description:"Крутая машина, БЕРИТЕ!",
-          //   Description_ENG:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.",
-          //   Books:[{
-          //     Id:1,
-          //     DateStart:new Date(2018,7,24,3,30),
-          //     DateFinish:new Date(2018,7,29,3,30),
-          //     UserId:1,
-          //     CarId:1,
-          //     Price:28,
-          //     Place:"Iraklion Airport"
-          //   }, {
-          //     Id:1,
-          //     DateStart:new Date(2018,7,24,3,30),
-          //     DateFinish:new Date(2018,7,29,3,30),
-          //     UserId:1,
-          //     CarId:1,
-          //     Price:28,
-          //     Place:"Iraklion Airport"
-          //   }],
-          //   Reports:[{Id:1, UserId:1, CarId:1, Mark:4, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.", CreatedDate:new Date(2017,5,6,12)}, {Id:1, UserId:1, CarId:1, Mark:5, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.", CreatedDate:new Date(2017,5,6,12)},{Id:1, UserId:1, CarId:1, Mark:3, Text:"The ClientApp subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.",  CreatedDate:new Date(2017,5,6,12)}]
-            
-            
-          // };
+          this.service.car.Sales.forEach(r => {
+            r.DateStart=new Date(r.DateStart);
+            r.DateFinish=new Date(r.DateFinish);
+          })
+          this.sales = this.service.car.Sales.map(x =>{
+            return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
+          })
+        }})
         
-      }})
+    this.bookingForm.valueChanges.subscribe(data => {
+      this.checkSale();
+    })
       
+  }
+  chooseSale(sale:any){
+    console.log(sale);
+    if(!sale.Checked){
+      this.clearSales();
+      sale.Checked = !sale.Checked;
+      this.sale=sale;
+      
+      
+    }
+    else{
+      sale.Checked = !sale.Checked;
+      this.sale=null;
+      if(this.submitted){
+        this.salesError = !this.checkSale();
+      }
+    }
+    if(this.submitted){
+      this.salesError = !this.checkSale();
+    }
+    
+    
+    
+  }
+  checkSale(){
+    console.log(this.bookingForm.value);
+    if(this.sale && this.sale.Id!=0 && this.sale.DaysNumber!=0){
+      console.log(true);
+      if((new Date(this.bookingForm.value.DateFinish).getTime()-new Date(this.bookingForm.value.DateStart).getTime())/86400000<this.sale.DaysNumber){
+        this.salesError = true;
+        console.log(true);
+        return false
+      }
+      else{
+        this.salesError = false;
+        return true
+      }
+    }
+    else{
+      return true
+    }
+  }
+  clearSales(){
+    this.sales.forEach(x => {x.Checked = false});
   }
 
 }
@@ -212,4 +246,7 @@ export interface Raiting{
   Look:number;
   Comfort:number;
   Drive:number;
+}
+export interface BookSale{
+  SalesId:number;
 }

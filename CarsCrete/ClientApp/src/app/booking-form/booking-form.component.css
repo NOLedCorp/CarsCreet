@@ -138,6 +138,7 @@ button{
     
 }
 @media (max-width: 767px){
+    
     .item{
         width: 100%;
     }
@@ -186,3 +187,59 @@ input, select {
   input:focus {
     border-color: black;
   }
+.sales{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.sale{
+    margin: 0 10px 0 10px;
+    width: 200px;
+    margin-bottom: 10px;
+    transition: 0.2s;
+    border-radius: 4px;
+    position: relative;
+}
+.sale span{
+    position: absolute;
+}
+.sale span{
+    padding: 5px;
+    background-color:rgb(231, 38, 38);
+    border-radius: 4px;
+    color:white;
+    top:5px;
+    left: 10px;
+}
+.sale span:last-child{
+    bottom:5px;
+    left: auto;
+    top:auto;
+    right: 10px !important;
+}
+.sale i{
+    display: none;
+    transition: 0.2s;
+    position: absolute;
+    top:5px;
+    right: 10px;
+}
+.sale:hover>i{
+    display: block;
+}
+.sale:hover{
+    box-shadow: 0 0 7px black;
+}
+.checked-sale{
+    display: block !important;
+    color: green;
+    font-size: 20px;
+}
+.sale .info{
+    background-color: rgb(32, 108, 250);
+    bottom:5px;
+    left: auto;
+    top:auto;
+    left: 10px !important;
+}
