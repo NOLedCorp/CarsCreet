@@ -16,7 +16,7 @@ export class BookingFormComponent implements OnInit {
   bookingForm: FormGroup;
   public sales:ShowSale[];
   submitted = false;
-  sale:BookSale = {SalesId:0};
+  sale:ShowSale = {Id:0};
   res:number=0;
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book;
@@ -41,12 +41,13 @@ export class BookingFormComponent implements OnInit {
       if(localStorage.getItem("currentUser")){
         
         this.book = {
-          Id:123,
+          Id:0,
           CarId:this.service.car.Id,
           UserId:this.user.Id,
+          SalesId:this.sale.Id,
           DateStart:this.bookingForm.value.DateStart,
           DateFinish:this.bookingForm.value.DateFinish,
-          Price:this.service.car.Price,
+          Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
@@ -78,12 +79,13 @@ export class BookingFormComponent implements OnInit {
       }
       else{
         this.book = {
-          Id:123,
+          Id:0,
           CarId:this.service.car.Id,
-          UserId:123,
+          UserId:0,
+          SalesId:this.sale.Id,
           DateStart:this.bookingForm.value.DateStart,
           DateFinish:this.bookingForm.value.DateFinish,
-          Price:this.service.car.Price,
+          Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Email:this.bookingForm.value.Email,
           Password:this.bookingForm.value.Password,
@@ -150,7 +152,7 @@ export class BookingFormComponent implements OnInit {
       this.bookingForm = this.formBuilder.group({
         Name: [this.user?this.user.Name:'', Validators.required],
         Email: [this.user?this.user.Email:'', Validators.required],
-        Password: [this.user?'123':'', Validators.required],
+        Password: [this.user?'пароль':'', Validators.required],
         Tel: [''],
         DateStart:['', Validators.required],
         DateFinish:['', Validators.required],
@@ -173,7 +175,7 @@ export class BookingFormComponent implements OnInit {
             r.DateFinish=new Date(r.DateFinish);
           })
           this.sales = this.service.car.Sales.map(x =>{
-            return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false}
+            return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
           })
         }})
         
@@ -181,7 +183,19 @@ export class BookingFormComponent implements OnInit {
       
   }
   chooseSale(sale:any){
-    sale.Checked = !sale.Checked;
+    if(!sale.Checked){
+      this.sales.forEach(x => {x.Checked = false});
+      sale.Checked = !sale.Checked;
+      this.sale=sale;
+      console.log(this.sale);
+    }
+    else{
+      sale.Checked = !sale.Checked;
+      this.sale.Id =0;
+    }
+    
+    
+    
   }
 
 }

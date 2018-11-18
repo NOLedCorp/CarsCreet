@@ -133,8 +133,9 @@ export class Sale{
 }
 
 export class ShowSale{
-    Discount:number;
-    NewPrice:number;
+    Discount?:number;
+    DaysNumber?:number;
+    NewPrice?:number;
     Id:number;
-    Checked:boolean;
+    Checked?:boolean;
 }

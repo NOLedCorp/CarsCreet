@@ -190,10 +190,13 @@ input, select {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: 10px;
 }
 .sale{
     margin: 0 10px 0 10px;
     width: 200px;
+    transition: 0.2s;
+    border-radius: 4px;
     position: relative;
 }
 .sale span{
@@ -215,6 +218,7 @@ input, select {
 }
 .sale i{
     display: none;
+    transition: 0.2s;
     position: absolute;
     top:5px;
     right: 10px;
@@ -222,7 +226,18 @@ input, select {
 .sale:hover>i{
     display: block;
 }
+.sale:hover{
+    box-shadow: 0 0 7px black;
+}
 .checked-sale{
     display: block !important;
     color: green;
+    font-size: 20px;
+}
+.sale .info{
+    background-color: rgb(32, 108, 250);
+    bottom:5px;
+    left: auto;
+    top:auto;
+    left: 10px !important;
 }
