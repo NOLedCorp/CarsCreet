@@ -220,9 +220,11 @@ export class BookingFormComponent implements OnInit{
     
   }
   chooseNewSale(id:number){
+    if(id){
+      this.sale=this.sales.filter(x => x.Id == id)[0];
+      this.sale.Checked=true;
+    }
     
-    this.sale=this.sales.filter(x => x.Id == id)[0];
-    this.sale.Checked=true;
   }
   checkSale(){
     if(this.sale && this.sale.Id!=0 && this.sale.DaysNumber!=0){

@@ -6,6 +6,7 @@
 }
 .sale{
     width: 250px;
+    max-width: 300px;
     margin: 5px;
     border: 1px solid black;
     border-radius: 4px;
@@ -115,6 +116,7 @@
     .sale-item{
         position: unset;
         flex-direction: column;
+        align-items: center;
     }
     .sale{
         width: 100%;
