@@ -138,6 +138,7 @@ button{
     
 }
 @media (max-width: 767px){
+    
     .item{
         width: 100%;
     }
@@ -195,6 +196,7 @@ input, select {
 .sale{
     margin: 0 10px 0 10px;
     width: 200px;
+    margin-bottom: 10px;
     transition: 0.2s;
     border-radius: 4px;
     position: relative;

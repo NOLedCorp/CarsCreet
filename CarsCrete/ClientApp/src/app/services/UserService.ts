@@ -121,7 +121,7 @@ export interface Like{
     IsLike:boolean;
 }
 
-export class Sale{
+export interface Sale{
     Id:number;
     CarId:number;
     DateStart:Date;

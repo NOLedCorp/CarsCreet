@@ -138,4 +138,7 @@ img{
     width: 100%;
     border-radius: 4px;
 }
+input{
+    padding-left:10px;
+}
 

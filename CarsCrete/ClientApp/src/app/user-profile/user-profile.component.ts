@@ -47,6 +47,7 @@ export class UserProfileComponent implements OnInit {
         if(data){
           this.userService.currentUser[type]=value;
           console.log(data);
+          localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));
         }
       })
     }
