@@ -21,7 +21,6 @@ export class PickerComponent implements OnInit, OnChanges {
     
     if(changes.out){ 
       if(changes.out.currentValue[this.prop]==0){
-        console.log("1111");
         this.ngOnInit();
       }
     }

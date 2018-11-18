@@ -49,7 +49,6 @@ export class FeedbackComponent implements OnInit {
     
     }
     if(this.type=='car'){
-      console.log(this.reports);
       this.feedBackService.reports=this.reports;
       this.feedBackService.number=this.reports.length;
  
@@ -84,7 +83,6 @@ export class FeedbackComponent implements OnInit {
       
       this.feedBackService.changeLike(like.Id, IsLike).subscribe(() =>{
         like.IsLike = IsLike;
-        console.log(like);
       })
     }
     else{

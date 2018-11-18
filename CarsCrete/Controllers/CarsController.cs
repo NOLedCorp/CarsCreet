@@ -845,6 +845,18 @@ namespace CarsCrete.Controllers
                 });
         }
 
+        [HttpGet("get-sales")]
+        public IActionResult GetSales()
+        {
+            var sales = DbContext.Sales.Where(x => x.DateFinish>DateTime.Now && x.DateStart<DateTime.Now).OrderBy(x => x.DateFinish).ProjectToType<SaleDTO>().ToList();
+            return new JsonResult(
+                sales,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+
         private bool CheckSale(DateTime DateStart, DateTime DateFinish, long SaleId, long CarId )
         {
             DateTime date = DateTime.Now;

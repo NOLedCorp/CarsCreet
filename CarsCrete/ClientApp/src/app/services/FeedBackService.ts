@@ -27,7 +27,6 @@ export class FeedBackService{
           r.CreatedDate = new Date(r.CreatedDate);
           r.ButtonText = "SHOW_COMMENTS";
       })
-      console.log(this.reports);
       this.number=this.reports.length;
       this.changePage(0,21);
 

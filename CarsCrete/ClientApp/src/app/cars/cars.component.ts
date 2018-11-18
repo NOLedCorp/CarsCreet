@@ -34,7 +34,6 @@ export class CarsComponent {
             r.ButtonText =  "SHOW_COMMENTS";
           })
         })
-        console.log(this.cars);
       
         
         

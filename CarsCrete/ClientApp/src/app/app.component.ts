@@ -33,8 +33,4 @@ export class AppComponent implements OnInit {
       window.scrollTo(0, 0)
      });
   }
-  // changeLang(lang:string){
-  //   console.log(lang);
-  //   this.translate.use(lang);
-  // }
 }

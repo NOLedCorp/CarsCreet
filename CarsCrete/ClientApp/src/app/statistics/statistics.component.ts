@@ -35,7 +35,6 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.userService.GetStatistics().subscribe(data =>{
-      console.log(data);
       this.stat=data;
       
       this.stat.Books.forEach(b => {
@@ -49,7 +48,6 @@ export class StatisticsComponent implements OnInit {
     
   }
   setCurMonths(n:number){
-    console.log({DateStart:new Date(this.year,n,1), DateFinish:new Date(this.year,n,this.months[n].Days)});
     var k = 0;
     while(k<12){
       let month;
@@ -92,16 +90,12 @@ export class StatisticsComponent implements OnInit {
   }
   getTrans(type:string, m:CurMonth){
     let res = [];
-    console.log(m.DateStart);
-    console.log(this.stat.Books);
-    console.log(m.DateFinish);
     this.stat.Books.forEach(c=>{
       if(c.CreateDate>=m.DateStart && c.CreateDate<=m.DateFinish && c.Car.Transmission==type){
         
         res.push(c);
       }
     })
-    console.log(res.length+'px')
     return res.length;
   }
 

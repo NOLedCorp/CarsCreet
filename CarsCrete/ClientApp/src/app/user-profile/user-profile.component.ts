@@ -23,7 +23,6 @@ export class UserProfileComponent implements OnInit {
           x.ModifyDate= new Date(x.ModifyDate);
         })
         this.userService.currentUser=data;
-        console.log(this.userService.currentUser);
         localStorage.setItem('currentUser',JSON.stringify(data));
        
       })
@@ -46,7 +45,6 @@ export class UserProfileComponent implements OnInit {
       this.userService.ChangeInfo(type, value, this.userService.currentUser.Id).subscribe(data => {
         if(data){
           this.userService.currentUser[type]=value;
-          console.log(data);
           localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));
         }
       })
@@ -55,12 +53,8 @@ export class UserProfileComponent implements OnInit {
     this.changes[item]=false;
   }
   upload(files) {
-    console.log(files);
     const formData = new FormData();
     formData.append(files[0].Name, files[0]);
-    // this.userService.UploadPhoto(formData).subscribe(data => {
-    //   console.log(true);
-    // })
     const req = new HttpRequest('POST', `cars/upload-user-photo`, formData);
 
     this.http.request(req).subscribe(event => {

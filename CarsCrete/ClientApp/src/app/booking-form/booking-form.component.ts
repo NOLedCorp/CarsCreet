@@ -5,6 +5,7 @@ import { AlertService } from '../services/AlertService';
 import {User, ShowSale} from '../services/UserService';
 import { ActivatedRoute } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'booking-form',
@@ -21,6 +22,8 @@ export class BookingFormComponent implements OnInit{
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book;
   public user:User;
+  private subscription: Subscription;
+  
   
   
   constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
@@ -33,7 +36,6 @@ export class BookingFormComponent implements OnInit{
     return res.toFixed(2)
   }
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
-      console.log(this.bookingForm.value);
       this.submitted=true;
       if (this.bookingForm.invalid) {
         return
@@ -57,7 +59,6 @@ export class BookingFormComponent implements OnInit{
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
-        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
           this.bookingForm.reset();
           this.submitted = false;
@@ -158,7 +159,6 @@ export class BookingFormComponent implements OnInit{
     ngOnInit() {
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
-        console.log(this.user);
       }
       this.service.car=null;
       this.bookingForm = this.formBuilder.group({
@@ -177,7 +177,6 @@ export class BookingFormComponent implements OnInit{
         if(data){
         
           this.service.car=data;
-          console.log(this.service.car);
           this.service.car.Reports.forEach(r => {
             r.CreatedDate=new Date(r.CreatedDate);
             r.ButtonText= "SHOW_COMMENTS";
@@ -189,6 +188,8 @@ export class BookingFormComponent implements OnInit{
           this.sales = this.service.car.Sales.map(x =>{
             return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
           })
+          this.route.queryParamMap.subscribe(data => this.chooseNewSale(Number(data.get('saleId'))));
+         
         }})
         
     this.bookingForm.valueChanges.subscribe(data => {
@@ -197,7 +198,6 @@ export class BookingFormComponent implements OnInit{
       
   }
   chooseSale(sale:any){
-    console.log(sale);
     if(!sale.Checked){
       this.clearSales();
       sale.Checked = !sale.Checked;
@@ -219,13 +219,15 @@ export class BookingFormComponent implements OnInit{
     
     
   }
+  chooseNewSale(id:number){
+    
+    this.sale=this.sales.filter(x => x.Id == id)[0];
+    this.sale.Checked=true;
+  }
   checkSale(){
-    console.log(this.bookingForm.value);
     if(this.sale && this.sale.Id!=0 && this.sale.DaysNumber!=0){
-      console.log(true);
       if((new Date(this.bookingForm.value.DateFinish).getTime()-new Date(this.bookingForm.value.DateStart).getTime())/86400000<this.sale.DaysNumber){
         this.salesError = true;
-        console.log(true);
         return false
       }
       else{

@@ -27,14 +27,12 @@ export class UserFormComponent implements OnInit {
         return;
       }
       if(this.f.Password.errors || this.f.Email.errors ){
-        console.log(this.f);
         return;
       }
       
     }
     if(this.service.type==1){
       this.service.AddUser(this.userForm.value).subscribe(data=>{
-        console.log(data);
         this.service.currentUser=data;
 
         localStorage.setItem('currentUser',JSON.stringify(data));

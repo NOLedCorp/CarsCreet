@@ -27,7 +27,7 @@ export class MessagerComponent implements OnInit, OnChanges {
   submitted = false;
   
   constructor(private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
-    // console.log(ARouter.snapshot.url);
+   
     
    }
   get f() { return this.messageForm.controls; }
@@ -41,7 +41,6 @@ export class MessagerComponent implements OnInit, OnChanges {
       this.showTopic(this.topics[0]);
     }
     
-    console.log(this.currentTopic);
     this.messageForm = this.formBuilder.group({
       Name: [this.user?this.user.Name:''],
       Email: [this.user?this.user.Email:'', Validators.required],
@@ -75,7 +74,6 @@ export class MessagerComponent implements OnInit, OnChanges {
     }
   }
   ngOnChanges(ch:SimpleChanges){
-    console.log(ch);
     if(ch.topics){
       
       if(this.currentTopic){
@@ -142,7 +140,6 @@ export class MessagerComponent implements OnInit, OnChanges {
           this.showTopics=true;
         }
         else{
-          console.log(true);
           this.messageForm.setValue({Name: this.user?this.user.Name:'',
           Email: this.user?this.user.Email:'',
           Message: ''});
