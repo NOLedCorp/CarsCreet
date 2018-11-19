@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'date-picker',
@@ -10,43 +11,47 @@ export class DatePickerComponent implements OnInit {
   currentMonth:string;
   currentMonthNum:number;
   currentYear:number;
+  weekStart:number;
   calendar:Date[][]=[];
   week:string[] = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
-  constructor() { }
+  constructor( public translate:TranslateService) { }
 
   ngOnInit() {
+    
     let date = new Date();
     date = new Date(date.getFullYear(),date.getMonth());
     this.currentMonth=date.toLocaleString("en-us", {month:"short"});
     this.currentMonthNum = date.getMonth();
     this.currentYear = date.getFullYear();
-
     
-    if(date.getDay()!=1){
+    if(date.getDay()!=this.weekStart){
       date = new Date(date.getTime()-(date.getDay()-1)*86400000);
     }
     this.firstDate = date;
     this.fillCalendar();
-    console.log(this.calendar);
+    this.translate.onLangChange.subscribe(d => {
+      if(d.lang=="ru"){
+        this.weekStart=1;
+        this.week = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
+      }
+      else{
+        this.week = ["SUN","MON","TUE","WED","THU","FRI","SUT"]
+        this.weekStart=0;
+      }
+      this.setMonth(0);
+      
+    })
 
   }
   getClass(day:Date){
     return day.getMonth()==this.currentMonthNum;
   }
   next(){
-    let date = new Date(this.currentYear,this.currentMonthNum+1);
-    this.currentMonth=date.toLocaleString("en-us", {month:"short"});
-    this.currentMonthNum = date.getMonth();
-    this.currentYear = date.getFullYear();
-    
-    if(date.getDay()!=1){
-      date = new Date(date.getTime()-(date.getDay()-1)*86400000);
-    }
-    this.firstDate = date;
-    console.log(this.firstDate);
-    this.fillCalendar();
+    this.setMonth(1);
   }
   fillCalendar(){
+    console.log(this.weekStart);
+    
     this.calendar=[];
     for(let i =0; i<5;i++){
       let d = [];
@@ -57,12 +62,15 @@ export class DatePickerComponent implements OnInit {
     }
   }
   prev(){
-    let date = new Date(this.currentYear,this.currentMonthNum-1);
+    this.setMonth(-1);
+  }
+  setMonth(c:number){
+    let date = new Date(this.currentYear,this.currentMonthNum+c);
     this.currentMonth=date.toLocaleString("en-us", {month:"short"});
     this.currentMonthNum = date.getMonth();
     this.currentYear = date.getFullYear();
-    if(date.getDay()!=1){
-      date = new Date(date.getTime()-(date.getDay()-1)*86400000);
+    if(date.getDay()!=this.weekStart){
+      date = new Date(date.getTime()-(date.getDay()-this.weekStart)*86400000);
     }
     this.firstDate = date;
     this.fillCalendar();
