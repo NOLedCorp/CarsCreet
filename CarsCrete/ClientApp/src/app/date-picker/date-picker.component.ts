@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class DatePickerComponent implements OnInit {
   firstDate:Date; 
   currentMonth:string;
+  currentMonthNum:number;
+  currentYear:number;
   calendar:Date[][]=[];
   week:string[] = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
   constructor() { }
@@ -16,11 +18,36 @@ export class DatePickerComponent implements OnInit {
     let date = new Date();
     date = new Date(date.getFullYear(),date.getMonth());
     this.currentMonth=date.toLocaleString("en-us", {month:"short"});
+    this.currentMonthNum = date.getMonth();
+    this.currentYear = date.getFullYear();
+
     
     if(date.getDay()!=1){
       date = new Date(date.getTime()-(date.getDay()-1)*86400000);
     }
     this.firstDate = date;
+    this.fillCalendar();
+    console.log(this.calendar);
+
+  }
+  getClass(day:Date){
+    return day.getMonth()==this.currentMonthNum;
+  }
+  next(){
+    let date = new Date(this.currentYear,this.currentMonthNum+1);
+    this.currentMonth=date.toLocaleString("en-us", {month:"short"});
+    this.currentMonthNum = date.getMonth();
+    this.currentYear = date.getFullYear();
+    
+    if(date.getDay()!=1){
+      date = new Date(date.getTime()-(date.getDay()-1)*86400000);
+    }
+    this.firstDate = date;
+    console.log(this.firstDate);
+    this.fillCalendar();
+  }
+  fillCalendar(){
+    this.calendar=[];
     for(let i =0; i<5;i++){
       let d = [];
       for(let j = 0; j<7;j++){
@@ -28,8 +55,17 @@ export class DatePickerComponent implements OnInit {
       }
       this.calendar.push(d);
     }
-    console.log(this.calendar);
-
+  }
+  prev(){
+    let date = new Date(this.currentYear,this.currentMonthNum-1);
+    this.currentMonth=date.toLocaleString("en-us", {month:"short"});
+    this.currentMonthNum = date.getMonth();
+    this.currentYear = date.getFullYear();
+    if(date.getDay()!=1){
+      date = new Date(date.getTime()-(date.getDay()-1)*86400000);
+    }
+    this.firstDate = date;
+    this.fillCalendar();
   }
 
 }
