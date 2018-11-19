@@ -1,10 +1,23 @@
 <div class="container">
   <div class="header">
-    <div class="period"></div>
-    <div class="period-choose"></div>
+    <div class="period">{{currentMonth.toUpperCase() | translate}}</div>
+    <div class="period-choose">
+      <div class="periods">
+        <span>{{'MONTH' | translate }}</span>
+        <span>{{'YEAR' | translate }}</span>
+      </div>
+    </div>
   </div>
   <div class="date-picker">
-    <div class="collumn-headers"></div>
-    <div class="date-items"></div>
+    <div class="column-headers">
+      <div class="week-day-name" *ngFor="let day of week"> {{day.toUpperCase() | translate}}</div>
+    </div>
+    <div class="date-items">
+      <div class="rows" *ngFor="let week of calendar">
+        <div class="cols" *ngFor="let day of week; let i = index">
+          <div class="item" [ngClass]="{'clear-margin':i==0}">{{day | date: 'dd'}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

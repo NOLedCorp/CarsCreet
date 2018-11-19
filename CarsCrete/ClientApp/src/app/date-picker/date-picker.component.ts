@@ -7,12 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatePickerComponent implements OnInit {
   firstDate:Date; 
+  currentMonth:string;
   calendar:Date[][]=[];
+  week:string[] = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
   constructor() { }
 
   ngOnInit() {
     let date = new Date();
     date = new Date(date.getFullYear(),date.getMonth());
+    this.currentMonth=date.toLocaleString("en-us", {month:"short"});
+    
     if(date.getDay()!=1){
       date = new Date(date.getTime()-(date.getDay()-1)*86400000);
     }

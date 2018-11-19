@@ -1,0 +1,44 @@
+.header{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.header .period{
+    position: absolute;
+    left:10px;
+}
+.header .period-choose{
+    position: absolute;
+    right:10px;
+}
+.rows{
+    display: flex;
+}
+.item{
+    margin: 5px;
+    border-radius: 50%;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+}
+.clear-margin{
+    margin-left: 0;
+}
+.container{
+    width: 290px;
+    padding: 10px;
+    margin: 0;
+}
+.week-day-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 40px;
+}
+.column-headers{
+    display: flex;
+}
