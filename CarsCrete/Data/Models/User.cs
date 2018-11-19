@@ -38,6 +38,9 @@ namespace CarsCrete.Data.Models
         public DateTime CreatedDate { get; set; }
         [Required]
         public DateTime ModifiedDate { get; set; }
+        [Required]
+        [DefaultValue(false)]
+        public bool IsAdmin { get; set; }
         #endregion
 
         #region Lazy-Load Properties

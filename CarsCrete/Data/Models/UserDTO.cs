@@ -25,6 +25,7 @@ namespace CarsCrete.Data.Models
         public string Lang { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+        public bool IsAdmin { get; set; }
         public List<FeedBackDTO> Reports { get; set; }
         public List<BookDTO> Books { get; set; }
         public virtual List<ReportComment> Comments { get; set; }
