@@ -34,6 +34,7 @@ import { AboutCreteComponent } from './about-crete/about-crete.component';
 import { FooterComponent } from './footer/footer.component';
 import { MessagerComponent } from './messager/messager.component';
 import { SalesComponent } from './sales/sales.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -64,7 +65,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     AboutCreteComponent,
     FooterComponent,
     MessagerComponent,
-    SalesComponent
+    SalesComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
