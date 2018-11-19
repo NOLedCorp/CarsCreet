@@ -35,6 +35,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MessagerComponent } from './messager/messager.component';
 import { SalesComponent } from './sales/sales.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import {TranslateService} from '@ngx-translate/core';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -95,7 +96,7 @@ export function HttpLoaderFactory1(http: HttpClient) {
       { path: 'about', component: AboutCreteComponent},
     ],{ useHash: true})
   ],
-  providers: [UserService, CarsService, AlertService, FeedBackService, MessagerService],
+  providers: [TranslateService, UserService, CarsService, AlertService, FeedBackService, MessagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
