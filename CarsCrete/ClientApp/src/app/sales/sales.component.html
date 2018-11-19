@@ -1,8 +1,8 @@
 
-<div class="container">
+<div *ngIf="slides.length>0" class="container">
   <h2>{{'SPECIAL_DEALS' | translate}}</h2>
 </div>
-<div *ngIf="showCarousel" id="carousel" class="carousel slide" data-ride="carousel">
+<div *ngIf="showCarousel && slides.length>0" id="carousel" class="carousel slide" data-ride="carousel">
   <div class="sales">
     
     <div class="sale-item" *ngFor="let s of slides; let i = index" [ngClass]="{'current':i==currentSlide, 'prev':i<currentSlide,'next':i>currentSlide}">
@@ -32,7 +32,7 @@
       <span class="sr-only">Следующий</span>
     </span>
 </div>
-<div *ngIf="!showCarousel" class="sales-mobile">
+<div *ngIf="!showCarousel && slides.length>0" class="sales-mobile">
     <div class="sale-item" *ngFor="let s of slides; let i = index" >
         <div (click)="showSale(sale)" *ngFor="let sale of s" class="sale" >
           <div (click)="showCarInfo(car)" class="car-img">
