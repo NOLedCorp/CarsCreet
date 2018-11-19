@@ -8,7 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./rental-policy.component.css']
 })
 export class RentalPolicyComponent implements OnInit {
-  items:Rules[] = [
+  items: Rules[] = [
     {
       Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
       Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
@@ -40,6 +40,142 @@ export class RentalPolicyComponent implements OnInit {
       DescriptionEng: "Passengers of the rental vehicle are insured for death or bodily injuries in case of accident to a maximum of €1.000.000. Driver is insured to the amount of €15.000.",
     }
   ];
+
+  conditions: Condition[] = [
+    {
+      Name: "Age.",
+      Description: "The drivers must be a minimum of 21 years of age for car categories A,B,23 for C, C1, D, D1, K, K1, K2 and 25 for the rest.",
+      NameEng: "Age",
+      DescriptionEng: "The drivers must be a minimum of 21 years of age for car categories A, B, 23 for C, C1, D, D1, K, K1, K2 and 25 for the rest.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    },
+    {
+      Name: "Отказ от повреждений при столкновении с нулевым избытком (CDW).",
+      Description: "Арендатор застрахован на/от аренду автомобиля, поврежденного в результате аварии без обязательств по уплате !сверхплаты!",
+      NameEng: "Collision damage waiver with ZERO EXCESS (CDW)",
+      DescriptionEng: "The renter is insured for the rental vehicle damaged by accident with no obligation to pay any excess.",
+    }
+  ];
+
   constructor(public Translate:TranslateService) { }
 
   ngOnInit() {
@@ -48,6 +184,13 @@ export class RentalPolicyComponent implements OnInit {
 }
 
 export interface Rules {
+  Name: string;
+  Description: string;
+  NameEng: string;
+  DescriptionEng: string;
+}
+
+export interface Condition {
   Name: string;
   Description: string;
   NameEng: string;
