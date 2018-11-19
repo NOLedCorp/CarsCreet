@@ -134,18 +134,31 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">{{'DATE_START'|translate}}</span>
-                      <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #DateStart required>
+                      <span [ngClass]="{ 'is-invalid': submitted && DateStartError }">{{'DATE_START'|translate}}</span>
+                      <!--<input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" value="{{book.DateStart?book.DateStart:''}}" #DateStart required>
                       <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
                           <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
                           
+                      </div> -->
+                      <date-picker  [Out]="book" [Prop]="'DateStart'" ></date-picker>
+                      <div *ngIf="submitted && DateStartError" class="invalid-feedback">
+                          <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
+                          
                       </div>
+                      
+                  
+                      
                   </div>
                   <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }">{{'DATE_END'|translate}}</span>
-                      <input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
+                      <span [ngClass]="{ 'is-invalid': submitted && DateFinishError }">{{'DATE_END'|translate}}</span>
+                      <!--<input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
                       <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
                           <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">{{'ENTER_DATE'|translate}}</span>
+                          
+                      </div> -->
+                      <date-picker  [Out]="book" [Prop]="'DateFinish'" ></date-picker>
+                      <div *ngIf="submitted && DateFinishError" class="invalid-feedback">
+                          <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
                           
                       </div>
                   </div>

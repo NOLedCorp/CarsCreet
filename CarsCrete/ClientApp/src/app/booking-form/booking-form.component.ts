@@ -12,22 +12,26 @@ import {Subscription} from 'rxjs';
   templateUrl: './booking-form.component.html',
   styleUrls: ['./booking-form.component.css']
 })
-export class BookingFormComponent implements OnInit{
+export class BookingFormComponent implements OnInit, OnChanges {
   showBook:boolean = false;
+  DateStartError:boolean = false;
+  DateFinishError:boolean = false;
+  showPickers:ShowPickers = new ShowPickers();
   bookingForm: FormGroup;
   public sales:ShowSale[];
   submitted = false;sale:ShowSale = new ShowSale();
   salesError:boolean = false;
   res:number=0;
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
-  public book:Book;
+  public book:Book = new Book();
   public user:User;
-  private subscription: Subscription;
   
   
   
   constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
     this.sale.Id = 0;
+    this.book.DateFinish = null;
+    this.book.DateStart =null;
   }
   get f() { return this.bookingForm.controls; }
   Round(k:number){
@@ -35,13 +39,35 @@ export class BookingFormComponent implements OnInit{
     
     return res.toFixed(2)
   }
+  ngOnChanges(ch:SimpleChanges){
+    console.log(ch);
+  }
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
+      console.log(this.book);
       if (this.bookingForm.invalid) {
+        if(!this.book.DateStart){
+          
+          this.DateStartError = true;
+          
+        }
+        if(!this.book.DateFinish){
+          this.DateFinishError = true;
+         
+        }
         return
         
       }
       if(!this.checkSale()){
+        return
+      }
+      if(!this.book.DateStart){
+        console.log("111");
+        this.DateStartError = true;
+        return
+      }
+      if(!this.book.DateFinish){
+        this.DateFinishError = true;
         return
       }
      
@@ -52,7 +78,7 @@ export class BookingFormComponent implements OnInit{
           CarId:this.service.car.Id,
           UserId:this.user.Id,
           SalesId:this.sale.Id,
-          DateStart:this.bookingForm.value.DateStart,
+          DateStart:this.book.DateStart?this.book.DateStart:this.bookingForm.value.DateStart,
           DateFinish:this.bookingForm.value.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
@@ -166,8 +192,7 @@ export class BookingFormComponent implements OnInit{
         Email: [this.user?this.user.Email:'', Validators.required],
         Password: [this.user?'пароль':'', Validators.required],
         Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
-        DateStart:['', Validators.required],
-        DateFinish:['', Validators.required],
+       
         Place:['', Validators.required],
         Comment:['']
       });
@@ -253,4 +278,9 @@ export interface Raiting{
 }
 export interface BookSale{
   SalesId:number;
+}
+
+export class ShowPickers{
+  DateStart:boolean = false;
+  DateFinish:boolean = false;
 }

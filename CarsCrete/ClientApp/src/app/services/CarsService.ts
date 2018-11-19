@@ -61,7 +61,7 @@ export interface BookTimes{
     DateStart:Date;
     DateFinish:Date;
 }
-export interface Book{
+export class Book{
     Id:number;
     DateStart:Date;
     DateFinish:Date;

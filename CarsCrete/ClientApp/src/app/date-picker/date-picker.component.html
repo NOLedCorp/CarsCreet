@@ -1,4 +1,8 @@
-<div class="container">
+<div class="current-date" (click)="hide()">
+    <span>{{Out[Prop] | date:'dd.MM.yyyy'}}</span>
+</div>
+<div *ngIf="showPicker" class="container">
+  
   <div class="header">
     <i style="display: flex; justify-content: flex-end" class="fa fa-angle-left" aria-hidden="true" (click)="prev()"></i>
     <div class="period">{{currentMonth.toUpperCase() | translate}}  {{currentYear}}</div>
@@ -11,9 +15,15 @@
     <div class="date-items">
       <div class="rows" *ngFor="let week of calendar">
         <div class="cols" *ngFor="let day of week; let i = index">
-          <div class="item" [ngClass]="{'not-current':!getClass(day)}" >{{day | date: 'dd'}}</div>
+          
+          <div class="item" [ngClass]="{'not-current':!getClass(day), 'choosed-date':Out[Prop]==day}" (click)="pick(day)">{{day | date: 'dd'}}</div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<div *ngIf="showPicker" class="background-blur" (click)="hide()"></div>
+
+

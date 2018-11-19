@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,6 +7,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./date-picker.component.css']
 })
 export class DatePickerComponent implements OnInit {
+  @Input() Out:any = new Ex();
+  @Input() Prop:string = "DateStart";
+  showPicker:boolean = false;
   firstDate:Date; 
   currentMonth:string;
   currentMonthNum:number;
@@ -75,5 +78,17 @@ export class DatePickerComponent implements OnInit {
     this.firstDate = date;
     this.fillCalendar();
   }
+  pick(date:Date){
+    this.Out[this.Prop]=date;
+    console.log(this.Out[this.Prop]==date);
+    this.hide();
+  }
 
+  hide(){
+    this.showPicker = !this.showPicker;
+  }
 }
+
+ export class Ex{
+   DateStart:Date;
+ }
