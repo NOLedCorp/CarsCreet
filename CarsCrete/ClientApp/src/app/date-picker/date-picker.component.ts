@@ -113,6 +113,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     }
     this.firstDate = date;
     this.fillCalendar();
+    console.log(this.calendar);
     this.translate.onLangChange.subscribe(d => {
       if(d.lang=="ru"){
         this.weekStart=1;
@@ -163,6 +164,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     this.fillCalendar();
   }
   pick(date:Date){
+    console.log(date);
     if(date.getTime()>this.MinDate.getTime() && this.checkDate(date)){
       if(this.DateStart && this.Out.DateFinish){
         if(date.getTime()!=this.DateStart.getTime() && date.getTime()!=this.Out.DateFinish.getTime()){

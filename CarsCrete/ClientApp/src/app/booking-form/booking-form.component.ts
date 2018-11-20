@@ -85,6 +85,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
+        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
           this.bookingForm.reset();
           this.invalidIntarvals.push({DateStart:this.book.DateStart, DateFinish:this.book.DateFinish});
