@@ -51,7 +51,7 @@
     margin-left: 0;
 }
 .container{
-    z-index: 500 ;
+    z-index: 450 ;
     width: 300px;
     transition: 0.3s ease-in-out;
     padding: 10px;
@@ -92,7 +92,7 @@
 }
 .current-date{
     position: relative;
-    z-index: 600;
+    z-index: 500;
     height: 30px;
     background-color: white;
     display: flex;
