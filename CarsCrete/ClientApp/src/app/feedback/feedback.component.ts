@@ -18,6 +18,7 @@ export class FeedbackComponent implements OnInit {
   choosedCar:ReportCar;
   commentForm: FormGroup;
   errors:string[]=[];
+  Errors:any = {DateStart:true}; //Потом объединить c errors
   submitted = false;
   cars:ReportCar[]=[];
   feedBack:ShortFeedBack= new ShortFeedBack();
@@ -57,7 +58,6 @@ export class FeedbackComponent implements OnInit {
     
     
     this.registerForm = this.formBuilder.group({
-      DateStart: ['', Validators.required],
       Report: ['', [Validators.required]]
     });
     this.commentForm = this.formBuilder.group({
@@ -163,6 +163,7 @@ export class FeedbackComponent implements OnInit {
         if(this.errors.indexOf("carid")>-1){
           this.errors.splice(this.errors.indexOf("carid"),1);
         }
+
       }
       if(this.feedBack.Look==0){
         this.errors.push("look");
@@ -194,8 +195,11 @@ export class FeedbackComponent implements OnInit {
       if(this.errors.length>0){
         return;
       }
+      if(this.Errors.DateStart){
+        return;
+      }
       this.feedBack.UserId=this.userService.currentUser.Id;
-      this.feedBack.DateStart=new Date(this.registerForm.value.DateStart);
+      
       this.feedBack.Report= this.registerForm.value.Report;
    
       

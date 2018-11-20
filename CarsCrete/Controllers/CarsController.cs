@@ -272,8 +272,9 @@ namespace CarsCrete.Controllers
         [HttpPut("add-booking")]
         public IActionResult AddBooking([FromBody]BookDTO model)
         {
-            model.DateStart = new DateTime(model.DateStart.Year, model.DateStart.Month, model.DateStart.Day+1);
-            model.DateFinish = new DateTime(model.DateFinish.Year, model.DateFinish.Month, model.DateFinish.Day+1);
+
+            model.DateStart = model.DateStart.ToLocalTime();
+            model.DateFinish = model.DateFinish.ToLocalTime();
 
             if (model.DateStart > model.DateFinish)
             {

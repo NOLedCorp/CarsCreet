@@ -14,10 +14,10 @@
                         
                     </div>
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }">{{'DATE_START'|translate}}*</span>
-                        <input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" #date required>
-                        <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && Errors.DateStart }">{{'DATE_START'|translate}}*</span>
+                        <date-picker  [Out]="feedBack" [Prop]="'DateStart'" [Errors]="Errors"></date-picker>
+                        <div *ngIf="submitted && Errors.DateStart" class="invalid-feedback">
+                            <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
                             
                         </div>
                     </div>
