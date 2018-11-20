@@ -13,9 +13,10 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./booking-form.component.css']
 })
 export class BookingFormComponent implements OnInit, OnChanges {
+  errors:any={DateStrart:true, DateFinish:true};
   showBook:boolean = false;
-  DateStartError:boolean = false;
-  DateFinishError:boolean = false;
+  minDate:Date = new Date();
+  invalidIntarvals:any = [];
   showPickers:ShowPickers = new ShowPickers();
   bookingForm: FormGroup;
   public sales:ShowSale[];
@@ -48,11 +49,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
       if (this.bookingForm.invalid) {
         if(!this.book.DateStart){
           
-          this.DateStartError = true;
+          this.errors.DateStart = true;
           
         }
         if(!this.book.DateFinish){
-          this.DateFinishError = true;
+          this.errors.DateFinish = true;
          
         }
         return
@@ -62,12 +63,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
         return
       }
       if(!this.book.DateStart){
-        console.log("111");
-        this.DateStartError = true;
+        this.errors.DateStart = true;
         return
       }
       if(!this.book.DateFinish){
-        this.DateFinishError = true;
+        this.errors.DateFinish = true;
         return
       }
      
@@ -78,8 +78,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
           CarId:this.service.car.Id,
           UserId:this.user.Id,
           SalesId:this.sale.Id,
-          DateStart:this.book.DateStart?this.book.DateStart:this.bookingForm.value.DateStart,
-          DateFinish:this.bookingForm.value.DateFinish,
+          DateStart:this.book.DateStart,
+          DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Tel:this.bookingForm.value.Tel,
@@ -87,6 +87,9 @@ export class BookingFormComponent implements OnInit, OnChanges {
         }
         this.service.BookCar(this.book).subscribe(data => {
           this.bookingForm.reset();
+          this.invalidIntarvals.push({DateStart:this.book.DateStart, DateFinish:this.book.DateFinish});
+          this.book = new Book();
+          
           this.submitted = false;
           this.clearSales();
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
@@ -118,8 +121,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
           CarId:this.service.car.Id,
           UserId:0,
           SalesId:this.sale.Id,
-          DateStart:this.bookingForm.value.DateStart,
-          DateFinish:this.bookingForm.value.DateFinish,
+          DateStart:this.book.DateStart,
+          DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Email:this.bookingForm.value.Email,
@@ -192,7 +195,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
         Email: [this.user?this.user.Email:'', Validators.required],
         Password: [this.user?'пароль':'', Validators.required],
         Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
-       
         Place:['', Validators.required],
         Comment:['']
       });
@@ -209,6 +211,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
           this.service.car.Sales.forEach(r => {
             r.DateStart=new Date(r.DateStart);
             r.DateFinish=new Date(r.DateFinish);
+          })
+          this.service.car.Books.forEach(b => {
+            b.DateStart = new Date(b.DateStart);
+            b.DateFinish = new Date(b.DateFinish);
+            this.invalidIntarvals.push({DateStart:b.DateStart, DateFinish:b.DateFinish});
           })
           this.sales = this.service.car.Sales.map(x =>{
             return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}

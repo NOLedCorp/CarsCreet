@@ -1,10 +1,10 @@
 .container{
-    z-index: 300;
+    z-index: 1000;
     max-height: 500px;
     margin: 0;
     position: fixed;
     bottom: -283px;
-    left:20px;
+    right:20px;
     width: 220px;
     background: white;
     border: 1px solid black;
@@ -21,7 +21,7 @@
     position: relative;
     display: block;
     bottom: auto;
-    left:auto;
+    right:auto;
     width: 100% !important;
     border: none !important;
     border-radius: 4px;
