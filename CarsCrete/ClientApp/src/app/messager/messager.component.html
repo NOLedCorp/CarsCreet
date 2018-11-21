@@ -42,6 +42,7 @@
   </div>
   <div *ngIf="(userProfile || showTopics) && (!!currentTopic)" class="panel">
     <textarea (keydown) = "sendButton($event, message, messages)"  #message></textarea>
+    <!-- <i class="fa fa-car" (click)="showPicker()"></i> -->
     <i class="fa fa-paper-plane" (click)="sendMessage(message, messages)"></i>
   </div>
   <div *ngIf="(userProfile || showTopics) && topics.length==0" class="panel">

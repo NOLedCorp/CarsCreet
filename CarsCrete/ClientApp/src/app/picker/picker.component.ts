@@ -10,12 +10,11 @@ export class PickerComponent implements OnInit, OnChanges {
   @Input() out:any;
   @Input() prop:string;
   activeItem:any;
-  open:boolean;
+  @Input() open:boolean = false;
   constructor() { }
 
   ngOnInit() {
     this.activeItem = undefined;
-    this.open=false;
   }
   ngOnChanges(changes: SimpleChanges) {
     
