@@ -59,6 +59,9 @@ namespace CarsCrete.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("BodyType")
+                        .IsRequired();
+
                     b.Property<int>("Consumption");
 
                     b.Property<string>("Description")
@@ -68,6 +71,8 @@ namespace CarsCrete.Data.Migrations
                         .IsRequired();
 
                     b.Property<int>("Doors");
+
+                    b.Property<int>("FilterProp");
 
                     b.Property<string>("Fuel")
                         .IsRequired();

@@ -35,6 +35,11 @@ namespace CarsCrete.Data.Models
 
         [Required]
         public string Transmission { get; set; }
+        [Required]
+        public string BodyType { get; set; }
+        [Required]
+        [DefaultValue(0)]
+        public ushort FilterProp { get; set; }
 
         [Required]
         public string Fuel { get; set; }
