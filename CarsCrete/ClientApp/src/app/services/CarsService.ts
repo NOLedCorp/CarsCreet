@@ -49,6 +49,9 @@ export interface Car{
     Transmission:string;
     Fuel:string;
     Consumption:number;
+    BodyType:string;
+    FilterProp:number;
+    AC:boolean;
     Description:string;
     Description_ENG:string;
     Price:number;

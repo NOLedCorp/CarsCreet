@@ -23,6 +23,7 @@ namespace CarsCrete.Data.Models
         public int Doors { get; set; }
         public string BodyType { get; set; }
         public ushort FilterProp { get; set; }
+        public bool AC { get; set; }
         public string Transmission { get; set; }
         public string Fuel { get; set; }
         public string Consumption { get; set; }

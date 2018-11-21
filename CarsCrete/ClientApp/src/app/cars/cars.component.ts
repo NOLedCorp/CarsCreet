@@ -89,12 +89,14 @@ export class CarsComponent {
   }
   
   Filter(){
-    this.filteredCars=[];
-    this.cars.forEach(x => {
-      if(this.filters.map(x=>x.Value).indexOf(x.Transmission)>-1 ){
-        this.filteredCars.push(x);
+    this.filteredCars=this.cars.filter(x => {
+      for(let i =0; i<this.filters.length;i++){
+        if(x[this.filters[i].Name]==this.filters[i].Value){
+          return x;
+        }
       }
-    })
+    });
+    
 
   }
 }

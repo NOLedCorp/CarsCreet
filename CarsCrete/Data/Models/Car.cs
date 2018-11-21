@@ -40,6 +40,9 @@ namespace CarsCrete.Data.Models
         [Required]
         [DefaultValue(0)]
         public ushort FilterProp { get; set; }
+        [Required]
+        [DefaultValue(false)]
+        public bool AC { get; set; }
 
         [Required]
         public string Fuel { get; set; }

@@ -75,6 +75,20 @@
                     <i class="fa fa-tachometer"></i>
                     <span>{{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span>
                   </div>
+                  <div *ngIf="service.car?service.car.AC:false" class="detail-item">
+                    <div class="detail-messege">
+                      <span>A/C</span>
+                    </div>
+                    <i class="fa fa-snowflake-o"></i>
+                    <span>A/C</span>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-messege">
+                      <span>{{'BODY'| translate}}</span>
+                    </div>
+                    <i class="fa fa-truck"></i>
+                    <span>{{service.car?service.car.BodyType:''}}</span>
+                  </div>
                   
                   <!-- <div class="detail-item">
                     <i class="fa fa-snowflake-o"></i>

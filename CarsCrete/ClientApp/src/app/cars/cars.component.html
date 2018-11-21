@@ -4,8 +4,8 @@
     
     <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Manual')>-1}" (click)="addFilter('Transmission','Manual')"><span>{{"MANUAL" | translate}}</span> <i class="fa fa-check"></i></div>
     <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Automatic')>-1}" (click)="addFilter('Transmission','Automatic')"><span>{{"AUTOMATIC" | translate}}</span><i class="fa fa-check"></i></div>
-    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('cabriolet')>-1}" (click)="addFilter('BodyType','cabriolet')"><span>{{"CABRIOLET" | translate}}</span><i class="fa fa-check"></i></div>
-    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('minivan')>-1}" (click)="addFilter('BodyType','minivan')"><span>{{"MINIVAN" | translate}}</span><i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Cabriolet')>-1}" (click)="addFilter('BodyType','Cabriolet')"><span>{{"CABRIOLET" | translate}}</span><i class="fa fa-check"></i></div>
+    <div class="col-sm-3" [ngClass]="{checked:f.indexOf('Minivan')>-1}" (click)="addFilter('BodyType','Minivan')"><span>{{"MINIVAN" | translate}}</span><i class="fa fa-check"></i></div>
     
   </div>
   <div class="cars-container">
@@ -45,12 +45,19 @@
             <i class="fa fa-cogs"></i>
             <span>{{car.Transmission}}</span>
           </div>
-          <div class="detail-item">
+          <div *ngIf="car.AC" class="detail-item">
             <div class="detail-messege">
               <span>A/C</span>
             </div>
             <i class="fa fa-snowflake-o"></i>
             <span>A/C</span>
+          </div>
+          <div class="detail-item">
+            <div class="detail-messege">
+              <span>{{'BODY'| translate}}</span>
+            </div>
+            <i class="fa fa-truck"></i>
+            <span>{{car.BodyType}}</span>
           </div>
           <div class="detail-item">
             <div class="detail-messege">

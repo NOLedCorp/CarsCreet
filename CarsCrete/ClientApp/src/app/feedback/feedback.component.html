@@ -49,7 +49,7 @@
             </div>
             <div class="item">
                 <span [ngClass]="{ 'is-invalid': submitted && f.Report.errors }">{{'REPORT'|translate}}*</span>
-                <textarea formControlName="Report" [ngClass]="{ 'is-invalid': submitted && f.Report.errors }"  rows="5" cols="20" #report></textarea>
+                <textarea class ="input" formControlName="Report" [ngClass]="{ 'is-invalid': submitted && f.Report.errors }" maxlength="1000"  rows="5" cols="20"></textarea>
                 <div *ngIf="submitted && f.Report.errors" class="invalid-feedback">
                     <span class="d-block is-invalid" *ngIf="f.Report.errors.required">{{'ENTER_REPORT'|translate}}</span>
                     <span class="d-block is-invalid" *ngIf="f.Report.errors.minlength">{{'REPORT_MIN_SIZE'|translate}}</span>
@@ -130,7 +130,7 @@
                 <form [formGroup]="commentForm"  *ngIf="com.ShowForm"  class="review">
                     <div class="item ">
                         <span [ngClass]="{ 'is-invalid': submitted && f1.report.errors }">{{'COMMENT'|translate}}</span>
-                        <textarea maxlength="1000" formControlName="report" [ngClass]="{ 'is-invalid': submitted && f1.report.errors }" cols="10" rows="5" #report></textarea>
+                        <textarea class="input" maxlength="1000" formControlName="report" [ngClass]="{ 'is-invalid': submitted && f1.report.errors }" cols="10" rows="5" #report></textarea>
                         <div *ngIf="submitted && f1.report.errors" class="invalid-feedback">
                             <span class="d-block is-invalid" *ngIf="f1.report.errors.required">{{'ENTER_COMMENT'|translate}}</span>
                             <span class="d-block is-invalid" *ngIf="f1.report.errors.minlength">{{'REPORT_MIN_SIZE'|translate}}</span>
