@@ -24,6 +24,22 @@ body{
     width: 100%;
     max-width: 1030px;
 }
+select{
+    padding-left: 10px;
+    cursor: pointer;
+}
+.input{
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding-left: 10px;
+    outline: none !important;
+}
+.input:not(.is-invalid):hover, .input:not(.is-invalid):focus{
+    border-color: rgb(34, 174, 255) !important;
+}
+.input:not(.is-invalid):hover .fa, .input:not(.is-invalid):focus .fa{
+    color:rgb(34, 174, 255);
+}
 .user-img-small{
     width: 30px;
     height: 30px;

@@ -7,7 +7,7 @@
     <form [formGroup]="userForm" >
       <div *ngIf="this.service.type==1" class="item">
         <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{"NAME" | translate}}</span>
-        <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" required>
+        <input class="input" formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" required>
         <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
           <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{"NAME_VALIDATION" | translate}}</span>
   
@@ -15,7 +15,7 @@
       </div>
       <div class="item">
         <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{"EMAIL" | translate}}</span>
-        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" name="name" type="email" required>
+        <input class="input" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" name="name" type="email" required>
         <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
           <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{"EMAIL_VALIDATION" | translate}}</span>
           
@@ -25,7 +25,7 @@
         <div class="col-sm-10">
           <div class="item" *ngIf="this.service.type==1">
             <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">Телефон</span>
-            <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" value="{{user?(user.Tel?user.Tel:''):''}}" name="name" type="tel" pattern="[0-9]{11}" required>
+            <input class="input" formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" value="{{user?(user.Tel?user.Tel:''):''}}" name="name" type="tel" pattern="[0-9]{11}" required>
             <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
               
               <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">Формат: 89161782323</span>
@@ -35,7 +35,7 @@
         <div class="col-sm-2">
           <div class="item" *ngIf="this.service.type==1">
             <span >{{'LANG' | translate}}</span>
-            <select formControlName="Lang">
+            <select class="input" formControlName="Lang">
               <option value="RU">RU</option>
               <option value="ENG">ENG</option>
             </select>
@@ -48,7 +48,7 @@
   
       <div class="item">
         <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
-        <input formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" name="name" type="password" required>
+        <input class="input" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" name="name" type="password" required>
         
         <div *ngIf="submitted && f.Password.errors">
           <span class="d-block is-invalid" *ngIf="f.Password.errors.required">{{"PASSWORD_VALIDATION" | translate}}</span>

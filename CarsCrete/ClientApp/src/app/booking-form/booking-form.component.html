@@ -99,7 +99,7 @@
                 <div class="col-sm-6">
                     <div class="item">
                       <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME'|translate}}</span>
-                      <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" name="name" type="text" value="{{user?user.Name:''}}" required>
+                      <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" class="input" name="name" type="text" value="{{user?user.Name:''}}" required>
                       <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
                         <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{'NAME_VALIDATION'|translate}}</span>
                 
@@ -107,14 +107,14 @@
                     </div>
                     <div class="item">
                       <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
-                      <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" value="{{user?user.Email:''}}" name="name" type="Email"  required>
+                      <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email"  required>
                       <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
                           <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
                       </div>
                     </div>
                     <div *ngIf="!user" class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
-                        <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" required>
+                        <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }"  class="input" required>
                           
                         <div *ngIf="submitted && f.Password.errors">
                           <span class="d-block is-invalid" *ngIf="f.Password.errors.required">{{'PASSWORD_VALIDATION'|translate}}</span>
@@ -124,7 +124,7 @@
                       </div>
                     <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{'PHONE'|translate}}</span>
-                        <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }"  name="name" type="tel" pattern="[0-9]{11}" required>
+                        <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" class="input"  name="name" type="tel" pattern="[0-9]{11}" required>
                         <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
                           
                           <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
@@ -173,7 +173,7 @@
                   </div>
                   <div class="item">
                     <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PLACE'|translate}}</span>
-                    <select formControlName="Place" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
+                    <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
                       <option selected value="Iraklion">{{'IRAKLION' | translate}}</option>
                     </select>
                     <div *ngIf="submitted && f.Place.errors">
@@ -206,7 +206,7 @@
               </div>
               <div class="item ">
                   <span>{{'COMMENT'|translate}}</span>
-                  <textarea formControlName="Comment"  cols="10" rows="5" #report></textarea>
+                  <textarea class="input" formControlName="Comment"  cols="10" rows="5" #report></textarea>
                   
               </div>
               <button class="btn btn-primary">{{'BOOK'|translate}}</button>

@@ -36,7 +36,7 @@
             <div *ngIf="changes[0]" class="change-panel">
                 <div class="form">
                   <span>{{'EMAIL' | translate}}: </span>
-                  <input [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" type="email" required #Email>
+                  <input [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" type="email" required #Email>
                   <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div *ngIf="changes[1]" class="change-panel">
               <div class="form">
                 <span>{{'PHONE' | translate}}: </span>
-                <input [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" type="tel" required #Tel>
+                <input [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" type="tel" class="input" required #Tel>
                 <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value)">Изменить</button>
               </div>
             </div>
@@ -85,7 +85,7 @@
             <div *ngIf="changes[2]" class="change-panel">
                 <div class="form">
                   <span>{{'LANG' | translate}}: </span>
-                  <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }"  required #Lang>
+                  <select [ngClass]="{ 'is-invalid': submitted && f.Lang.errors }" class="input"  required #Lang>
                     <option>{{'RU'| translate}}</option>
                     <option>{{'ENG'| translate}}</option>
                   </select>

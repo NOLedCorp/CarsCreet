@@ -83,6 +83,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     }
     
   }
+ 
   shooseProgress(day:Date, leave:boolean){
     if(this.DateStart){
       if(this.Prop=='DateFinish'){
@@ -103,13 +104,22 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if(this.DateFinish){
       date = this.DateFinish
     } 
+    if(this.translate.currentLang=="ru"){
+      this.weekStart=1;
+      this.week = ["MON","TUE","WED","THU","FRI","SUT","SUN"];
+    }
+    else{
+      this.week = ["SUN","MON","TUE","WED","THU","FRI","SUT"]
+      this.weekStart=0;
+    }
     date = new Date(date.getFullYear(),date.getMonth());
     this.currentMonth=date.toLocaleString("en-us", {month:"short"});
     this.currentMonthNum = date.getMonth();
     this.currentYear = date.getFullYear();
     
     if(date.getDay()!=this.weekStart){
-      date = new Date(date.getTime()-(date.getDay()-1)*86400000);
+      
+      date = new Date(date.getTime()-(date.getDay()-this.weekStart)*86400000);
     }
     this.firstDate = date;
     this.fillCalendar();
@@ -126,9 +136,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
       this.setMonth(0);
       
     })
-    if(this.weekStart == undefined){
-      this.weekStart = 1;
-    }
+    
 
   }
   getClass(day:Date){

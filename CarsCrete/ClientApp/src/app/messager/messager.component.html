@@ -9,7 +9,7 @@
   <form [formGroup]="messageForm" *ngIf="!userProfile && !showTopics">
     <div class="item">
       <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME' | translate }}</span>
-      <input formControlName="Name" type="text">
+      <input class="input" formControlName="Name" type="text">
       <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
         <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{"NAME_VALIDATION" | translate}}</span>
     
@@ -17,7 +17,7 @@
     </div>
     <div class="item">
       <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL' | translate }}*</span>
-      <input formControlName="Email" type="email">
+      <input class="input" formControlName="Email" type="email">
       <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
         <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{"EMAIL_VALIDATION" | translate}}</span>
   
@@ -25,7 +25,7 @@
     </div>
     <div class="item">
       <span [ngClass]="{ 'is-invalid': submitted && f.Message.errors }">{{'MESSAGE' | translate }}*</span>
-      <textarea formControlName="Message" cols="30" rows="4"></textarea>
+      <textarea class="input" formControlName="Message" cols="30" rows="4"></textarea>
       <div *ngIf="submitted && f.Message.errors" class="invalid-feedback">
         <span class="d-block is-invalid" *ngIf="f.Message.errors.required">{{"MESSAGE_VALIDATION" | translate}}</span>
     
