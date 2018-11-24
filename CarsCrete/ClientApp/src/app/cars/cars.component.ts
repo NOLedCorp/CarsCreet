@@ -17,7 +17,8 @@ export class CarsComponent {
   public alert:AlertService = new AlertService();
   public filters:Filter[]=[];
   public cars:Car[] = [];
-  
+  photos:string[];
+  showPhotos:any = {show:false};
   filteredCars:Car[];
   
   constructor(public service:CarsService) {
@@ -51,6 +52,15 @@ export class CarsComponent {
     this.service.car=car;
 
     this.service.showBookingForm=true;
+  }
+  showCarPhotos(id:number){
+    this.service.GetCarPhotos(id).subscribe(data => {
+      if(data.length>0){
+        this.photos=data;
+        this.showPhotos.show=true;
+      }
+      
+    })
   }
   showCarInfo(car:Car){
     this.service.car=car;

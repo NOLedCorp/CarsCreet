@@ -6,9 +6,10 @@
             <h1>{{service.car?service.car.Model:''}}</h1>
             <div class="row">
               <div class="col-sm-4">
-                <div (click)="showCarInfo()" class="car-img">
+                <div class="car-img">
                   <img src="{{service.car?service.car.Photo:''}}" alt="">
                   <div class="blur"></div>
+                  <i (click)="showCarPhotos()" class="fa fa-picture-o" aria-hidden="true"></i>
                 </div>
                 
               </div>
@@ -267,6 +268,7 @@
 
 <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
 <alert  [alert] ="alert"></alert>
+<photo-viewer *ngIf="showPhotos.show" [items]="photos" [show]="showPhotos"></photo-viewer>
   
   
   

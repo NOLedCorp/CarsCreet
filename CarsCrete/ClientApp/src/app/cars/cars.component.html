@@ -10,9 +10,9 @@
   </div>
   <div class="cars-container">
     <div *ngFor='let car of filteredCars' class="car-item">
-      <div (click)="showCarInfo(car)" class="car-img">
+      <div  class="car-img">
         <img src="{{car.Photo}}" alt="">
-        <div class="blur"></div>
+        <div (click)="showCarInfo(car)" class="blur"></div>
         <div [ngClass]="{'price':car.Sales.length==0, 'sale-price':car.Sales.length>0}">
         
           <span>{{car.Sales.length>0?getCarPrice(car):car.Price}}€</span>
@@ -23,6 +23,7 @@
         <div class="rating">
           <rating [mark]="car.Mark"></rating>
         </div>
+        <i (click)="showCarPhotos(car.Id)" class="fa fa-picture-o" aria-hidden="true"></i>
       </div>
       <div class="car-info">
         <h5>{{car.Model}}</h5>
@@ -82,3 +83,4 @@
 <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
 
 <loader *ngIf="load"></loader>
+<photo-viewer *ngIf="showPhotos.show" [items]="photos" [show]="showPhotos"></photo-viewer>

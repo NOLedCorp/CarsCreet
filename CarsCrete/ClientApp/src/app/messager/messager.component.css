@@ -1,5 +1,5 @@
 .container{
-    z-index: 1000;
+    z-index: 800;
     max-height: 500px;
     margin: 0;
     position: fixed;

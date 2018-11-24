@@ -30,7 +30,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book = new Book();
   public user:User;
-  
+  photos:string[];
+  showPhotos:any = {show:false};
   
   
   constructor(public translate: TranslateService,private formBuilder: FormBuilder,private router:Router, private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
@@ -207,10 +208,13 @@ export class BookingFormComponent implements OnInit, OnChanges {
     hide(){
       this.service.showBookingForm=false;
     }
-    showCarInfo(){
-      
-
-      this.service.showCarInfo=true;
+    showCarPhotos(){
+      this.service.GetCarPhotos(this.service.car.Id).subscribe(data => {
+        if(data.length>0){
+          this.photos=data;
+          this.showPhotos.show=true;
+        }
+      })
     }
     getSum(){
       if(this.book.DateStart && this.book.DateFinish){

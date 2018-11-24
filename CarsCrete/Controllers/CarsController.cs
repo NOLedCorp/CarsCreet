@@ -453,6 +453,20 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+
+        [HttpGet("get-photos/{id}")]
+        public IActionResult GetPhotos(long id)
+        {
+
+            var photos = DbContext.Photos.Where(x => x.PhotoOwnerId == id).Select(x => x.Path).ToList();
+            
+            return new JsonResult(
+                photos,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
         [HttpPut("add-car")]
         public IActionResult AddCar([FromBody] CarDTO model)
         {
