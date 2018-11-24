@@ -61,6 +61,9 @@ namespace CarsCrete.Data
             modelBuilder.Entity<Message>().ToTable("Messages");
             modelBuilder.Entity<Message>().Property(i => i.Id).ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<Photo>().ToTable("Photos");
+            modelBuilder.Entity<Photo>().Property(i => i.Id).ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Topic>().ToTable("Topics");
             modelBuilder.Entity<Topic>().HasMany(u => u.Messages);
             modelBuilder.Entity<Topic>().Property(i => i.Id).ValueGeneratedOnAdd();
@@ -75,6 +78,7 @@ namespace CarsCrete.Data
         #region Properties
         public DbSet<User> Users { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<FeedBack> Reports { get; set; }

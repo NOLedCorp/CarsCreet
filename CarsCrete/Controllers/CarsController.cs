@@ -428,6 +428,7 @@ namespace CarsCrete.Controllers
                 f.Likes.RemoveAll(x => x.CommentId != 0);
                 f.Comments.ForEach(x => x.Likes = DbContext.Likes.Where(y => y.CommentId == x.Id).ToList().Adapt<List<LikeDTO>>());
             }
+            
             car.Reports = car.Reports.OrderByDescending(r => r.CreatedDate).ToList();
             return new JsonResult(
                 car,
@@ -529,7 +530,7 @@ namespace CarsCrete.Controllers
                 });
         }
         [HttpPut("add-report")]
-        public IActionResult AddReport([FromBody]FeedBackDTO model)
+        public bool AddReport([FromBody]FeedBackDTO model)
         {
 
             var report = model.Adapt<FeedBack>();
@@ -537,13 +538,19 @@ namespace CarsCrete.Controllers
             report.Mark = Math.Round(report.Mark, 2);
             DbContext.Reports.Add(report);
             DbContext.SaveChanges();
+            var c1 = DbContext.Cars.Where(x => model.CarId == x.Id).FirstOrDefault();
+            if (c1.Mark == 0)
+            {
+                c1.Mark = report.Mark;
+            }
+            else
+            {
+                c1.Mark = Math.Round((c1.Mark + report.Mark) / 2,2);
+            }
+            DbContext.SaveChanges();
+            
 
-            return new JsonResult(
-                report.Adapt<FeedBackDTO>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented
-                });
+            return true;
         }
         public class NewComment
         {

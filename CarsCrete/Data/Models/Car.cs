@@ -38,11 +38,25 @@ namespace CarsCrete.Data.Models
         [Required]
         public string BodyType { get; set; }
         [Required]
-        [DefaultValue(0)]
-        public ushort FilterProp { get; set; }
+        public string Contain { get; set; }
         [Required]
         [DefaultValue(false)]
         public bool AC { get; set; }
+        [Required]
+        [DefaultValue(21)]
+        public ushort MinAge { get; set; }
+        [Required]
+        [DefaultValue(true)]
+        public bool Airbags { get; set; }
+        [Required]
+        [DefaultValue("Economy")]
+        public string Groupe { get; set; }
+        [Required]
+        [DefaultValue(true)]
+        public bool Radio { get; set; }
+        [Required]
+        [DefaultValue(true)]
+        public bool ABS { get; set; }
 
         [Required]
         public string Fuel { get; set; }
@@ -60,7 +74,7 @@ namespace CarsCrete.Data.Models
         [Required]
         public double Price { get; set; }
         [DefaultValue(0)]
-        public ushort Mark { get; set; }
+        public double Mark { get; set; }
         #endregion
         #region Lazy-Load Properties
         /// <summary>

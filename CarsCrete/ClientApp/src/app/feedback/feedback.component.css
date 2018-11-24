@@ -12,6 +12,13 @@
     cursor: pointer;
     color: rgb(185, 192, 194);
 }
+.car-model{
+    margin-left: 5px;
+}
+.car-model:hover{
+    color: blue;
+    cursor: pointer;
+}
 .line:after {
     content: '';
     display: block;
