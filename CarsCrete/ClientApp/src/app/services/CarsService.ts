@@ -14,6 +14,9 @@ export class CarsService implements OnInit{
     GetCars(){
         return this.http.get<Car[]>(this.baseUrl + 'cars/get-cars');
     }
+    GetSameCars(id){
+        return this.http.get<Car[]>(this.baseUrl + 'cars/get-same-cars/'+id);
+    }
     GetCar(id:string){
         return this.http.get<Car>(this.baseUrl+'cars/get-car/'+id);
     }

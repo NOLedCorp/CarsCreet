@@ -1,5 +1,6 @@
 <app-nav-menu [service]='service'></app-nav-menu>
 <router-outlet></router-outlet>
+<same-cars *ngIf="showSameCars" [CarId]="CarId"></same-cars>
 <sales></sales>
 <footer></footer>
 <messager *ngIf="showMes"></messager>

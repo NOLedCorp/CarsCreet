@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarsService, Car, Book } from '../services/CarsService';
 import { AlertService } from '../services/AlertService';
 import {User, ShowSale} from '../services/UserService';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Route, Router, NavigationEnd } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, Subscription} from 'rxjs';
 
@@ -33,7 +33,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   
   
   
-  constructor(public translate: TranslateService,private formBuilder: FormBuilder,private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
+  constructor(public translate: TranslateService,private formBuilder: FormBuilder,private router:Router, private route: ActivatedRoute, public service:CarsService, public alert:AlertService) { 
     this.sale.Id = 0;
     this.book.DateFinish = null;
     this.book.DateStart =null;
@@ -45,11 +45,9 @@ export class BookingFormComponent implements OnInit, OnChanges {
     return res.toFixed(2)
   }
   ngOnChanges(ch:SimpleChanges){
-    console.log(ch);
   }
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
-      console.log(this.book);
       if (this.bookingForm.invalid) {
         if(!this.book.DateStart){
           
@@ -91,7 +89,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
-        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
           this.bookingForm = this.formBuilder.group({
             Name: [this.user?this.user.Name:'', Validators.required],
@@ -260,35 +257,48 @@ export class BookingFormComponent implements OnInit, OnChanges {
         Comment:['']
       });
       
-      this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
-       
-        if(data){
-        
-          this.service.car=data;
-          this.service.car.Reports.forEach(r => {
-            r.CreatedDate=new Date(r.CreatedDate);
-            r.ButtonText= "SHOW_COMMENTS";
-          })
-          this.service.car.Sales.forEach(r => {
-            r.DateStart=new Date(r.DateStart);
-            r.DateFinish=new Date(r.DateFinish);
-          })
-          this.service.car.Books.forEach(b => {
-            b.DateStart = new Date(b.DateStart);
-            b.DateFinish = new Date(b.DateFinish);
-            this.invalidIntarvals.push({DateStart:b.DateStart, DateFinish:b.DateFinish});
-          })
-          this.sales = this.service.car.Sales.map(x =>{
-            return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
-          })
-          this.route.queryParamMap.subscribe(data => this.chooseNewSale(Number(data.get('saleId'))));
-         
-        }})
+      this.getCar();
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+          return;
+        }
+        if(evt.url.indexOf('booking')>-1){
+          if(this.service.car.Id!=Number(evt.url.split('/')[2].split('?')[0])){
+            this.getCar();
+          }
+        }
+      });
         
     this.bookingForm.valueChanges.subscribe(data => {
       this.checkSale();
     })
       
+  }
+  getCar(){
+    this.service.GetCar(this.route.snapshot.paramMap.get("id")).subscribe(data => {
+       
+      if(data){
+      
+        this.service.car=data;
+        this.service.car.Reports.forEach(r => {
+          r.CreatedDate=new Date(r.CreatedDate);
+          r.ButtonText= "SHOW_COMMENTS";
+        })
+        this.service.car.Sales.forEach(r => {
+          r.DateStart=new Date(r.DateStart);
+          r.DateFinish=new Date(r.DateFinish);
+        })
+        this.service.car.Books.forEach(b => {
+          b.DateStart = new Date(b.DateStart);
+          b.DateFinish = new Date(b.DateFinish);
+          this.invalidIntarvals.push({DateStart:b.DateStart, DateFinish:b.DateFinish});
+        })
+        this.sales = this.service.car.Sales.map(x =>{
+          return {Discount:x.Discount, Id:x.Id, NewPrice:x.NewPrice, Checked:false, DaysNumber:x.DaysNumber}
+        })
+        this.route.queryParamMap.subscribe(data => this.chooseNewSale(Number(data.get('saleId'))));
+       
+      }})
   }
   chooseSale(sale:any){
     if(!sale.Checked){
@@ -315,7 +325,10 @@ export class BookingFormComponent implements OnInit, OnChanges {
   chooseNewSale(id:number){
     if(id){
       this.sale=this.sales.filter(x => x.Id == id)[0];
-      this.sale.Checked=true;
+      if(this.sale){
+        this.sale.Checked=true;
+      }
+      
     }
     
   }

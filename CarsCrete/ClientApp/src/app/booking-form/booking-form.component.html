@@ -249,7 +249,7 @@
 <div class="reports-container">
   <feedback *ngIf="service.car?!!service.car.Reports:false" [reports]="service.car.Reports" [type]="'car'"></feedback>
 </div>
-  
+
 <car-card *ngIf="service.showCarInfo" [service]="service"></car-card>
 <alert  [alert] ="alert"></alert>
   

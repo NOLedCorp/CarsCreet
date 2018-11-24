@@ -12,8 +12,10 @@ import {MyTranslateService} from './services/MyTranslateService';
 export class AppComponent implements OnInit {
   title = 'app';
   showMes:boolean = true;
+  CarId:number=0;
   service:MyTranslateService ;
   showButtonUp:boolean = false;
+  showSameCars:boolean = false;
   constructor(private router:Router, private translate: TranslateService){
     this.service = new MyTranslateService(translate);
     
@@ -31,7 +33,6 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     window.scrollTo(0, 0);
     this.router.events.subscribe((evt) => {
-      
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
@@ -40,6 +41,13 @@ export class AppComponent implements OnInit {
       }
       else{
         this.showMes=true;
+      }
+      if(evt.url.indexOf('booking')>-1){
+        this.showSameCars=true;
+        this.CarId=Number(evt.url.split('/')[2].split('?')[0]);
+      }
+      else{
+        this.showSameCars=false;
       }
       window.scrollTo(0, 0)
      });

@@ -36,6 +36,7 @@ import { MessagerComponent } from './messager/messager.component';
 import { SalesComponent } from './sales/sales.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import {TranslateService} from '@ngx-translate/core';
+import { SameCarsComponent } from './same-cars/same-cars.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
@@ -67,7 +68,8 @@ export function HttpLoaderFactory1(http: HttpClient) {
     FooterComponent,
     MessagerComponent,
     SalesComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    SameCarsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

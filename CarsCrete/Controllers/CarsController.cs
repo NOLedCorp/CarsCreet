@@ -479,6 +479,21 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        [HttpGet("get-same-cars/{id}")]
+        public IActionResult GetSameCars(long id)
+        {
+            var car = DbContext.Cars.Where(c => c.Id == id).FirstOrDefault();
+            var cars = DbContext.Cars.Include(x => x.Sales).Where(s => (s.Groupe == car.Groupe)||(Math.Abs(s.Price-car.Price)<20)).ProjectToType<CarDTO>().ToList();
+
+
+
+            return new JsonResult(
+                cars,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
 
         public class ReportCar
         {
