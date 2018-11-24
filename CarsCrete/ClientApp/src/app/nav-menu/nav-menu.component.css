@@ -16,6 +16,7 @@
     border-radius: 3px;
     transition: 0.2s;
     cursor: pointer;
+    
 }
 .menu-prop .link-active{
     background-color: black;
@@ -155,6 +156,13 @@ li.link-active a:focus {
 }
 
 @media (max-width: 940px) {
+    .menu-prop{
+        display: flex;
+        align-items: center;
+    }
+    .menu-prop>div:not(.lang){
+        max-width: 150px;
+    }
     .topmenu img{
         margin: 0 10%; 
         max-width: auto;
@@ -177,7 +185,8 @@ li.link-active a:focus {
       }
     .menu-prop{
         left: 20px;
-        top:15px;
+        top:0;
+        height: 100%;
         
         right: auto;
         
