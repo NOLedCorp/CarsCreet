@@ -61,6 +61,8 @@ export interface Car{
     Reports:FeedBack[];
     Books:Book[];
     Sales:Sale[];
+    Includes:string[];
+    IncludesEng:string[];
 }
 export interface BookTimes{
     CarId:number;

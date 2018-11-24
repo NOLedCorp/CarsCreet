@@ -435,7 +435,16 @@ namespace CarsCrete.Controllers
                 f.Likes.RemoveAll(x => x.CommentId != 0);
                 f.Comments.ForEach(x => x.Likes = DbContext.Likes.Where(y => y.CommentId == x.Id).ToList().Adapt<List<LikeDTO>>());
             }
-            
+            List<string> l = new List<string>();
+            List<string> l1 = new List<string>();
+            foreach (string i in car.Contain.Split(new char[] { '/' }))
+            {
+                var i1 = int.Parse(i);
+                l.Add(Includes.Items[i1]);
+                l1.Add(Includes.ItemsEng[i1]);
+            }
+            car.Includes = l;
+            car.IncludesEng = l1;
             car.Reports = car.Reports.OrderByDescending(r => r.CreatedDate).ToList();
             return new JsonResult(
                 car,

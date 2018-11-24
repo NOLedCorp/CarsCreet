@@ -3,6 +3,9 @@
   .body-content {
     padding-top: 50px;
   }
+  .scroll{
+    bottom: 80px !important;
+  }
 }
 .scroll{
   position: fixed;

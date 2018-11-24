@@ -23,6 +23,9 @@ namespace CarsCrete.Data.Models
         public int Doors { get; set; }
         public string BodyType { get; set; }
         public string Contain { get; set; }
+        public List<string> Includes { get; set; }
+        public List<string> IncludesEng { get; set; }
+
         public bool AC { get; set; }
         public ushort MinAge { get; set; }
         public bool Airbags { get; set; }

@@ -46,67 +46,80 @@
                 </div>
                 
                 <p>{{translate.currentLang=='ru'?(service.car?service.car.Description:''):service.car.Description_ENG}}</p>
-                <div class="details">
-                  <div class="detail-item">
-                    <div class="detail-messege">
-                      <span>{{"PASSENGERS_S" | translate}}</span>
-                    </div>
-                    <i class="fa fa-male"></i>
-                    <span>x {{service.car?service.car.Passengers:''}}</span>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-messege">
-                      <span>{{"DOORS" | translate}}</span>
-                    </div>
-                    <i class="fa fa-car"></i>
-                    <span>x {{service.car?service.car.Doors:''}}</span>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-messege">
-                      <span>{{"TRANSMISSION" | translate}}</span>
-                    </div>
-                    <i class="fa fa-cogs"></i>
-                    <span>{{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-messege">
-                      <span>{{"CONSUMPTION" | translate}}</span>
-                    </div>
-                    <i class="fa fa-tachometer"></i>
-                    <span>{{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span>
-                  </div>
-                  <div *ngIf="service.car?service.car.AC:false" class="detail-item">
-                    <div class="detail-messege">
-                      <span>A/C</span>
-                    </div>
-                    <i class="fa fa-snowflake-o"></i>
-                    <span>A/C</span>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-messege">
-                      <span>{{'BODY'| translate}}</span>
-                    </div>
-                    <i class="fa fa-truck"></i>
-                    <span>{{service.car?service.car.BodyType:''}}</span>
-                  </div>
-                  
-                  <!-- <div class="detail-item">
-                    <i class="fa fa-snowflake-o"></i>
-                    <span>A/C</span>
-                  </div> -->
-                  <div class="detail-item">
-                    <div class="detail-messege">
-                      <span>{{"FUEL" | translate}}</span>
-                    </div>
-                    <i class="fa fa-tint"></i>
-                    <span>{{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span>
-                  </div>
-                </div>
+                
                 <span>{{"PRICE" | translate}}: {{service.car?service.car.Price:''}}€</span> 
               </div>
             </div>
+            <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; border-bottom:1px solid lightgray ">
+              <div class="col-sm-4">
+                <h4>{{'CAR_FEATURES'|translate}}</h4>
+                  <div class="details">
+                    <div class="detail-item">
+                      <i class="fa fa-male"></i>
+                      <span>{{service.car?service.car.Passengers:''}} {{"PASSENGERS" | translate}}</span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-car"></i>
+                      <span>{{service.car?service.car.Doors:''}} {{"DOORS_S" | translate}}</span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-cogs"></i>
+                      <span>{{"TRANSMISSION" | translate}}: {{service.car?(service.car.Transmission.toUpperCase() | translate):'' }}</span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-tachometer"></i>
+                      <span>{{"CONSUMPTION" | translate}}: {{service.car?service.car.Consumption:''}}{{"L"|translate}}/100{{"KM"|translate}}</span>
+                    </div>
+                    <!-- <div *ngIf="service.car?service.car.AC:false" class="detail-item">
+                      <i class="fa fa-snowflake-o"></i>
+                      <span>A/C</span>
+                    </div> -->
+                    <div class="detail-item">
+                      <i class="fa fa-snowflake-o"></i>
+                      <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}} {{'YEARS'|translate}}</span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-truck"></i>
+                      <span>{{'BODY'| translate}}: {{service.car?service.car.BodyType:''}}</span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fa fa-tint"></i>
+                      <span>{{"FUEL" | translate}}: {{service.car?(service.car.Fuel.toUpperCase() | translate):'' }}</span>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                <h4>{{'DEFAULT_EQUIPMENT'|translate}}</h4>
+                  <div class="details">
+                    <div *ngIf="service.car?service.car.ABS:false" class="detail-item">
+                        <i class="fa fa-road" aria-hidden="true"></i>
+                      <span>ABS</span>
+                    </div>
+                    <div *ngIf="service.car?service.car.AC:false" class="detail-item">
+                      <i class="fa fa-snowflake-o"></i>
+                      <span>A/C</span>
+                    </div>
+                    <div *ngIf="service.car?service.car.Airbags:false" class="detail-item">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      <span>{{'AIRBAGS'|translate}}</span>
+                    </div>
+                    <div *ngIf="service.car?service.car.Radio:false" class="detail-item">
+                      <i class="fa fa-volume-up" aria-hidden="true"></i>
+                      <span>{{'RADIO' | translate}}</span>
+                    </div>
+                  </div>
+              </div>
+              <div *ngIf="service.car"  class="col-sm-5">
+                  <h4>{{'INCLUDE'|translate}}</h4>
+                  <div class="include" *ngFor="let include of translate.currentLang=='ru'?service.car.Includes:service.car.IncludesEng">
+                    <p><i class="fa fa-check" aria-hidden="true"></i> {{include}}</p>
+                  </div>
+              </div>
+            </div>
+            
           </div>
           <!-- <div class="sep"></div> -->
+          <h3>{{'BOOKING_FORM' | translate}}</h3>
           <form [formGroup]="bookingForm"  (ngSubmit)="onSubmit(DateStart, DateFinish)">
   
               <div class="row">

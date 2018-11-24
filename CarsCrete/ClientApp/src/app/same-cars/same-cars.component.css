@@ -37,7 +37,12 @@
     flex-direction: column;
     width: 300px;
     margin-top: 25px;
+    padding: 10px;
+    border: 1px solid lightgray;
 
+}
+.car-item:hover{
+    border-color: gray;
 }
 .car-img{
     padding: 0;
@@ -62,8 +67,8 @@
 }
 .car-img:hover{
     transition: 0.2s;
-    
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+/*     
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); */
     
     
 }
@@ -157,7 +162,10 @@
 .car-img:hover .rating{
     right:5px;
 }
-
+h5{
+    font-size: 16px;
+    font-weight: bold;
+}
 
 .discount{
     background-image: url("../../assets/images/price_discount.png");
