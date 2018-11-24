@@ -20,7 +20,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
   showPickers:ShowPickers = new ShowPickers();
   bookingForm: FormGroup;
   public sales:ShowSale[];
-  submitted = false;sale:ShowSale = new ShowSale();
+  submitted = false;
+  sale:ShowSale = new ShowSale();
   salesError:boolean = false;
   res:number=0;
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
@@ -78,6 +79,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
           CarId:this.service.car.Id,
           UserId:this.user.Id,
           SalesId:this.sale.Id,
+          Sum:this.book.Sum,
           DateStart:this.book.DateStart,
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
@@ -85,9 +87,15 @@ export class BookingFormComponent implements OnInit, OnChanges {
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
-        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
-          this.bookingForm.reset();
+          this.bookingForm = this.formBuilder.group({
+            Name: [this.user?this.user.Name:'', Validators.required],
+            Email: [this.user?this.user.Email:'', Validators.required],
+            Password: [this.user?'пароль':'', Validators.required],
+            Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
+            Place:['', Validators.required],
+            Comment:['']
+          });
           this.invalidIntarvals.push({DateStart:this.book.DateStart, DateFinish:this.book.DateFinish});
           this.book = new Book();
           
@@ -122,6 +130,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
           CarId:this.service.car.Id,
           UserId:0,
           SalesId:this.sale.Id,
+          Sum:this.book.Sum,
           DateStart:this.book.DateStart,
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
@@ -136,7 +145,14 @@ export class BookingFormComponent implements OnInit, OnChanges {
         this.service.BookCarNew(this.book).subscribe(data => {
           this.showBook=true;
           this.clearSales();
-          this.bookingForm.reset();
+          this.bookingForm = this.formBuilder.group({
+            Name: [this.user?this.user.Name:'', Validators.required],
+            Email: [this.user?this.user.Email:'', Validators.required],
+            Password: [this.user?'пароль':'', Validators.required],
+            Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
+            Place:['', Validators.required],
+            Comment:['']
+          });
           this.submitted = false;
           this.alert.showA({type:'success',message:'Время успешно забронированно.',show:true});
           
@@ -171,6 +187,20 @@ export class BookingFormComponent implements OnInit, OnChanges {
       
 
       this.service.showCarInfo=true;
+    }
+    getSum(){
+      if(this.book.DateStart && this.book.DateFinish){
+        if(this.service.car){
+          this.book.Sum = (this.book.DateFinish.getTime()-this.book.DateStart.getTime())/86400000*(this.sale.Id==0?this.service.car.Price:this.sale.NewPrice);
+          return this.book.Sum;
+        }
+        else{
+          return 0;
+        }
+      }
+      else{
+        return 0
+      }
     }
     getProgress(type:string, car:Car){
       if(car.Reports.length==0){
@@ -240,7 +270,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
     }
     else{
       sale.Checked = !sale.Checked;
-      this.sale=null;
+      this.sale= new ShowSale();
       if(this.submitted){
         this.salesError = !this.checkSale();
       }

@@ -107,6 +107,12 @@
     align-items: center;
     height: 100px;
 }
+.car p{
+    cursor: pointer;
+}
+.car p:hover{
+    color: blue;
+}
 .car img{
     margin: 5px;
     border-radius: 4px;

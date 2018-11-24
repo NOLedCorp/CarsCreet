@@ -68,6 +68,7 @@ export class Book{
     Id:number;
     DateStart:Date;
     DateFinish:Date;
+    Sum:number;
     UserId:number;
     CarId:number;
     SalesId?:number;

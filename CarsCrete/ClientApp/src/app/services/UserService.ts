@@ -136,6 +136,6 @@ export class ShowSale{
     Discount?:number;
     DaysNumber?:number;
     NewPrice?:number;
-    Id:number;
+    Id:number = 0;
     Checked?:boolean;
 }

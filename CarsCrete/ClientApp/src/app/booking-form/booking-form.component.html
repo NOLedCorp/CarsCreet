@@ -223,6 +223,12 @@
                   <textarea class="input" formControlName="Comment"  cols="10" rows="5" #report></textarea>
                   
               </div>
+              <div *ngIf="getSum()!=0" class="item sum">
+                <span>{{'SUM'|translate}}: {{getSum()}}€</span>
+                
+                
+            </div>
+
               <button class="btn btn-primary">{{'BOOK'|translate}}</button>
               
             </form>

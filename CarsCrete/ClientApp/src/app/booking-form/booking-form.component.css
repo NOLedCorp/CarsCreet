@@ -10,6 +10,18 @@
     position: relative;
     
 }
+.sum{
+    
+    width: auto !important;
+    display: block;
+}
+.sum span{
+    border-radius: 4px;
+    background-color: rgb(236, 86, 86);
+    color:white;
+    padding: 5px;
+    margin-right: 5px;
+}
 .sep{
     width: 100%;
     margin: auto;
