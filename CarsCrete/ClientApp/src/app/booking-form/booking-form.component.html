@@ -50,7 +50,7 @@
                 <span>{{"PRICE" | translate}}: {{service.car?service.car.Price:''}}€</span> 
               </div>
             </div>
-            <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; border-bottom:1px solid lightgray ">
+            <div class="row car-info-area" style="margin-top: 20px; padding-top: 10px; border-top:1px solid lightgray; ">
               <div class="col-sm-4">
                 <h4>{{'CAR_FEATURES'|translate}}</h4>
                   <div class="details">
@@ -75,7 +75,7 @@
                       <span>A/C</span>
                     </div> -->
                     <div class="detail-item">
-                      <i class="fa fa-snowflake-o"></i>
+                      <i class="fa fa-user"></i>
                       <span>{{'MINAGE'| translate}}: {{service.car?service.car.MinAge:''}} {{'YEARS'|translate}}</span>
                     </div>
                     <div class="detail-item">
@@ -119,140 +119,142 @@
             
           </div>
           <!-- <div class="sep"></div> -->
-          <h3>{{'BOOKING_FORM' | translate}}</h3>
-          <form [formGroup]="bookingForm"  (ngSubmit)="onSubmit(DateStart, DateFinish)">
-  
-              <div class="row">
-                <div class="col-sm-6">
-                    <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME'|translate}}</span>
-                      <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" class="input" name="name" type="text" value="{{user?user.Name:''}}" required>
-                      <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
-                        <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{'NAME_VALIDATION'|translate}}</span>
-                
-                      </div>
-                    </div>
-                    <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
-                      <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email"  required>
-                      <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
-                      </div>
-                    </div>
-                    <div *ngIf="!user" class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
-                        <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }"  class="input" required>
-                          
-                        <div *ngIf="submitted && f.Password.errors">
-                          <span class="d-block is-invalid" *ngIf="f.Password.errors.required">{{'PASSWORD_VALIDATION'|translate}}</span>
+          <div class="form-container-in">
+            <h3>{{'BOOKING_FORM' | translate}}</h3>
+            <form [formGroup]="bookingForm"  (ngSubmit)="onSubmit(DateStart, DateFinish)">
+    
+                <div class="row">
+                  <div class="col-sm-6">
+                      <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">{{'NAME'|translate}}</span>
+                        <input formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" class="input" name="name" type="text" value="{{user?user.Name:''}}" required>
+                        <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                          <span class="d-block is-invalid" *ngIf="f.Name.errors.required">{{'NAME_VALIDATION'|translate}}</span>
                   
                         </div>
-                  
                       </div>
+                      <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
+                        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email"  required>
+                        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
+                        </div>
+                      </div>
+                      <div *ngIf="!user" class="item">
+                          <span [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">{{"PASSWORD" | translate}}</span>
+                          <input formControlName="Password" type="password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }"  class="input" required>
+                            
+                          <div *ngIf="submitted && f.Password.errors">
+                            <span class="d-block is-invalid" *ngIf="f.Password.errors.required">{{'PASSWORD_VALIDATION'|translate}}</span>
+                    
+                          </div>
+                    
+                        </div>
+                      <div class="item">
+                          <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{'PHONE'|translate}}</span>
+                          <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" class="input"  name="name" type="tel" pattern="[0-9]{11}" required>
+                          <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
+                            
+                            <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
+                          </div>
+                      </div>
+                      
+                  </div>
+                  <div class="col-sm-6">
                     <div class="item">
-                        <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{'PHONE'|translate}}</span>
-                        <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" class="input"  name="name" type="tel" pattern="[0-9]{11}" required>
-                        <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
-                          
-                          <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
+                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateStart }">{{'DATE_START'|translate}}</span>
+                        <!--<input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" value="{{book.DateStart?book.DateStart:''}}" #DateStart required>
+                        <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
+                            
+                        </div> -->
+                        <date-picker  [Out]="book" [Prop]="'DateStart'" [Errors]="errors" [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
+                        [DateFinish]="book.DateFinish"></date-picker>
+                        <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
+                            <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
+                            
+                        </div>
+                        
+                    
+                        
+                    </div>
+                    <div class="item">
+                        <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{'DATE_END'|translate}}</span>
+                        <!--<input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
+                        <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">{{'ENTER_DATE'|translate}}</span>
+                            
+                        </div> -->
+                        <date-picker  
+                          [Out]="book" 
+                          [Prop]="'DateFinish'" 
+                          [Errors]="errors" 
+                          [MinDate]="minDate" 
+                          [Intervals]="invalidIntarvals"
+                          [DateStart]="book.DateStart"
+                          [DateFinish]="book.DateFinish"
+                        ></date-picker>
+                        <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
+                            <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
+                            
                         </div>
                     </div>
-                    
-                </div>
-                <div class="col-sm-6">
-                  <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && errors.DateStart }">{{'DATE_START'|translate}}</span>
-                      <!--<input formControlName="DateStart" [ngClass]="{ 'is-invalid': submitted && f.DateStart.errors }" type="date" value="{{book.DateStart?book.DateStart:''}}" #DateStart required>
-                      <div *ngIf="submitted && f.DateStart.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.DateStart.errors.required">{{'ENTER_DATE'|translate}}</span>
-                          
-                      </div> -->
-                      <date-picker  [Out]="book" [Prop]="'DateStart'" [Errors]="errors" [MinDate]="minDate" [Intervals]="invalidIntarvals" [DateStart]="book.DateStart"
-                      [DateFinish]="book.DateFinish"></date-picker>
-                      <div *ngIf="submitted && errors.DateStart" class="invalid-feedback">
-                          <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
-                          
-                      </div>
+                    <div *ngIf="book.DateStart" class="item">
+                      <span >{{'PICK_TIME'|translate}}</span>
+                      <select formControlName="Time" class="input time" >
+                        <option *ngFor="let time of times.length>0?times:getTimes()" value="{{time}}">{{time | date:'HH:mm'}}</option>
+                      </select>
                       
                   
-                      
-                  </div>
-                  <div class="item">
-                      <span [ngClass]="{ 'is-invalid': submitted && errors.DateFinish }">{{'DATE_END'|translate}}</span>
-                      <!--<input formControlName="DateFinish" [ngClass]="{ 'is-invalid': submitted && f.DateFinish.errors }" type="date" #DateFinish required>
-                      <div *ngIf="submitted && f.DateFinish.errors" class="invalid-feedback">
-                          <span class="d-block is-invalid" *ngIf="f.DateFinish.errors.required">{{'ENTER_DATE'|translate}}</span>
-                          
-                      </div> -->
-                      <date-picker  
-                        [Out]="book" 
-                        [Prop]="'DateFinish'" 
-                        [Errors]="errors" 
-                        [MinDate]="minDate" 
-                        [Intervals]="invalidIntarvals"
-                        [DateStart]="book.DateStart"
-                        [DateFinish]="book.DateFinish"
-                      ></date-picker>
-                      <div *ngIf="submitted && errors.DateFinish" class="invalid-feedback">
-                          <span class="d-block is-invalid" >{{'ENTER_DATE'|translate}}</span>
-                          
-                      </div>
-                  </div>
-                  <div *ngIf="book.DateStart" class="item">
-                    <span >{{'PICK_TIME'|translate}}</span>
-                    <select formControlName="Time" class="input time" >
-                      <option *ngFor="let time of times.length>0?times:getTimes()" value="{{time}}">{{time | date:'HH:mm'}}</option>
-                    </select>
-                    
-                
-                  </div>
-                  <div class="item">
-                    <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PLACE'|translate}}</span>
-                    <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
-                      <option selected value="Iraklion">{{'IRAKLION' | translate}}</option>
-                    </select>
-                    <div *ngIf="submitted && f.Place.errors">
-                      <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'PLACE_VALIDATION'|translate}}</span>
-              
                     </div>
+                    <div class="item">
+                      <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PLACE'|translate}}</span>
+                      <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>
+                        <option selected value="Iraklion">{{'IRAKLION' | translate}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.Place.errors">
+                        <span class="d-block is-invalid" *ngIf="f.Place.errors.required">{{'PLACE_VALIDATION'|translate}}</span>
                 
+                      </div>
+                  
+                    </div>
+                      
+                    <div class="item">
+                      <span>{{'MODEL'|translate}}</span>
+                      <input value="{{service.car?service.car.Model:''}}" readonly type="text">
+                    </div>
                   </div>
+                </div>
+                <div class="item">
+                  <div class="sales">
+                    <div (click) = "chooseSale(sale)" [ngStyle]="{'box-shadow':sale.Checked?'0 0 20px green':''}" class="sale" *ngFor="let sale of sales">
+                      <img src="{{service.car?service.car.Photo:''}}" alt="">
+                      <span>{{sale.Discount}}%</span>
+                      <i class="fa fa-check-square-o" [ngClass]="{'checked-sale':sale.Checked}" aria-hidden="true"></i>
+                      <span *ngIf="sale.DaysNumber!=0" class="info">>{{sale.DaysNumber}} {{'DAYS'|translate}}</span>
+                      <span>{{sale.NewPrice}}€/{{'DAY'|translate}}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="submitted && !checkSale()">
+                    <span class="d-block is-invalid" >{{'SALES_DAYS_VALIDATION'|translate}}</span>
+            
+                  </div>
+                </div>
+                <div class="item ">
+                    <span>{{'COMMENT'|translate}}</span>
+                    <textarea class="input" formControlName="Comment"  cols="10" rows="5" #report></textarea>
                     
-                  <div class="item">
-                    <span>{{'MODEL'|translate}}</span>
-                    <input value="{{service.car?service.car.Model:''}}" readonly type="text">
-                  </div>
                 </div>
-              </div>
-              <div class="item">
-                <div class="sales">
-                  <div (click) = "chooseSale(sale)" [ngStyle]="{'box-shadow':sale.Checked?'0 0 20px green':''}" class="sale" *ngFor="let sale of sales">
-                    <img src="{{service.car?service.car.Photo:''}}" alt="">
-                    <span>{{sale.Discount}}%</span>
-                    <i class="fa fa-check-square-o" [ngClass]="{'checked-sale':sale.Checked}" aria-hidden="true"></i>
-                    <span *ngIf="sale.DaysNumber!=0" class="info">>{{sale.DaysNumber}} {{'DAYS'|translate}}</span>
-                    <span>{{sale.NewPrice}}€/{{'DAY'|translate}}</span>
-                  </div>
-                </div>
-                <div *ngIf="submitted && !checkSale()">
-                  <span class="d-block is-invalid" >{{'SALES_DAYS_VALIDATION'|translate}}</span>
-          
-                </div>
-              </div>
-              <div class="item ">
-                  <span>{{'COMMENT'|translate}}</span>
-                  <textarea class="input" formControlName="Comment"  cols="10" rows="5" #report></textarea>
+                <div *ngIf="getSum()!=0" class="item sum">
+                  <span>{{'SUM'|translate}}: {{getSum()}}€</span>
+                  
                   
               </div>
-              <div *ngIf="getSum()!=0" class="item sum">
-                <span>{{'SUM'|translate}}: {{getSum()}}€</span>
-                
-                
-            </div>
 
-              <button class="btn btn-primary">{{'BOOK'|translate}}</button>
-              
-            </form>
+                <button class="btn btn-primary">{{'BOOK'|translate}}</button>
+                
+              </form>
+            </div>
       </div>
     </div>
     <div *ngIf="showBook" class="result">

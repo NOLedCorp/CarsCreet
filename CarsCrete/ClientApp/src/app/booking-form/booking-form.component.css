@@ -272,3 +272,13 @@ input, select {
     top:auto;
     left: 10px !important;
 }
+
+.form-container-in{
+    background-color: rgb(3, 3, 78);
+    color:white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.form-container-in>h3{
+    margin-top: 10px;
+}
