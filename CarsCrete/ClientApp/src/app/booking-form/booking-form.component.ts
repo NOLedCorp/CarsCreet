@@ -321,14 +321,21 @@ export class BookingFormComponent implements OnInit, OnChanges {
   }
   checkSale(){
     if(this.sale && this.sale.Id!=0 && this.sale.DaysNumber!=0){
-      if((new Date(this.bookingForm.value.DateFinish).getTime()-new Date(this.bookingForm.value.DateStart).getTime())/86400000<this.sale.DaysNumber){
-        this.salesError = true;
-        return false
+      if(this.book.DateStart && this.book.DateFinish){
+        if((new Date(this.book.DateFinish).getTime()-new Date(this.book.DateStart).getTime())/86400000<this.sale.DaysNumber){
+          this.salesError = true;
+          return false
+        }
+        else{
+          this.salesError = false;
+          return true
+        }
       }
       else{
-        this.salesError = false;
-        return true
+        this.salesError = true;
+        return false;
       }
+      
     }
     else{
       return true

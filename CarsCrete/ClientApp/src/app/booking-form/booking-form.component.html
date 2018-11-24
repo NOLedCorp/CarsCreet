@@ -221,7 +221,7 @@
                     <span>{{sale.NewPrice}}€/{{'DAY'|translate}}</span>
                   </div>
                 </div>
-                <div *ngIf="submitted && salesError">
+                <div *ngIf="submitted && !checkSale()">
                   <span class="d-block is-invalid" >{{'SALES_DAYS_VALIDATION'|translate}}</span>
           
                 </div>
