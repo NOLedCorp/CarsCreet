@@ -25,11 +25,11 @@ export class CarsService implements OnInit{
     }
     
     BookCar(book:Book){
-        return this.http.put<Book>(this.baseUrl + 'cars/add-booking',{"Id":123,"DateStart":book.DateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});
+        return this.http.put<Book>(this.baseUrl + 'cars/add-booking',{"Id":123,"DateStart":book.DateStart, "ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish, "UserId":book.UserId, "CarId":book.CarId, "Price":book.Price, "Place":book.Place, "Comment":book.Comment, "SalesId":book.SalesId});
         
     }
     BookCarNew(book:Book){
-        return this.http.put<Book>(this.baseUrl + 'cars/add-booking-new', {"Id":123,"DateStart":book.DateStart, "DateFinish":book.DateFinish,  "CarId":book.CarId, "Price":book.Price, "Place":book.Place,"Email":book.Email, "Password":book.Password, "Name":book.Name, "SalesId":book.SalesId, "Phone":book.Tel, "Comment":book.Comment});
+        return this.http.put<Book>(this.baseUrl + 'cars/add-booking-new', {"Id":123,"DateStart":book.DateStart,"ExtraDateStart":book.ExtraDateStart, "DateFinish":book.DateFinish,  "CarId":book.CarId, "Price":book.Price, "Place":book.Place,"Email":book.Email, "Password":book.Password, "Name":book.Name, "SalesId":book.SalesId, "Phone":book.Tel, "Comment":book.Comment});
     }
     GetSales(){
         return this.http.get<Sale[]>(this.baseUrl+'cars/get-sales');
@@ -67,6 +67,7 @@ export interface BookTimes{
 export class Book{
     Id:number;
     DateStart:Date;
+    ExtraDateStart:Date = new Date(0);
     DateFinish:Date;
     Sum:number;
     UserId:number;

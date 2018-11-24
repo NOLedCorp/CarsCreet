@@ -1,11 +1,11 @@
-import { Component, OnInit, OnChanges, SimpleChange, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges,  SimpleChange, SimpleChanges, Input,  ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CarsService, Car, Book } from '../services/CarsService';
 import { AlertService } from '../services/AlertService';
 import {User, ShowSale} from '../services/UserService';
 import { ActivatedRoute } from "@angular/router";
 import {TranslateService} from '@ngx-translate/core';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'booking-form',
@@ -13,6 +13,8 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./booking-form.component.css']
 })
 export class BookingFormComponent implements OnInit, OnChanges {
+
+
   errors:any={DateStrart:true, DateFinish:true};
   showBook:boolean = false;
   minDate:Date = new Date();
@@ -24,6 +26,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   sale:ShowSale = new ShowSale();
   salesError:boolean = false;
   res:number=0;
+  times:Date[] = [];
   rating:Raiting = {Look:0, Comfort:0, Drive:0};
   public book:Book = new Book();
   public user:User;
@@ -81,12 +84,14 @@ export class BookingFormComponent implements OnInit, OnChanges {
           SalesId:this.sale.Id,
           Sum:this.book.Sum,
           DateStart:this.book.DateStart,
+          ExtraDateStart:this.getExtraTime(),
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
           Tel:this.bookingForm.value.Tel,
           Comment:this.bookingForm.value.Comment
         }
+        console.log(this.book);
         this.service.BookCar(this.book).subscribe(data => {
           this.bookingForm = this.formBuilder.group({
             Name: [this.user?this.user.Name:'', Validators.required],
@@ -94,6 +99,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Password: [this.user?'пароль':'', Validators.required],
             Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
             Place:['', Validators.required],
+            Time:['12:00'],
             Comment:['']
           });
           this.invalidIntarvals.push({DateStart:this.book.DateStart, DateFinish:this.book.DateFinish});
@@ -132,6 +138,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
           SalesId:this.sale.Id,
           Sum:this.book.Sum,
           DateStart:this.book.DateStart,
+          ExtraDateStart:this.getExtraTime(),
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
@@ -151,6 +158,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
             Password: [this.user?'пароль':'', Validators.required],
             Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
             Place:['', Validators.required],
+            Time:['12:00'],
             Comment:['']
           });
           this.submitted = false;
@@ -178,6 +186,25 @@ export class BookingFormComponent implements OnInit, OnChanges {
           }
         }
         )
+      }
+    }
+    getTimes(){
+      
+      for(let i = 0; i<12; i++){
+        this.times.push(new Date(this.book.DateStart.getTime()+i*3600000+12*3600000))
+      }
+      return this.times;
+    }
+    getExtraTime(){
+      if(this.bookingForm.value.Time!='12:00'){
+        let t = this.book.DateStart;
+        let e = new Date(this.bookingForm.value.Time);
+        return new Date(t.getFullYear(), t.getMonth(), t.getDate(), e.getHours())
+      }
+      else{
+        let t = this.book.DateStart;
+        
+        return new Date(t.getFullYear(), t.getMonth(), t.getDate(), 12)
       }
     }
     hide(){
@@ -216,7 +243,9 @@ export class BookingFormComponent implements OnInit, OnChanges {
       this.rating[type]=this.res;
       return Math.round(this.res).toString()+'px';
     }
+    
     ngOnInit() {
+      
       if(localStorage.getItem("currentUser")){
         this.user=JSON.parse(localStorage.getItem("currentUser"));
       }
@@ -227,6 +256,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
         Password: [this.user?'пароль':'', Validators.required],
         Tel: [this.user?(this.user.Phone?this.user.Phone:''):''],
         Place:['', Validators.required],
+        Time:['12:00'],
         Comment:['']
       });
       

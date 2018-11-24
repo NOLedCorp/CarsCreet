@@ -16,6 +16,7 @@ namespace CarsCrete.Data.Models
         #region Properties
         public long Id { get; set; }
         public DateTime DateStart { get; set; }
+        public DateTime ExtraDateStart { get; set; }
         public DateTime DateFinish { get; set; }
         public long UserId { get; set; }
         public long CarId { get; set; }

@@ -21,6 +21,7 @@ namespace CarsCrete.Data.Models
         public long Id { get; set; }
         [Required]
         public DateTime DateStart { get; set; }
+        public DateTime ExtraDateStart { get; set; }
         [Required]
         public DateTime DateFinish { get; set; }
         [Required]

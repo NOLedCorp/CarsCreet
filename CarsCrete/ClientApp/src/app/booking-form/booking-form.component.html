@@ -185,6 +185,14 @@
                           
                       </div>
                   </div>
+                  <div *ngIf="book.DateStart" class="item">
+                    <span >{{'PICK_TIME'|translate}}</span>
+                    <select formControlName="Time" class="input time" >
+                      <option *ngFor="let time of times.length>0?times:getTimes()" value="{{time}}">{{time | date:'HH:mm'}}</option>
+                    </select>
+                    
+                
+                  </div>
                   <div class="item">
                     <span [ngClass]="{ 'is-invalid': submitted && f.Place.errors }">{{'PLACE'|translate}}</span>
                     <select formControlName="Place" class="input" [ngClass]="{ 'is-invalid': submitted && f.Place.errors }" required>

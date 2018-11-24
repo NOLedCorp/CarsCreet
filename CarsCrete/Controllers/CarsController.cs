@@ -275,6 +275,7 @@ namespace CarsCrete.Controllers
 
             model.DateStart = model.DateStart.ToLocalTime();
             model.DateFinish = model.DateFinish.ToLocalTime();
+            model.ExtraDateStart = model.ExtraDateStart.ToLocalTime();
 
             if (model.DateStart > model.DateFinish)
             {
@@ -295,15 +296,17 @@ namespace CarsCrete.Controllers
             var book = new Book()
             {
                 DateStart = model.DateStart,
+                ExtraDateStart = model.ExtraDateStart,
                 DateFinish = model.DateFinish,
                 CreateDate = DateTime.Now,
                 CarId = model.CarId,
                 UserId = model.UserId,
                 Place = model.Place,
                 Price = model.Price,
-                Sum = model.Price * (model.DateFinish - model.DateStart).Days,
+                Sum = model.Sum==0?model.Price * (model.DateFinish - model.DateStart).Days:model.Sum,
                 SalesId = model.SalesId
             };
+
             DbContext.Books.Add(book);
             DbContext.SaveChanges();
 
@@ -329,6 +332,8 @@ namespace CarsCrete.Controllers
             public string Password { get; set; }
             public string Phone { get; set; }
             public string Comment { get; set; }
+            public double Sum { get; set; }
+            public DateTime ExtraDateStart { get; set; }
         }
         [HttpPut("add-booking-new")]
         public IActionResult AddBookingNew([FromBody]BookNew model)
@@ -366,11 +371,13 @@ namespace CarsCrete.Controllers
             {
                 DateStart = model.DateStart,
                 DateFinish = model.DateFinish,
+                ExtraDateStart = model.ExtraDateStart,
                 CreateDate = DateTime.Now,
                 CarId = model.CarId,
                 UserId = model.UserId,
                 Place = model.Place,
-                Price = model.Price
+                Price = model.Price,
+                Sum = model.Sum == 0 ? model.Price * (model.DateFinish - model.DateStart).Days : model.Sum,
             };
             try
             {
