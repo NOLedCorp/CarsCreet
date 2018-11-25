@@ -909,6 +909,9 @@ namespace CarsCrete.Controllers
         [HttpPut("add-sale")]
         public IActionResult AddSale([FromBody] SaleDTO model)
         {
+            
+            model.DateStart = model.DateStart.ToLocalTime();
+            model.DateFinish = model.DateFinish.ToLocalTime();
             var sale = model.Adapt<Sale>();
             DbContext.Sales.Add(sale);
             DbContext.SaveChanges();

@@ -26,8 +26,8 @@ export class CarsService implements OnInit{
     GetReportCars(){
         return this.http.get<ReportCar[]>(this.baseUrl+'cars/get-report-cars');
     }
-    AddCar(){
-        return this.http.put<Car>(this.baseUrl + 'cars/add-car',{});
+    AddCar(car:NewCar){
+        return this.http.put<NewCar>(this.baseUrl + 'cars/add-car',car);
     }
     
     BookCar(book:Book){
@@ -71,23 +71,25 @@ export interface Car{
     IncludesEng:string[];
 }
 export class NewCar{
-    Id:number;
-    Model:string;
-    Photo:string;
-    Passengers:number;
-    Doors:number;
-    Transmission:string;
-    Fuel:string;
-    Consumption:number;
-    BodyType:string;
-    FilterProp:number;
+    Id:number = 0;
+    Model:string = null;
+    Photo:string = null;
+    Contain:string = "";
+    Passengers:number = null;
+    Doors:number = null;
+    Transmission:string = null;
+    Fuel:string = null;
+    Consumption:number = 0;
+    BodyType:string = null;
+    FilterProp:number = 0;
     AC:boolean = false;
     ABS:boolean = false;
     Radio:boolean = false;
     Airbags:boolean = false;
-    Description:string;
-    Description_ENG:string;
-    Price:number;
+    Description:string = null;
+    Description_ENG:string = null;
+    Price:number = null;
+    Includes:string[] = [];
 }
 export interface BookTimes{
     CarId:number;
@@ -123,3 +125,20 @@ export interface Filter{
     Name:string;
     Value:string;
 } 
+
+export class Contains{
+    public Includes:string[] = ["Полностью комбинированное страхование",
+    "Неограниченный километраж",
+    "Второй водитель бесплатно",
+    "Доставка/возврат в любое время",
+    "Дорожная карта в подарок",
+    "Доставка в аэропорт Ираклиона",
+    "Аренда машины на Крите без франшизы"];
+    public IncludesEng:string[] = ["Fully comprehensive insurance",
+    "Unlimited mileage",
+    "Second driver free of charge",
+    "Delivery/return at any time",
+    "Road map as a gift",
+    "Delivery to Heraklion airport",
+    "Rent a car in Crete with no excess"];
+}

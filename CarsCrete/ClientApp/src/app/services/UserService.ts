@@ -36,6 +36,9 @@ export class UserService {
     ChangeInfo(type:string, value:string, userId:number){
         return this.http.post<boolean>(this.baseUrl + 'cars/change-info', { "Type": type, "Value": value, "UserId":userId});
     }
+    AddSale(sale:Sale){
+        return this.http.put<Sale>(this.baseUrl + 'cars/add-sale',sale);
+    }
 
 }
 export interface Statistics{
@@ -124,13 +127,13 @@ export interface Like{
 }
 
 export class Sale{
-    Id:number;
-    CarId:number = 0;
-    DateStart:Date;
-    DateFinish:Date;
-    Discount:number;
-    Type:number;
-    NewPrice:number;
+    Id:number = 0;
+    CarId:number = null;
+    DateStart:Date = null;
+    DateFinish:Date = null;
+    Discount:number = null;
+    Type:number = 0;
+    NewPrice:number = null;
     DaysNumber:number = 0;
 }
 

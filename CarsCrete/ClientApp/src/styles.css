@@ -35,6 +35,9 @@ select{
     padding-left: 10px;
     outline: none !important;
 }
+textarea.input{
+    height: 80px;
+}
 .input:not(.is-invalid):hover, .input:not(.is-invalid):focus{
     border-color: rgb(34, 174, 255) !important;
 }

@@ -3,7 +3,8 @@ import {User, UserService, Book, Sale} from '../services/UserService';
 
 import {Router} from '@angular/router';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
-import { NewCar, Car, CarsService, ReportCar } from '../services/CarsService';
+import { NewCar, Car, CarsService, ReportCar, Contains } from '../services/CarsService';
+import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 
 const URL = '/cars/upload-user-photo';
 @Component({
@@ -13,17 +14,19 @@ const URL = '/cars/upload-user-photo';
 })
 export class UserProfileComponent implements OnInit {
   showBooks:boolean = true;
-  showAddCar:boolean = true;
-  showAddSale:boolean = true;
+  showAddCar:boolean = false;
+  showAddSale:boolean = false;
+  Includes:Contains = new Contains();
   cars:ReportCar[] = [];
   saleErrors:any={DateStrart:true, DateFinish:true};
   newSale:Sale = new Sale();
   newCar:NewCar =new NewCar();
+  carSubmitted:boolean = false;
+  saleSubmitted:boolean = false;
   changes:boolean[]=[false,false,false];
-  constructor(public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
+  constructor(public translate:TranslateService, public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
 
   ngOnInit() {
-    
     if(localStorage.getItem("currentUser")){
       this.userService.currentUser=JSON.parse(localStorage.getItem("currentUser"));
       this.userService.GetUserById(this.userService.currentUser.Id).subscribe(data => {
@@ -50,10 +53,25 @@ export class UserProfileComponent implements OnInit {
   show(prop:string){
     this[prop] = !this[prop];
   }
+  removeInclude(inc:string){
+    if(this.newCar.Includes.indexOf(inc)>-1){
+      this.newCar.Includes.splice(this.newCar.Includes.indexOf(inc),1);
+    }
+  }
+  include(inc:string){
+    
+    if(this.newCar.Includes.indexOf(inc)==-1){
+      this.newCar.Includes.push(inc);
+    }
+    
+  }
   getSalePrice(){
     if(this.newSale.CarId!=0 && this.newSale.Discount){
       let carPrice = this.cars.find(x => x.Id == this.newSale.CarId).Price;
-      let res = (carPrice*(1-this.newSale.Discount/100));
+      let res = Math.round(carPrice*(1-this.newSale.Discount/100)*10)/10;
+      if(this.newSale.NewPrice!=res){
+        this.newSale.NewPrice=res;
+      }
       return res;
     }
     return 0;
@@ -109,6 +127,44 @@ export class UserProfileComponent implements OnInit {
       }
       
     }
+  }
+  addCar(){
+    this.carSubmitted =true;
+    for(let i =0; i<Object.keys(this.newCar).length;i++){
+      if(this.newCar[Object.keys(this.newCar)[i]]==null){
+        return;
+      }
+    }
+    this.newCar.Includes.forEach(x => {
+      if(this.translate.currentLang=='ru'){
+        this.newCar.Contain+=this.Includes.Includes.indexOf(x)+'/';
+      }
+      else{
+        this.newCar.Contain+=this.Includes.IncludesEng.indexOf(x)+'/';
+      }
+      
+    })
+    this.newCar.Contain = this.newCar.Contain.slice(0,this.newCar.Contain.length-1);
+    console.log(this.newCar);
+    this.carsService.AddCar(this.newCar).subscribe(data => {
+      this.newCar = new NewCar();
+      this.carSubmitted=false;
+    })
+  }
+  addSale(){
+    this.saleSubmitted = true;
+    for(let i =0; i<Object.keys(this.newSale).length;i++){
+      if(this.newSale[Object.keys(this.newSale)[i]]==null){
+        return;
+      }
+    }
+    if(this.newSale.DaysNumber>0){
+      this.newSale.Type=1;
+    }
+    this.userService.AddSale(this.newSale).subscribe(data => {
+      this.newSale = new Sale();
+      this.saleSubmitted = false;
+    })
   }
 
 }

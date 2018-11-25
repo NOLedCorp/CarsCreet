@@ -146,16 +146,17 @@
 .inner{
     margin: 0;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .inner-item{
-    width: 33%;
+    width: 140px;
 }
 input{
     max-width: 100%;
 }
-.inner-item input{
+/* .inner-item input{
     width:100%;
-}
+} */
 .item textarea{
     width: 100%;
     height: 100px;
@@ -170,5 +171,69 @@ button{
 }
 .form>.item{
     margin-left: 0;
+}
+.includes{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 26px;
+    position: relative;
+    padding: 5px;
+}
+.includes:hover i{
+    color: unset;
+}
+.include-item i{
+    margin-left: 5px;
+}
+.include-item i:hover{
+    color: rgb(250, 71, 71);
+}
+.choosed{
+    background-color: lightgrey !important;
+}
+.include-items{
+    max-height: 300px;
+
+    z-index: 300;
+    display: inline;
+    position: absolute;
+    bottom: -300px;
+    left:10px;
+    overflow-y: scroll;
+    display: none;
+    border-radius: 4px;
+    box-shadow: 0 0 7px black;
+    background-color: white;
+    padding: 10px 5px;
+}
+.include-item{
+    margin: 2.5px;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: rgb(145, 183, 253);
+    cursor: pointer;
+}
+.include-items .include-item{
+    margin: 5px;
+}
+.include-item:hover{
+    background-color: rgb(111, 160, 252);
+}
+.includes:hover .include-items{
+    display: inline;
+}
+@media(max-width:767px){
+    .inner-item{
+        width: 100%;
+    }
+    .inner-item input{
+        width:auto;
+    }
+    .item{
+        margin: 5px 0;
+        
+    }
 }
 
