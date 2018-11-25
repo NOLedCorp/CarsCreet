@@ -39,14 +39,15 @@ namespace CarsCrete.Controllers
         public IActionResult GetUserById(long id)
         {
             
-            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Books).Include(x => x.Topics).ProjectToType<UserDTO>().FirstOrDefault();
+            var user = DbContext.Users.Where(x => x.Id==id).Include(x => x.Topics).ProjectToType<UserDTO>().FirstOrDefault();
             if (user == null)
             {
                 return new StatusCodeResult(500);
             }
-            if(id == 6)
+            if(user.IsAdmin)
             {
                 user.Topics = DbContext.Topics.Where(x => x.UserReciverId == id).OrderByDescending(x => x.ModifyDate).ProjectToType<TopicDTO>().ToList();
+                user.Books = DbContext.Books.Where(x => x.DateFinish > DateTime.Now).ProjectToType<BookDTO>().ToList();
             }
             else
             {
@@ -59,11 +60,11 @@ namespace CarsCrete.Controllers
                 t.Messages = t.Messages.OrderByDescending(x => x.CreateDate).ToList();
                 if(id == 6)
                 {
-                    t.User = DbContext.Users.Where(x => x.Id == t.UserId).ProjectToType<UserDTO>().FirstOrDefault();
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserId).ProjectToType<ReportUser>().FirstOrDefault();
                 }
                 else
                 {
-                    t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<ReportUser>().FirstOrDefault();
                 }
                 
             }
@@ -89,7 +90,7 @@ namespace CarsCrete.Controllers
         {
             Statistics result = new Statistics();
             result.Books = DbContext.Books.ProjectToType<BookDTO>().ToList();
-            result.Cars = DbContext.Cars.Include(x => x.Books).Include(x => x.Reports).ProjectToType<CarDTO>().ToList();
+            result.Cars = DbContext.Cars.ProjectToType<CarDTO>().ToList();
             result.Reports = DbContext.Reports.Include(x => x.Comments).ProjectToType<FeedBackDTO>().ToList();
             result.Users = DbContext.Books.ProjectToType<UserDTO>().ToList();
 
@@ -428,12 +429,22 @@ namespace CarsCrete.Controllers
         public IActionResult GetCar(long Id)
         {
 
-            var car = DbContext.Cars.Where(x => x.Id == Id).Include(c => c.Reports).Include(c => c.Books).Include(x => x.Sales).ProjectToType<CarDTO>().FirstOrDefault();
+            var car = DbContext.Cars.Where(x => x.Id == Id).ProjectToType<CarDTO>().FirstOrDefault();
+            car.Sales = DbContext.Sales.Where(x => x.CarId == car.Id).ProjectToType<SaleDTO>().ToList();
+            car.Books = DbContext.Books.Where(x => x.CarId == car.Id).ProjectToType<BookDTO>().ToList();
+            car.Reports = DbContext.Reports.Where(x => x.CarId == car.Id).ProjectToType<FeedBackDTO>().ToList();
             foreach (FeedBackDTO f in car.Reports)
             {
-
+                f.Comments = DbContext.Comments.Where(x => x.FeedBackId == f.Id).ProjectToType<ReportCommentDTO>().ToList();
                 f.Likes.RemoveAll(x => x.CommentId != 0);
-                f.Comments.ForEach(x => x.Likes = DbContext.Likes.Where(y => y.CommentId == x.Id).ToList().Adapt<List<LikeDTO>>());
+                foreach(ReportCommentDTO c in f.Comments)
+                {
+                    c.Likes = DbContext.Likes.Where(y => y.CommentId == c.Id).ToList().Adapt<List<LikeDTO>>();
+                    c.User = DbContext.Users.Where(x => x.Id == c.UserId).ProjectToType<ReportUser>().FirstOrDefault();
+                }
+                
+                f.User = DbContext.Users.Where(x => x.Id == f.UserId).ProjectToType<ReportUser>().FirstOrDefault();
+
             }
             List<string> l = new List<string>();
             List<string> l1 = new List<string>();
@@ -484,16 +495,13 @@ namespace CarsCrete.Controllers
         [HttpGet("get-cars")]
         public IActionResult GetCars()
         {
-            var cars = DbContext.Cars
-                //.Include(x => x.Reports)
-                //    .ThenInclude(c => c.Comments)
-                //        .ThenInclude(u => u.User)
-                //.Include(x => x.Reports)
-                //    .ThenInclude(u => u.User)
-                //.Include(x => x.Books)
-                .Include(x => x.Sales).ProjectToType<CarDTO>().ToList();
+            var cars = DbContext.Cars.ProjectToType<CarDTO>().ToList();
+            foreach (CarDTO c in cars)
+            {
+                c.Sales = DbContext.Sales.Where(x => x.CarId == c.Id).ProjectToType<SaleDTO>().ToList();
+            }
 
-            
+
 
             return new JsonResult(
                 cars,
@@ -506,8 +514,12 @@ namespace CarsCrete.Controllers
         public IActionResult GetSameCars(long id)
         {
             var car = DbContext.Cars.Where(c => c.Id == id).FirstOrDefault();
-            var cars = DbContext.Cars.Include(x => x.Sales).Where(s => (s.Groupe == car.Groupe)||(Math.Abs(s.Price-car.Price)<20)).ProjectToType<CarDTO>().ToList();
-
+            var cars = DbContext.Cars.Where(s => (s.Groupe == car.Groupe)||(Math.Abs(s.Price-car.Price)<20)).ProjectToType<CarDTO>().ToList();
+            foreach(CarDTO c in cars)
+            {
+                c.Sales = DbContext.Sales.Where(x => x.CarId == c.Id).ProjectToType<SaleDTO>().ToList();
+                c.Books = DbContext.Books.Where(x => x.CarId == c.Id).ProjectToType<BookDTO>().ToList();
+            }
 
 
             return new JsonResult(
@@ -523,6 +535,7 @@ namespace CarsCrete.Controllers
             public long Id { get; set; }
             public string Photo { get; set; }
             public string Model { get; set; }
+            public double Price { get; set; }
         }
 
         [HttpGet("get-report-cars")]
@@ -563,9 +576,15 @@ namespace CarsCrete.Controllers
             var reports = DbContext.Reports.ProjectToType<FeedBackDTO>().OrderByDescending(r1 => r1.CreatedDate).ToList();
             foreach(FeedBackDTO f in reports)
             {
-                
+                f.Comments = DbContext.Comments.Where(x => x.FeedBackId == f.Id).ProjectToType<ReportCommentDTO>().ToList();
                 f.Likes.RemoveAll(x => x.CommentId != 0);
-                f.Comments.ForEach(x => x.Likes = DbContext.Likes.Where(y => y.CommentId == x.Id).ToList().Adapt<List<LikeDTO>>());
+                foreach (ReportCommentDTO c in f.Comments)
+                {
+                    c.Likes = DbContext.Likes.Where(y => y.CommentId == c.Id).ToList().Adapt<List<LikeDTO>>();
+                    c.User = DbContext.Users.Where(x => x.Id == c.UserId).ProjectToType<ReportUser>().FirstOrDefault();
+                }
+                f.User = DbContext.Users.Where(x => x.Id == f.UserId).ProjectToType<ReportUser>().FirstOrDefault();
+                
             }
             return new JsonResult(
                 reports,
@@ -740,7 +759,7 @@ namespace CarsCrete.Controllers
                     result = DbContext.Topics.Where(x => x.UserId == user.Id).Include(x => x.Messages).ProjectToType<TopicDTO>().ToList();
                     foreach(TopicDTO tt in result)
                     {
-                        tt.User = DbContext.Users.Where(x => x.Id == tt.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+                        tt.User = DbContext.Users.Where(x => x.Id == tt.UserReciverId).ProjectToType<ReportUser>().FirstOrDefault();
                         tt.Messages = tt.Messages.OrderByDescending(x => x.CreateDate).ToList();
                         if(tt.Id == t1.Id)
                         {
@@ -770,7 +789,7 @@ namespace CarsCrete.Controllers
 
             SaveMessage(m);
             var t = topic.Adapt<TopicDTO>();
-            t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+            t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<ReportUser>().FirstOrDefault();
             result.Add(t);
             return new JsonResult(
                 result,
@@ -788,7 +807,7 @@ namespace CarsCrete.Controllers
             DbContext.Topics.Add(topic);
             DbContext.SaveChanges();
             var result = DbContext.Topics.Where(x => (x.UserId == topic.UserId && x.UserReciverId == topic.UserReciverId)).ProjectToType<TopicDTO>().FirstOrDefault();
-            result.User = DbContext.Users.Where(x => x.Id == result.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+            result.User = DbContext.Users.Where(x => x.Id == result.UserReciverId).ProjectToType<ReportUser>().FirstOrDefault();
 
             return new JsonResult(
                 result,
@@ -862,7 +881,8 @@ namespace CarsCrete.Controllers
                 topics = DbContext.Topics.Where(x => x.UserReciverId == id).Include(x => x.Messages).ProjectToType<TopicDTO>().OrderByDescending(x => x.ModifyDate).ToList();
                 foreach(var t in topics)
                 {
-                    t.User = DbContext.Users.Where(x => x.Id == t.UserId).ProjectToType<UserDTO>().FirstOrDefault();
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserId).ProjectToType<ReportUser>().FirstOrDefault();
+                    
                     t.Messages = t.Messages.OrderByDescending(x => x.CreateDate).ToList();
                 }
             }
@@ -871,7 +891,7 @@ namespace CarsCrete.Controllers
                 topics = DbContext.Topics.Where(x => x.UserId == id).Include(x => x.Messages).ProjectToType<TopicDTO>().ToList();
                 foreach (var t in topics)
                 {
-                    t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<UserDTO>().FirstOrDefault();
+                    t.User = DbContext.Users.Where(x => x.Id == t.UserReciverId).ProjectToType<ReportUser>().FirstOrDefault();
                 }
             }
 

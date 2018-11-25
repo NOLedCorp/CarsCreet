@@ -77,13 +77,10 @@ namespace CarsCrete.Data.Models
         public double Mark { get; set; }
         #endregion
         #region Lazy-Load Properties
-        /// <summary>
-        /// A list containing all the reports related to this car.
-        /// It will be populaed on first use thanks to the EF Lazy-Loading feature.
-        /// </summary>
-        public virtual List<FeedBack> Reports { get; set; }
-        public virtual List<Book> Books { get; set; }
-        public virtual List<Sale> Sales { get; set; }
+       
+        //public virtual List<FeedBack> Reports { get; set; }
+        //public virtual List<Book> Books { get; set; }
+        //public virtual List<Sale> Sales { get; set; }
         #endregion
     }
 }

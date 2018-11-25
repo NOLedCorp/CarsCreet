@@ -29,15 +29,6 @@ export class CarsComponent {
       if(data.length!=0){
         
         this.cars=data;
-        this.cars.forEach(c => {
-          c.Reports.forEach(r => {
-            r.CreatedDate = new Date(r.CreatedDate);
-            r.ButtonText =  "SHOW_COMMENTS";
-          })
-        })
-      
-        
-        
       }
       else{
         

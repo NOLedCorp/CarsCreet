@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {User, UserService, Book} from '../services/UserService';
+import {User, UserService, Book, Sale} from '../services/UserService';
+
 import {Router} from '@angular/router';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
+import { NewCar, Car, CarsService, ReportCar } from '../services/CarsService';
 
 const URL = '/cars/upload-user-photo';
 @Component({
@@ -10,9 +12,15 @@ const URL = '/cars/upload-user-photo';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  
+  showBooks:boolean = true;
+  showAddCar:boolean = true;
+  showAddSale:boolean = true;
+  cars:ReportCar[] = [];
+  saleErrors:any={DateStrart:true, DateFinish:true};
+  newSale:Sale = new Sale();
+  newCar:NewCar =new NewCar();
   changes:boolean[]=[false,false,false];
-  constructor(private http: HttpClient, public userService:UserService, private router: Router) { }
+  constructor(public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
 
   ngOnInit() {
     
@@ -26,17 +34,42 @@ export class UserProfileComponent implements OnInit {
         localStorage.setItem('currentUser',JSON.stringify(data));
        
       })
+      if(this.userService.currentUser.IsAdmin){
+        this.carsService.GetReportCars().subscribe( data => {
+          this.cars=data;
+      
+        })
+      }
     }
     else{
       this.router.navigate(['/allcars']);
     }
     
+    
+  }
+  show(prop:string){
+    this[prop] = !this[prop];
+  }
+  getSalePrice(){
+    if(this.newSale.CarId!=0 && this.newSale.Discount){
+      let carPrice = this.cars.find(x => x.Id == this.newSale.CarId).Price;
+      let res = (carPrice*(1-this.newSale.Discount/100));
+      return res;
+    }
+    return 0;
   }
   getStatus(book:Book){
-    if(new Date(book.DateFinish).getTime()<new Date().getTime()){
+    book.DateFinish = new Date(book.DateFinish);
+    if(book.DateFinish.getTime()<new Date().getTime()){
       return "Завершено"
     }else{
-      return "Активно"
+      if(new Date(book.DateStart).getTime()<=new Date().getTime() && book.DateFinish.getTime()>=new Date().getTime()){
+        return "Активно"
+      }
+      else{
+        return "Ожидание"
+      }
+      
     }
   }
   changeInfo(item:number,type:string, value:string){

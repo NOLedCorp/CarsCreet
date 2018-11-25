@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges, ViewR
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message, MessagerService, Topic } from '../services/MessagerService';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User } from '../services/UserService';
+import { User, ReportUser } from '../services/UserService';
 
 @Component({
   selector: 'messager',

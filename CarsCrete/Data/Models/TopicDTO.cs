@@ -13,7 +13,7 @@ namespace CarsCrete.Data.Models
         public long UserReciverId { get; set; }
         public bool Seen { get; set; }
         public DateTime ModifyDate { get; set; }
-        public virtual UserDTO User { get; set; }
+        public virtual ReportUser User { get; set; }
         public virtual List<MessageDTO> Messages { get; set; }
     }
 }

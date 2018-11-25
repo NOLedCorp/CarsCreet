@@ -23,9 +23,9 @@ namespace CarsCrete.Data.Models
         public DateTime CreatedDate { get; set; }
         #endregion
 
-        #region Lazy-loading
+        
         public virtual ReportUser User { get; set; }
         public virtual List<LikeDTO> Likes { get; set; }
-        #endregion
+        
     }
 }

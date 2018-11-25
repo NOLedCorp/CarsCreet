@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../services/AlertService';
 
@@ -12,7 +12,7 @@ import { ReportComment, UserService, FeedBack, Like } from '../services/UserServ
   styleUrls: ['./feedback.component.css']
   
 })
-export class FeedbackComponent implements OnInit {
+export class FeedbackComponent implements OnInit, OnChanges {
   autorized:boolean=false;
   registerForm: FormGroup;
   choosedCar:ReportCar;
@@ -31,7 +31,15 @@ export class FeedbackComponent implements OnInit {
   
   constructor(private carsService:CarsService, private formBuilder: FormBuilder, public feedBackService:FeedBackService, public userService:UserService){}
 
-  
+  ngOnChanges(ch:SimpleChanges){
+    if(ch.reports){
+      this.reports = ch.reports.currentValue;
+      this.feedBackService.reports=this.reports;
+      this.feedBackService.number=this.reports.length;
+ 
+      this.feedBackService.changePage(0,21);
+    }
+  }
   ngOnInit() {
 
     

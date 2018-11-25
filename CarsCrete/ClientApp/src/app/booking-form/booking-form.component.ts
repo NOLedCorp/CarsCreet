@@ -284,7 +284,6 @@ export class BookingFormComponent implements OnInit, OnChanges {
       if(data){
       
         this.service.car=data;
-        console.log(data);
         this.service.car.Reports.forEach(r => {
           r.CreatedDate=new Date(r.CreatedDate);
           r.ButtonText= "SHOW_COMMENTS";

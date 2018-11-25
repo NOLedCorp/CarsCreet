@@ -28,8 +28,8 @@ namespace CarsCrete.Data.Models
         public double Sum { get; set; }
         #endregion
         #region Lazy-loading
-        public virtual User User { get; set; }
-        public virtual Car Car { get; set; }
+        public virtual UserDTO User { get; set; }
+        public virtual CarDTO Car { get; set; }
         public virtual SaleDTO Sale { get; set; }
         
         #endregion

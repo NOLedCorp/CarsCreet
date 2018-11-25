@@ -58,6 +58,9 @@ export interface Car{
     BodyType:string;
     FilterProp:number;
     AC:boolean;
+    ABS:boolean;
+    Radio:boolean;
+    Airbags:boolean;
     Description:string;
     Description_ENG:string;
     Price:number;
@@ -66,6 +69,25 @@ export interface Car{
     Sales:Sale[];
     Includes:string[];
     IncludesEng:string[];
+}
+export class NewCar{
+    Id:number;
+    Model:string;
+    Photo:string;
+    Passengers:number;
+    Doors:number;
+    Transmission:string;
+    Fuel:string;
+    Consumption:number;
+    BodyType:string;
+    FilterProp:number;
+    AC:boolean = false;
+    ABS:boolean = false;
+    Radio:boolean = false;
+    Airbags:boolean = false;
+    Description:string;
+    Description_ENG:string;
+    Price:number;
 }
 export interface BookTimes{
     CarId:number;
@@ -95,6 +117,7 @@ export interface ReportCar{
     Id:number;
     Photo:string;
     Model:string;
+    Price:number;
 } 
 export interface Filter{
     Name:string;

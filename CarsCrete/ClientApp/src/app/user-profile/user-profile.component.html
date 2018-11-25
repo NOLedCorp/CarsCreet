@@ -102,38 +102,208 @@
   </div>
   <div *ngIf="userService.currentUser?userService.currentUser.Books.length>0:false" class="statistics">
     <!-- <statistics *ngIf="userService.currentUser.Name=='Admin'"></statistics> -->
-    <h3 >{{'MY_BOOKS' | translate}}</h3>
-    <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно'}" *ngFor="let book of userService.currentUser.Books">
-      <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
-      <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>
-      <div class="row">
-        
-        <div class="col-sm-4">
-          <div class="car">
-            <img src="{{book.Car.Photo}}" alt="">
-            <div>
-              <p routerLink="/booking/{{book.Car.Id}}"><i class="fa fa-car"></i>{{book.Car.Model}}</p>
-              <span><i class="fa fa-dollar"></i>{{book.Sum}}€</span>
+    
+    <p class="line" ><span (click)="show('showBooks')">{{userService.currentUser.IsAdmin?'BOOKS':'MY_BOOKS' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showBooks, ' fa-angle-up':showBooks}"></i></span></p>
+    <div *ngIf="showBooks">
+      <div class="book-item" [ngClass]="{'active-item':getStatus(book)=='Активно' }" *ngFor="let book of userService.currentUser.Books">
+        <span class="status" [ngClass]="{'active':getStatus(book)=='Активно'}">{{getStatus(book)}}</span>
+        <h4 style="margin-left: 5px">{{'ORDER' | translate}} №{{book.Id}}</h4>
+        <div class="row">
+          
+          <div class="col-sm-4">
+            <div class="car">
+              <img src="{{book.Car.Photo}}" alt="">
+              <div>
+                <p routerLink="/booking/{{book.Car.Id}}"><i class="fa fa-car"></i>{{book.Car.Model}}</p>
+                <span><i class="fa fa-dollar"></i>{{book.Sum}}€</span>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-sm-2 dates">
+            <i style ="font-size: 30px" class="fa fa-map-marker" aria-hidden="true"></i>
+            <span>{{'PLACE' | translate}}: {{book.Place}}</span>
+          </div>
+          <div class="col-sm-3 dates">
+            
+            <span>{{'RENT' | translate}}: {{book.DateStart | date: 'dd.MM.yyyy'}} - {{book.DateFinish | date: 'dd.MM.yyyy'}}</span>
+            
+          </div>
+          <div class="col-sm-3 dates">
+            <span>{{'CREATE_DATE' | translate}}: {{book.CreateDate | date: 'dd.MM.yyyy'}}</span>
+          </div>
+             
+          
+        </div>
+      </div>
+    </div>
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddCar')">{{'ADD_CAR' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddCar, ' fa-angle-up':showAddCar}"></i></span></p>
+    <div *ngIf="userService.currentUser.IsAdmin && showAddCar">
+      <div class="form">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="item">
+              <span class="header">{{'MODEL' | translate}}</span>
+              <input class="input" type="text" [(ngModel)]="newCar.Model">
+            </div>
+            <div class="item">
+              <span class="header">{{'PHOTO' | translate}}</span>
+              <input class="input" type="text" [(ngModel)]="newCar.Photo">
+            </div>
+            <div class="item inner">
+              <div class="item inner-item">
+                <span class="header">{{'PASSANGERS' | translate}}</span>
+                <input class="input" type="number" [(ngModel)]="newCar.Passangers">
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'DOORS' | translate}}</span>
+                <input class="input" type="number" [(ngModel)]="newCar.Doors">
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'CONSUMPTION' | translate}}</span>
+                <input class="input" type="number" [(ngModel)]="newCar.Consumption">
+              </div>
+            </div>
+            <div class="item inner">
+              <div class="item item-inner">
+                <span class="header">{{'AC' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.AC" (change)="newCar.AC = !newCar.AC" />
+              </div>
+              <div class="item item-inner">
+                <span class="header">{{'ABS' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.ABS" (change)="newCar.ABS = !newCar.ABS" />
+              </div>
+              <div class="item item-inner">
+                <span class="header">{{'AIRBAGS' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.Airbags" (change)="newCar.Airbags = !newCar.Airbags" />
+              </div>
+              <div class="item item-inner">
+                <span class="header">{{'RADIO' | translate}}</span>
+                <input  type="checkbox" [checked]="newCar.Radio" (change)="newCar.Radio = !newCar.Radio" />
+              </div>
             </div>
           </div>
-          
+          <div class="col-sm-6">
+            <div class="item inner">
+              <div class="item inner-item">
+                <span class="header">{{'TRANSMISSION' | translate}}</span>
+                <select class="input"  [(ngModel)]="newCar.Transmission">
+                  <option value="Automatic">{{'AUTOMATIC' | translate}}</option>
+                  <option value="Manual">{{'MANUAL' | translate}}</option>
+                </select>
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'FUEL' | translate}}</span>
+                <select class="input"  [(ngModel)]="newCar.Fuel">
+                  <option value="Petrol">{{'PETROL' | translate}}</option>
+                  <option value="Deisel">{{'DEISEL' | translate}}</option>
+                </select>
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'BODYTYPE' | translate}}</span>
+                <select class="input"  [(ngModel)]="newCar.BodyType">
+                  <option value="Sedan">{{'SEDAN' | translate}}</option>
+                  <option value="Suv">{{'SUV' | translate}}</option>
+                  <option value="Wagon">{{'WAGON' | translate}}</option>
+                  <option value="Coupe">{{'COUPE' | translate}}</option>
+                  <option value="Hatchback">{{'HATCHBACK' | translate}}</option>
+                  <option value="Pickup">{{'PICKUP' | translate}}</option>
+                  <option value="Compact">{{'COMPACT' | translate}}</option>
+                  <option value="Cabriolet">{{'CABRIOLET' | translate}}</option>
+                  <option value="Crossover">{{'CROSSOVER' | translate}}</option>
+                  <option value="Minivan">{{'MINIVAN' | translate}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="item inner">
+              <div class="item inner-item">
+                <span class="header">{{'PRICE' | translate}}</span>
+                <input class="input" type="number"  [(ngModel)]="newCar.Price">
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'GROUPE' | translate}}</span>
+                <select class="input"  [(ngModel)]="newCar.Groupe">
+                  <option value="Economy">{{'ECONOMY' | translate}}</option>
+                  <option value="Full-sizes">{{'FULL_SIZED' | translate}}</option>
+                  <option value="Compact">{{'COMPACT' | translate}}</option>
+                  <option value="Medium">{{'MEDIUM' | translate}}</option>
+                </select>
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'MINAGE' | translate}}</span>
+                <input class="input" type="number"  [(ngModel)]="newCar.MinAge">
+              </div>
+            </div>
+            
+          </div>
         </div>
-        <div class="col-sm-2 dates">
-          <i style ="font-size: 30px" class="fa fa-map-marker" aria-hidden="true"></i>
-          <span>{{'PLACE' | translate}}: {{book.Place}}</span>
+        <div class="item">
+          <span class="header">{{'DESCRIPTION' | translate}}</span>
+          <textarea class="input" [(ngModel)]="newCar.Description"></textarea>
+
         </div>
-        <div class="col-sm-3 dates">
-          
-          <span>{{'RENT' | translate}}: {{book.DateStart | date: 'dd.MM.yyyy'}} - {{book.DateFinish | date: 'dd.MM.yyyy'}}</span>
-          
+        <div class="item">
+          <span class="header">{{'DESCRIPTION_ENG' | translate}}</span>
+          <textarea class="input" [(ngModel)]="newCar.Description_Eng"></textarea>
         </div>
-        <div class="col-sm-3 dates">
-          <span>{{'CREATE_DATE' | translate}}: {{book.CreateDate | date: 'dd.MM.yyyy'}}</span>
+        <button class="btn btn-primary">{{'ADD' | translate}}</button>
+      </div>
+    </div>
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddSale')">{{'ADD_SALE' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddSale, ' fa-angle-up':showAddSale}"></i></span></p>
+    <div *ngIf="userService.currentUser.IsAdmin && showAddSale">
+      <div class="form">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="item">
+              <span class="header">{{'CAR' | translate}}</span>
+              <picker *ngIf="cars.length!=0" [items]="cars" [out]="newSale" [prop]="'CarId'"></picker>
+            </div>
+            <div class="item">
+              <span class="header">{{'DATE_START' | translate}}</span>
+              <date-picker  [Out]="newSale" [Prop]="'DateStart'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
+                        [DateFinish]="newSale.DateFinish"></date-picker>
+              
+            </div>
+            <div class="item">
+              <span class="header">{{'DATE_START' | translate}}</span>
+              <date-picker  [Out]="newSale" [Prop]="'DateFinish'" [Errors]="saleErrors"  [DateStart]="newSale.DateStart"
+                        [DateFinish]="newSale.DateFinish"></date-picker>
+            </div>
+            
+          </div>
+          <div class="col-sm-6">
+            <div class="item inner">
+              <div class="item inner-item">
+                <span class="header">{{'DISCOUNT' | translate}}</span>
+                <input type="number" class="input"  [(ngModel)]="newSale.Discount">
+              </div>
+              <div class="item inner-item">
+                <span class="header">{{'DAYS_NUMBER' | translate}}</span>
+                <input type="number" class="input"  [(ngModel)]="newSale.DaysNumber">
+              </div>
+              
+            </div>
+            <div *ngIf="getSalePrice()!=0" class="item">
+              <span class="header">{{'PRICE' | translate}}</span>
+              <span>{{getSalePrice()}}€</span>
+            </div>
+            
+            
+          </div>
         </div>
-           
-        
+        <!-- <div class="item">
+          <span class="header">{{'DESCRIPTION' | translate}}</span>
+          <textarea class="input" [(ngModel)]="newCar.Description"></textarea>
+
+        </div>
+        <div class="item">
+          <span class="header">{{'DESCRIPTION_ENG' | translate}}</span>
+          <textarea class="input" [(ngModel)]="newCar.Description_Eng"></textarea>
+        </div> -->
+        <button class="btn btn-primary">{{'ADD' | translate}}</button>
       </div>
     </div>
   </div>
 </div>
+
 

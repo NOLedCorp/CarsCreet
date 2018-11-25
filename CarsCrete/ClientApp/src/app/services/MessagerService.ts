@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User} from '../services/UserService';
+import {User, ReportUser} from '../services/UserService';
 
 export class MessagerService{
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -41,7 +41,7 @@ export interface Topic{
     UserId:number;
     UserReciverId:number;
     ModifyDate:Date;
-    User:User;
+    User:ReportUser;
     Messages:Message[];
     Seen:boolean;
 }

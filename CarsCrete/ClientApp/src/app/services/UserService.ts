@@ -59,13 +59,14 @@ export interface User{
     Id:number;
     Name:string;
     Email:string;
-    Phone:string;
-    Lang:string;
+    Phone?:string;
+    Lang?:string;
     Topics?:Topic[];
-    CreatedDate:Date;
-    ModifiedDate:Date;
-    Reports:FeedBack[];
-    Books:Book[];
+    CreatedDate?:Date;
+    ModifiedDate?:Date;
+    IsAdmin?:boolean;
+    Reports?:FeedBack[];
+    Books?:Book[];
 }
 export interface FeedBack{
     Id:number;
@@ -97,8 +98,9 @@ export interface ReportComment{
 
 }
 export class ReportUser{
-    id:number;
+    Id:number;
     Name:string;
+    Email:string;
     Photo:string;
 }
 export interface Book{
@@ -121,15 +123,15 @@ export interface Like{
     IsLike:boolean;
 }
 
-export interface Sale{
+export class Sale{
     Id:number;
-    CarId:number;
+    CarId:number = 0;
     DateStart:Date;
     DateFinish:Date;
     Discount:number;
     Type:number;
     NewPrice:number;
-    DaysNumber:number;
+    DaysNumber:number = 0;
 }
 
 export class ShowSale{
