@@ -28,13 +28,17 @@ export class UserService {
         return this.http.get<User>(this.baseUrl + 'cars/get-user-by-id/'+id)
     }
     UploadPhoto(data:any){
-        return this.http.post(this.baseUrl + 'cars/upload-user-photo', {"uploadedFile":data})
+        return this.http.post<any>(this.baseUrl + 'cars/upload-user-photo', data)
     }
     GetStatistics(){
         return this.http.get<Statistics>(this.baseUrl + 'cars/get-statistics')
     }
     ChangeInfo(type:string, value:string, userId:number){
         return this.http.post<boolean>(this.baseUrl + 'cars/change-info', { "Type": type, "Value": value, "UserId":userId});
+    }
+    ChangePhoto(res:any){
+        console.log(true);
+        return this.http.post<boolean>(this.baseUrl + 'cars/change-photo', res);
     }
     AddSale(sale:Sale){
         return this.http.put<Sale>(this.baseUrl + 'cars/add-sale',sale);

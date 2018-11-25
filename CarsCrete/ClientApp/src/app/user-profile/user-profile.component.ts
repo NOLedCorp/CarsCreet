@@ -105,14 +105,21 @@ export class UserProfileComponent implements OnInit {
   }
   upload(files) {
     const formData = new FormData();
-    formData.append(files[0].Name, files[0]);
-    const req = new HttpRequest('POST', `cars/upload-user-photo`, formData);
+    // files[0].name = this.userService.currentUser.Id.toString()+files[0].name.split('.')[1] ;
+    
+    let n = this.userService.currentUser.Id.toString()+'.'+files[0].name.split('.')[1] ;
+    console.log(n);
+    formData.append(n, files[0]);
 
-    this.http.request(req).subscribe(event => {
+    this.userService.UploadPhoto(formData).subscribe(event => {
+      this.userService.ChangePhoto({Id:this.userService.currentUser.Id, Photo:event.Path}).subscribe(data => {
         
-        if (event instanceof HttpResponse)
-            console.log('Files uploaded!');
+      })
     });
+    // this.http.post<any>(req).subscribe(event => {
+        
+    //     this.userService.ChangePhoto({Id:this.userService.currentUser.Id, Photo:event.Path})
+    // });
 
       
   }

@@ -9,6 +9,13 @@ using CarsCrete.Data.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using System.Net;
+using System.IO;
+using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
+using System.Web;
+using System.Web.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -224,20 +231,38 @@ namespace CarsCrete.Controllers
 
             return true;
         }
-        [HttpPost("upload-user-photo")]
-        public bool UploadPhoto()
+        public class NewPhoto
         {
-            
-            
-            var files = Request.Form.Files;
-            var k = 0;
-            return true;
+            public string Path { get; set; }
         }
+        [HttpPost("upload-user-photo")]
+        public async Task<IActionResult> UploadPhoto(int UserId)
+        {
+
+            var files = Request.Form.Files;
+            var res = new NewPhoto();
+            var l = Directory.GetCurrentDirectory();
+            string path = l+ "\\ClientApp\\src\\assets\\images\\" + files[0].Name;
+            res.Path = "../../assets/images/" + files[0].Name;
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await files[0].CopyToAsync(fileStream);
+            }
+            return new JsonResult(
+                res,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+
+        }
+        
 
         public class UserPassword
         {
             public long Id { get; set; }
             public string Password { get; set; }
+            public string Photo { get; set; }
         }
         [HttpPost("change-password")]
         public IActionResult ChangePassword([FromBody]UserPassword model)
@@ -245,6 +270,22 @@ namespace CarsCrete.Controllers
 
             var user = DbContext.Users.Where(x => x.Id == model.Id).FirstOrDefault();
             user.Password = model.Password;
+            user.ModifiedDate = DateTime.Now;
+            DbContext.SaveChanges();
+
+            return new JsonResult(
+                user.Adapt<UserDTO>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+        [HttpPost("change-photo")]
+        public IActionResult ChangePhoto([FromBody]UserPassword model)
+        {
+
+            var user = DbContext.Users.Where(x => x.Id == model.Id).FirstOrDefault();
+            user.Photo = model.Photo;
             user.ModifiedDate = DateTime.Now;
             DbContext.SaveChanges();
 
