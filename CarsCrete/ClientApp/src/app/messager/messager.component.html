@@ -1,4 +1,4 @@
-<div (mouseover)="showScroll(0,100,showMess && userProfile)" class="container" [ngStyle]="{'height':showTopics?'500px':'auto', 'bottom':showTopics && !showMess?'-463px':''}" [ngClass] = "{'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
+<div (mouseover)="showScroll(0,100,showMess && userProfile)" class="container" [ngStyle]="{ 'bottom':showTopics && !showMess?'-463px':''}" [ngClass] = "{'show':(showMess && !showAll && !userProfile),'ProfileShow':(showMess && userProfile), 'showP':(showMess && userProfile), 'InPage':showAll, 'Profile':userProfile}">
   
   <div class="header"  [ngClass]="{'hidden-header':(showMess && userProfile)}" (click)="show(showAll)">
     <i class="fa fa-comments" ></i>
@@ -75,7 +75,9 @@
 <div *ngIf="showMess" style="background-color: transparent"  [ngClass] = "{'blurProf':userProfile}" class="background-blur" (click)="show(showAll)"></div>
 <div *ngIf="userProfile" style="z-index: 310" class="header-small"  (click)="show(showAll)">
   <i class="fa fa-comments" ></i>
+  <i *ngIf="getSeen()" class="fa fa-bell" aria-hidden="true"></i>
 </div>
 <div *ngIf="!userProfile && !showAll" [ngClass]="{'hidden-header':showMess}" class="header-small"  (click)="show(showAll)">
   <i class="fa fa-comments" ></i>
+  <i *ngIf="getSeen()" class="fa fa-bell" aria-hidden="true"></i>
 </div>
