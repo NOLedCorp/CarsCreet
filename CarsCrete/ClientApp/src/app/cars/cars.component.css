@@ -3,6 +3,9 @@
         border-right: none !important;
         
     }
+    i.fa-picture-o{
+        display: none;
+    }
     .filters .col-sm-3:not(:last-child){
         border-bottom: 1px solid gray;
     
@@ -134,9 +137,7 @@
     border-radius: 4px;
     font-size: 14pt;
 }
-i.fa-picture-o{
-    display: none;
-}
+
 .details{
     display: flex;
     
