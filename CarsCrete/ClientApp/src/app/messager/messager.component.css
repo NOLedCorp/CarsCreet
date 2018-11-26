@@ -178,14 +178,28 @@ h3{
 .message{
     margin: 10px 0;
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    
+    align-items: flex-start;
+}
+.date{
+    border-radius: 4px;
+    padding: 5px;
+    background-color: lightblue;
+    color: white;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 10px 0;
+
 }
 .my-message .message-body{
     background-color: rgb(147, 255, 196);
 }
 .my-message{
     
-    justify-content: flex-end !important;
+    align-items: flex-end !important;
 }
 .message-body{
     max-width: 60%;

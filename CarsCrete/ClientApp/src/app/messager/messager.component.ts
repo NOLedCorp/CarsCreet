@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Message, MessagerService, Topic } from '../services/MessagerService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, ReportUser } from '../services/UserService';
+import { AlertService } from '../services/AlertService';
 
 @Component({
   selector: 'messager',
@@ -12,6 +13,8 @@ import { User, ReportUser } from '../services/UserService';
 export class MessagerComponent implements OnInit, OnChanges {
   showMess:boolean=false;
   message:string = "";
+  topicDate:Date;
+  alert:AlertService = new AlertService();
   @Input() showAll:boolean = false;
   @Input() userProfile:boolean = false;
   
@@ -53,6 +56,23 @@ export class MessagerComponent implements OnInit, OnChanges {
         this.send(true);
       }
     }
+  }
+  showDate(date:Date){
+    date = new Date(date);
+    
+    if (this.topicDate && this.topicDate.toDateString()!=date.toDateString() ){
+      console.log(this.topicDate.toDateString());
+      console.log(date.toDateString() );
+      this.topicDate = date;
+      return true;
+    }
+
+    if(!this.topicDate){
+      this.topicDate = date;
+      return true;
+    }
+    return false;
+
   }
   showTopic(top?:Topic){
     if(this.currentTopic){
@@ -140,6 +160,7 @@ export class MessagerComponent implements OnInit, OnChanges {
           this.showTopics=true;
         }
         else{
+          this.alert.showA({type:'success',message:'Сообщение отправленно',show:true});
           this.messageForm.setValue({Name: this.user?this.user.Name:'',
           Email: this.user?this.user.Email:'',
           Message: ''});
