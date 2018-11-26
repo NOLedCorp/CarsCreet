@@ -1,7 +1,6 @@
 .container{
     z-index: 800;
     max-height: 500px;
-    height: 500px;
     margin: 0;
     position: fixed;
     bottom: -283px;
@@ -13,6 +12,9 @@
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.747);
     padding: 10px;
     transition: 0.5s;
+}
+.cont-height{
+    height: 500px;
 }
 .not-seen{
     background-color: rgb(67, 150, 67) !important; 
@@ -276,7 +278,7 @@ h3{
     }
     .container{
         width: 100%;
-        height: 100%;
+        height: 100% !important;
         max-height: 10000px;
         bottom: 0px;
         margin: auto;
