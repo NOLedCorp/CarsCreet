@@ -1,28 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import {User, UserService, Book, Sale} from '../services/UserService';
+import { Component, OnInit, Input } from '@angular/core';
+import {User, UserService, Book, Sale, ReportUser} from '../services/UserService';
 
 import {Router} from '@angular/router';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
 import { NewCar, Car, CarsService, ReportCar, Contains } from '../services/CarsService';
 import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 
-const URL = '/cars/upload-user-photo';
+
 @Component({
   selector: 'user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  @Input() NewAdmin:ReportUser;
   showBooks:boolean = true;
   showAddCar:boolean = false;
+  showAddNewAdmin:boolean = false;
   showAddSale:boolean = false;
   Includes:Contains = new Contains();
   cars:ReportCar[] = [];
+  users:ReportUser[] = [];
+  newAdmin:any = {UserId:0};
   saleErrors:any={DateStrart:true, DateFinish:true};
   newSale:Sale = new Sale();
   newCar:NewCar =new NewCar();
   carSubmitted:boolean = false;
   saleSubmitted:boolean = false;
+  adminSubmitted:boolean = false;
   changes:boolean[]=[false,false,false];
   constructor(public translate:TranslateService, public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
 
@@ -41,6 +46,9 @@ export class UserProfileComponent implements OnInit {
         this.carsService.GetReportCars().subscribe( data => {
           this.cars=data;
       
+        })
+        this.userService.GetUsers().subscribe(data => {
+          this.users = data;
         })
       }
     }
@@ -173,5 +181,19 @@ export class UserProfileComponent implements OnInit {
       this.saleSubmitted = false;
     })
   }
+  addAdmin(){
+    this.adminSubmitted = true;
+    if(this.newAdmin.UserId==0){
+      return
+    }
+    this.NewAdmin = this.users.find(x => x.Id == this.newAdmin.UserId);
+    this.NewAdmin.IsAdmin = !this.NewAdmin.IsAdmin;
+    this.userService.SetAdmin(this.NewAdmin).subscribe(data => {
+      this.NewAdmin = data;
+      this.newAdmin={UserId:0};
+      this.adminSubmitted = false;
+    })
+  }
+  
 
 }

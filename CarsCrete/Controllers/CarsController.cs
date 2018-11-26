@@ -125,6 +125,46 @@ namespace CarsCrete.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        [HttpGet("get-users")]
+        public IActionResult GetUsers()
+        {
+
+            var users = DbContext.Users.ProjectToType<ReportUser>().ToList();
+            if (users == null)
+            {
+                return new StatusCodeResult(500);
+            }
+           
+            return new JsonResult(
+                users,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
+
+        [HttpPost("set-admin")]
+        public IActionResult SetAdmin([FromBody] ReportUser user)
+        {
+            var u = DbContext.Users.Where(x => x.Id == user.Id).FirstOrDefault();
+            if (u == null)
+            {
+                return new StatusCodeResult(500);
+            }
+            if (u.IsAdmin != user.IsAdmin)
+            {
+                u.ModifiedDate = DateTime.Now;
+                u.IsAdmin = user.IsAdmin;
+            }
+
+            DbContext.SaveChanges();
+            return new JsonResult(
+                user,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented
+                });
+        }
         public class UserReg
         {
             public string Name { get; set; }
@@ -186,6 +226,7 @@ namespace CarsCrete.Controllers
 
             return user.Adapt<UserDTO>();
         }
+
 
         public class InfoToChange
         {

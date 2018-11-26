@@ -27,8 +27,15 @@ export class UserService {
         
         return this.http.get<User>(this.baseUrl + 'cars/get-user-by-id/'+id)
     }
+    GetUsers(){
+        
+        return this.http.get<ReportUser[]>(this.baseUrl + 'cars/get-users')
+    }
     UploadPhoto(data:any){
         return this.http.post<any>(this.baseUrl + 'cars/upload-user-photo', data)
+    }
+    SetAdmin(data:any){
+        return this.http.post<ReportUser>(this.baseUrl + 'cars/set-admin', data)
     }
     GetStatistics(){
         return this.http.get<Statistics>(this.baseUrl + 'cars/get-statistics')
@@ -109,6 +116,7 @@ export class ReportUser{
     Name:string;
     Email:string;
     Photo:string;
+    IsAdmin:boolean;
 }
 export interface Book{
     Id:number;

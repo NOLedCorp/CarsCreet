@@ -331,6 +331,24 @@
         <button (click)="addSale()" class="btn btn-primary">{{'ADD' | translate}}</button>
       </div>
     </div>
+    <p *ngIf="userService.currentUser.IsAdmin" class="line" ><span (click)="show('showAddNewAdmin')">{{'ADD_ADMIN' | translate}} <i class="fa" [ngClass] = "{'fa-angle-down':!showAddNewAdmin, ' fa-angle-up':showAddNewAdmin}"></i></span></p>
+    <div *ngIf="userService.currentUser.IsAdmin && showAddNewAdmin">
+      <div class="form">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="item">
+                <span [ngClass]="{ 'is-invalid': adminSubmitted && newAdmin.UserId == 0 }" class="header">{{'NEW_ADMIN' | translate}}</span>
+              <picker [items]="users" [out]="newAdmin" [prop]="'UserId'" [PropName]="'Name'"></picker>
+              <div *ngIf="adminSubmitted && newAdmin.UserId == 0" class="invalid-feedback">
+                <span class="d-block is-invalid" >{{"ADMIN_VALIDATION" | translate}}</span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <button (click)="addAdmin()" class="btn btn-primary">{{'ADD' | translate}}</button>
+      </div>
+    </div>
   </div>
 </div>
 

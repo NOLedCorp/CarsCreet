@@ -1,7 +1,7 @@
 <div class="container ">
   <div class="active-item">
     <img *ngIf="activeItem" src="{{activeItem?activeItem.Photo:''}}" alt="">
-    <span>{{activeItem?activeItem.Model:('NO_DATA' | translate)}}</span>
+    <span>{{activeItem?activeItem[PropName]:('NO_DATA' | translate)}}</span>
     <i (click)="openCars()" class="fa fa-pencil"></i>
   </div>
   
@@ -11,7 +11,7 @@
       
       <div class="d-flex" style="margin: 0;">
         <img src="{{item.Photo?item.Photo:''}}" alt="">
-        <span>{{item.Model?item.Model:''}}</span>
+        <span>{{item[PropName]?item[PropName]:''}}</span>
       </div>
     </div>
   </div>
