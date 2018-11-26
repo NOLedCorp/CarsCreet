@@ -185,8 +185,7 @@ h3{
 .date{
     border-radius: 4px;
     padding: 5px;
-    background-color: lightblue;
-    color: white;
+    color: rgb(182, 182, 182);
     display: flex;
     width: 100%;
     justify-content: center;
