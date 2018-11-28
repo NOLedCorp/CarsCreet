@@ -21,6 +21,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
   invalidIntarvals:any = [];
   showPickers:ShowPickers = new ShowPickers();
   bookingForm: FormGroup;
+  wrongEmail:boolean = false;
   public sales:ShowSale[];
   submitted = false;
   sale:ShowSale = new ShowSale();
@@ -40,6 +41,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
     this.book.DateStart =null;
   }
   get f() { return this.bookingForm.controls; }
+  get v() { return this.bookingForm.value; }
   Round(k:number){
     let res = Math.round(k*100)/100;
     
@@ -47,9 +49,11 @@ export class BookingFormComponent implements OnInit, OnChanges {
   }
   ngOnChanges(ch:SimpleChanges){
   }
+  
     onSubmit(ds:HTMLInputElement, df:HTMLInputElement) {
       this.submitted=true;
-      if (this.bookingForm.invalid) {
+      console.log(this.bookingForm.controls);
+      if (this.bookingForm.invalid || this.service.checkEmail(this.v.Email)) {
         if(!this.book.DateStart){
           
           this.errors.DateStart = true;
@@ -62,6 +66,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
         return
         
       }
+      
       if(!this.checkSale()){
         return
       }
@@ -73,7 +78,7 @@ export class BookingFormComponent implements OnInit, OnChanges {
         this.errors.DateFinish = true;
         return
       }
-     
+      
       if(localStorage.getItem("currentUser")){
         
         this.book = {
@@ -87,8 +92,8 @@ export class BookingFormComponent implements OnInit, OnChanges {
           DateFinish:this.book.DateFinish,
           Price:this.sale.Id==0?this.service.car.Price:this.sale.NewPrice,
           Place:"Iraklion airport",
-          Tel:this.bookingForm.value.Tel,
-          Comment:this.bookingForm.value.Comment
+          Tel:this.service.checkStr(this.bookingForm.value.Tel,'phone'),
+          Comment:this.service.checkStr(this.bookingForm.value.Comment)
         }
         this.service.BookCar(this.book).subscribe(data => {
           this.bookingForm = this.formBuilder.group({

@@ -44,6 +44,21 @@ export class CarsService implements OnInit{
     ngOnInit(){
         
     }
+    checkStr(str:string, type?:string){
+        if(!type){
+            var reg = /(\s??хер|[а-я]*ху[ей]+|пид[оа]р[а-я]*|суч?ка|[пзд]?[оа]?[ел]б[ауеоё][еёлчнтмш][а-я]*|бл[яе]а?[тдь]{0,2}|[расзпо]*пизд[ецаитьуняй]*)/gi
+            str.replace(reg,"***");
+            
+        }
+        if(type = 'phone'){
+            var reg = /\D/gi;
+            str.replace(reg,"");
+        }
+        return str;
+    }
+    checkEmail(str:string){
+        return !str.match(/[a-z]+@[a-z]+\.[a-z]+/ig);
+    }
 }
 
 export interface Car{

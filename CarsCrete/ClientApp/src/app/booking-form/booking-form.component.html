@@ -136,9 +136,10 @@
                       </div>
                       <div class="item">
                         <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL'|translate}}</span>
-                        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email"  required>
-                        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-                            <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{'EMAIL_VALIDATION'|translate}}</span>
+                        <input formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" value="{{user?user.Email:''}}" name="name" type="Email"   required>
+                        <div *ngIf="submitted && (f.Email.errors || service.checkEmail(v.Email))" class="invalid-feedback">
+                            <span class="d-block is-invalid" *ngIf="f.Email.errors?f.Email.errors.required:false">{{'EMAIL_VALIDATION'|translate}}</span>
+                            <span class="d-block is-invalid" *ngIf="f.Email.errors?false:service.checkEmail(v.Email)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
                         </div>
                       </div>
                       <div *ngIf="!user" class="item">
@@ -153,7 +154,7 @@
                         </div>
                       <div class="item">
                           <span [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }">{{'PHONE'|translate}}</span>
-                          <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" class="input"  name="name" type="tel" pattern="[0-9]{11}" required>
+                          <input formControlName="Tel" [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" class="input"  name="name" type="tel" pattern="(^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$|^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$)" required>
                           <div *ngIf="submitted && f.Tel.errors" class="invalid-feedback">
                             
                             <span class="d-block is-invalid" *ngIf="f.Tel.errors.pattern">{{'FORMAT'|translate}}: 89161782323</span>
