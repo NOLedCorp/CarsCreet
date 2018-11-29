@@ -36,7 +36,11 @@
             <div *ngIf="changes[0]" class="change-panel">
                 <div class="form">
                   <span>{{'EMAIL' | translate}}: </span>
-                  <input [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" class="input" type="email" required #Email>
+                  <input [ngClass]="{ 'is-invalid': submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )}" class="input" [(ngModel)]="changeValues[0]" type="email" required #Email>
+                  <div *ngIf="submittes[0] && (Email.value=='' || carsService.checkEmail(Email.value) )" class="invalid-feedback">
+                    <span class="d-block is-invalid" *ngIf="Email.value==''">{{'EMAIL_VALIDATION'|translate}}</span>
+                    <span class="d-block is-invalid" *ngIf="Email.value==''?false:carsService.checkEmail(Email.value)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
+                  </div>
                   <button class="btn btn-success" (click)="changeInfo(0,'Email', Email.value)">Изменить</button>
                 </div>
             </div>
@@ -53,9 +57,8 @@
             </div>
             <div *ngIf="changes[1]" class="change-panel">
               <div class="form">
-                <span>{{'PHONE' | translate}}: </span>
-                <input [ngClass]="{ 'is-invalid': submitted && f.Tel.errors }" type="tel" class="input" required #Tel>
-                <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value)">Изменить</button>
+                <input [ngClass]="{ 'is-invalid': submittes[1] && !carsService.checkStr(Tel.value,'phone-check') }" [(ngModel)]="changeValues[1]" type="tel" class="input"  required #Tel>
+                <button class="btn btn-success" (click)="changeInfo(1,'Phone', Tel.value, Tel)">Изменить</button>
               </div>
             </div>
             <div *ngIf="changes[1]"  class="background-blur" (click)="showChangeInfo(1,false)"></div>

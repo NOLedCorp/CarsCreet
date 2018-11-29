@@ -29,6 +29,8 @@ export class UserProfileComponent implements OnInit {
   saleSubmitted:boolean = false;
   adminSubmitted:boolean = false;
   changes:boolean[]=[false,false,false];
+  changeValues:string[]=["","",""];
+  submittes:boolean[]=[false,false,false];
   constructor(public translate:TranslateService, public carsService:CarsService, private http: HttpClient, public userService:UserService, private router: Router) { }
 
   ngOnInit() {
@@ -39,6 +41,8 @@ export class UserProfileComponent implements OnInit {
           x.ModifyDate= new Date(x.ModifyDate);
         })
         this.userService.currentUser=data;
+        this.changeValues[0]=data.Email;
+        this.changeValues[1]=data.Phone;
         localStorage.setItem('currentUser',JSON.stringify(data));
        
       })
@@ -98,12 +102,22 @@ export class UserProfileComponent implements OnInit {
       
     }
   }
-  changeInfo(item:number,type:string, value:string){
-    if(value != ''){
+  changeInfo(item:number,type:string, value:string, t?:HTMLInputElement){
+    console.log(t);
+    this.submittes[item]=true;
+    if(type == 'Email' && this.carsService.checkEmail(value)){
       
-      this.userService.ChangeInfo(type, value, this.userService.currentUser.Id).subscribe(data => {
+      return;
+    }
+    if(type == 'Phone' && !this.carsService.checkStr(value,'phone-check')){
+
+      return;
+    }
+    if(value != ''){
+      console.log(true);
+      this.userService.ChangeInfo(type, this.carsService.checkStr(value,'phone'), this.userService.currentUser.Id).subscribe(data => {
         if(data){
-          this.userService.currentUser[type]=value;
+          this.userService.currentUser[type]= this.carsService.checkStr(value,'phone');
           localStorage.setItem('currentUser', JSON.stringify(this.userService.currentUser));
         }
       })

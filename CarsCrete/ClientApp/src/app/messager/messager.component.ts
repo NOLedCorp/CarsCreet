@@ -4,6 +4,7 @@ import { Message, MessagerService, Topic } from '../services/MessagerService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, ReportUser } from '../services/UserService';
 import { AlertService } from '../services/AlertService';
+import { CarsService } from '../services/CarsService';
 
 @Component({
   selector: 'messager',
@@ -29,12 +30,12 @@ export class MessagerComponent implements OnInit, OnChanges {
   currentTopic:Topic = null;
   submitted = false;
   
-  constructor(private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
+  constructor(public cService:CarsService, private messagerService: MessagerService, private formBuilder: FormBuilder, private router: Router, private ARouter: ActivatedRoute){
    
     
    }
   get f() { return this.messageForm.controls; }
-  get g() { return this.messageForm.controls; }
+  get v() { return this.messageForm.value; }
   ngOnInit() {
     if(localStorage.getItem('currentUser')){
       this.user = JSON.parse(localStorage.getItem('currentUser'));
@@ -61,8 +62,6 @@ export class MessagerComponent implements OnInit, OnChanges {
     date = new Date(date);
     
     if (this.topicDate && this.topicDate.toDateString()!=date.toDateString() ){
-      console.log(this.topicDate.toDateString());
-      console.log(date.toDateString() );
       this.topicDate = date;
       return true;
     }
@@ -138,6 +137,9 @@ export class MessagerComponent implements OnInit, OnChanges {
   send(admin?:boolean){
     if(!admin){
       this.submitted=true;
+      if(this.cService.checkEmail(this.v.Email)){
+        return;
+      }
       if(this.messageForm.invalid){
         return;
       }

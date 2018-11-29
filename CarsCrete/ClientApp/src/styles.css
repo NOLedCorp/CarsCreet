@@ -18,7 +18,7 @@ body{
     z-index: 50;
 }
 .is-invalid:not(span){
-    border-color: rgb(255, 0, 0)
+    border-color: rgb(255, 0, 0) !important;
 }
 .booking-container{
     width: 100%;
@@ -34,6 +34,9 @@ select{
     border-radius: 4px;
     padding-left: 10px;
     outline: none !important;
+}
+.fa-pencil:hover{
+    color: blue;
 }
 textarea.input{
     height: 80px;

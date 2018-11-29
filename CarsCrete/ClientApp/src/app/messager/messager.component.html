@@ -18,9 +18,9 @@
     <div class="item">
       <span [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">{{'EMAIL' | translate }}*</span>
       <input class="input" formControlName="Email" type="email">
-      <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-        <span class="d-block is-invalid" *ngIf="f.Email.errors.required">{{"EMAIL_VALIDATION" | translate}}</span>
-  
+      <div *ngIf="submitted && (f.Email.errors || cService.checkEmail(v.Email))" class="invalid-feedback">
+        <span class="d-block is-invalid" *ngIf="f.Email.errors?f.Email.errors.required:false">{{"EMAIL_VALIDATION" | translate}}</span>
+        <span class="d-block is-invalid" *ngIf="f.Email.errors?false:cService.checkEmail(v.Email)">{{'WRONG_EMAIL_VALIDATION'|translate}}</span>
       </div>
     </div>
     <div class="item">

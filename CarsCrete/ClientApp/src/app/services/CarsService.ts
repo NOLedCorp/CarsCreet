@@ -47,12 +47,20 @@ export class CarsService implements OnInit{
     checkStr(str:string, type?:string){
         if(!type){
             var reg = /(\s??хер|[а-я]*ху[ей]+|пид[оа]р[а-я]*|суч?ка|[пзд]?[оа]?[ел]б[ауеоё][еёлчнтмш][а-я]*|бл[яе]а?[тдь]{0,2}|[расзпо]*пизд[ецаитьуняй]*)/gi
-            str.replace(reg,"***");
+            str = str.replace(reg,"***");
             
         }
         if(type = 'phone'){
-            var reg = /\D/gi;
-            str.replace(reg,"");
+            var reg = /\D/g;
+            
+            str = str.replace(reg,"");
+        }
+        if(type = 'phone-check'){
+            var reg = /(^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$|^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$)/g;
+            
+            str = str.replace(/\D/g,"");
+            console.log(str.match(reg));
+            return str.match(reg)?str.match(reg)[0]:null;
         }
         return str;
     }
