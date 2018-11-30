@@ -227,6 +227,11 @@ button{
     display: inline;
 }
 @media(max-width:767px){
+    .user-photo>.upload{
+        transition: 0.2s;
+        bottom: 10px;
+        opacity: 1;
+    }
     .inner-item{
         width: 100%;
     }

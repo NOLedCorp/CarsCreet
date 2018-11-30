@@ -8,11 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PhotoViewerComponent implements OnInit {
   slides:string[][] = [];
   currentSlide:number=0;
+  showAll:boolean=false;
   @Input() items:string[];
   @Input() show:any;
   currentItem:number = 0; 
 
-  constructor() { }
+  constructor() { 
+  
+
+  }
 
   ngOnInit() {
     let size = 4; //размер подмассива

@@ -161,6 +161,9 @@ button{
     
 }
 @media (max-width: 767px){
+    .car-img>i{
+        display: none;
+    }
     .car-info-area>div:not(:first-child){
         margin-top:20px; 
     }
